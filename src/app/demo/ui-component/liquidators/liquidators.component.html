@@ -1,0 +1,338 @@
+<div class="row" >
+    <div class="row">
+        <div class="col-6">
+            <button class="btn btn-primary btn1" (click)="generatePDF()">print</button> 
+            <label for="file-upload"  class="btn btn-primary btn1">Upload background check files</label>
+            <input type="file" id="file-upload" style="display: none;">
+            <button class="btn btn-primary btn1" (click)="submit()">submit</button> 
+        </div>
+        
+    </div>
+    <p></p>
+    <div class="col-sm-12 a4" id="a4">
+      <app-card cardTitle="Affidavit/Liquidators" blockClass="pc-component" >
+        <div class="row">
+
+            <div class="col-4">   <img src="assets/images/logo-dark.gif" alt="logo" width="290" /></div>
+            <div class="col-8 shaded-block">AFFIDAVIT PROVIDING REQUIRED INFORMATION FOR PERSONS APPLYING TO BE PLACED ON THE NATIONAL LIST OF LIQUIDATORS</div>
+        </div>
+        
+        <div class="row justify-content-center align-items-center number-section">
+            <div class="col text-center no">1.</div>
+            <div class="row">
+                <div class="col-1 d-flex justify-content-start align-items-end">I</div>
+                <div class="col-11 input-container"><input type="text" ></div>
+               
+                    <div class="row justify-content-center align-items-center under-space">
+                        (Full Names and Surname)
+                    </div>
+              
+            </div>
+
+            <div class="row">
+                <div class="col-2 d-flex justify-content-start align-items-end">Identity Number</div>
+                <div class="col-10"><input type="text" ></div>
+            
+            </div>
+
+            <div class="row under-space">
+                <div class="col">the undersigned, (a certified copy of my Identity Document is attached) declare as follows:</div>
+     
+            
+            </div>
+
+          </div>
+
+
+          <!-- ----------------------------------------------------------------------------- -->
+          
+          <div class="row justify-content-center align-items-center number-section">
+            <div class="col text-center no">2.</div>
+
+            <div class="row under-space">
+                <div class="col">All the information herein contained is within my own personal knowledge and belief both true and correct.</div>
+            </div>
+
+            <div class="row  under-space">
+                <div class="col">
+                My race and gender are as follows: 
+            </div>
+        </div>
+
+        <div class="container mt-4">
+            <div class="row justify-content-center align-items-center under-space">
+                Race:
+            </div>
+            <div class="row">   
+                <div class="col-md-4"> 
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="race" id="african" value="African">
+                        <label class="form-check-label" for="african">African</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="race" id="coloured" value="Coloured">
+                        <label class="form-check-label" for="coloured">Coloured</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="race" id="indian" value="Indian/Asian">
+                        <label class="form-check-label" for="indian">Indian/Asian</label>
+                    </div>
+                </div>
+            </div>
+        
+            <div class="row mt-3">
+                <div class="col-md-4">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="race" id="white" value="White">
+                        <label class="form-check-label" for="white">White</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="race" id="chinese" value="Chinese">
+                        <label class="form-check-label" for="chinese">Chinese</label>
+                    </div>
+                </div>
+            </div>
+        
+            <div class="row justify-content-center align-items-center under-space mt-4">
+                Gender:
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="gender" id="male" value="Male">
+                        <label class="form-check-label" for="male">Male</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="female" value="Female">
+                        <label class="form-check-label" for="female">Female</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="gender" id="non-binary" value="Non-Binary">
+                        <label class="form-check-label" for="non-binary">Non-Binary</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row  under-space">
+            <div class="col"> 
+                I submit the above information with the understanding that it will assist the Master’s Branch to determine my PDI status. 
+        </div>
+    </div>
+        </div>
+
+
+        <div class="row justify-content-center align-items-center number-section">
+            <div class="col text-center no">3.</div>
+
+            <div class="row  under-space">
+                <div class="col"> 
+                    I hereby grant the Department of Justice and Constitutional Development and/or the Master of the High Court or any person authorised by him/her authority to verify the information given herein through an investigation including but not limited to the following: 
+            </div>
+
+            <div class="row under-space">
+                <div class="col-12">a)	A personal visit to the business premises mentioned below;</div>
+                <div class="col-12">b)	Interviews with any of the persons mentioned herein;</div>
+                <div class="col-12">c)	To verify documentation submitted herewith;</div>
+                <div class="col-12">d)	Request documentation or further documentation. </div>
+            </div>
+            </div>
+      
+        </div>
+
+
+<div class="row justify-content-center align-items-center number-section">
+    <div class="col text-center no">4.</div>
+
+    <div class="row  under-space">
+        <div class="col"> 
+            I conduct or will conduct my insolvency business as follows (please tick the correct box):    
+         </div>
+
+            <div class="container mt-4">
+                <div class="row justify-content-center align-items-center under-space">
+                    Business Structure:
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="business_structure" id="sole-proprietorship" value="Sole Proprietorship">
+                            <label class="form-check-label" for="sole-proprietorship">Sole Proprietorship</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="business_structure" id="unincorporated-partnership" value="Unincorporated Partnership">
+                            <label class="form-check-label" for="unincorporated-partnership">Unincorporated Partnership</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="business_structure" id="close-corporation" value="Close Corporation">
+                            <label class="form-check-label" for="close-corporation">Close Corporation</label>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="row mt-3">
+                    <div class="col-md-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="business_structure" id="company" value="Company">
+                            <label class="form-check-label" for="company">Company</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" id="employed" name="business_structure" value="Employed by any of the above">
+                            <label class="form-check-label" for="employed">Employed by any of the above</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row under-space">
+                <div class="col-12"> 
+                    If none of the above is applicable please state the status of your business below: 
+                 </div>
+
+                 <div class="col-12"> <input type="text"></div>
+                 <div class="col-12"> <input type="text"></div>
+                 <div class="col-12"> <input type="text"></div>
+
+            </div>
+            
+    </div>
+
+    </div>
+
+    <div class="row justify-content-center align-items-center number-section">
+        <div class="col text-center no">5.</div>
+
+        <div class="row">
+            <div class="col-6 d-flex justify-content-start align-items-end">I am employed as an insolvency practitioner by: </div>
+            <div class="col-6"><input type="text" ></div>
+
+            <div class="col-12 under-space"> 
+               <b><u>The following are my business contact details: </u></b> 
+             </div>
+
+             <div class="col-4 d-flex justify-content-start align-items-end under-space">5.1.1	Business telephone number: </div>
+             <div class="col-8 under-space"><input type="text" ></div>
+
+             <div class="col-4 d-flex justify-content-start align-items-end under-space">5.1.2 Business telefax number:  </div>
+             <div class="col-8 under-space"><input type="text" ></div>
+
+
+             <div class="col-3 d-flex justify-content-start align-items-end under-space">5.1.3	Postal Address:  </div>
+             <div class="col-9 under-space"><input type="text" ></div>
+             <div class="col-12 under-space"><input type="text" ></div>
+
+             <div class="col-6 d-flex justify-content-start align-items-end under-space">5.1.4	Physical Address at main place of business:   </div>
+             <div class="col-6 under-space"><input type="text" ></div>
+             <div class="col-12 under-space"><input type="text" ></div>
+        
+
+             <div class="col-6 d-flex justify-content-start align-items-end under-space">5.1.5	Physical Addresses of all satellite offices:   </div>
+             <div class="col-6 under-space"><input type="text" ></div>
+             <div class="col-12 under-space"><input type="text" ></div>
+             <div class="col-12 under-space"><input type="text" ></div>
+             <div class="col-12 under-space"><input type="text" ></div>
+        
+             <div class="col-3 d-flex justify-content-start align-items-end under-space">5.1.4	Mobile number:    </div>
+             <div class="col-9 under-space"><input type="text" ></div>
+
+             <div class="col-5 d-flex justify-content-start align-items-end under-space">5.1.5	Electronic mail (e-mail) address:   </div>
+             <div class="col-7 under-space"><input type="text" ></div>
+
+             <div class="col-5 d-flex justify-content-start align-items-end under-space">5.2 	Domicilium citandi et executandi: </div>
+             <div class="col-7 under-space"><input type="text" ></div>
+             <div class="col-12 under-space"><input type="text" ></div>
+             <div class="col-12 under-space"><input type="text" ></div>
+
+
+            </div>
+  
+            </div>
+
+
+
+            <div class="row justify-content-center align-items-center number-section">
+                <div class="col text-center no">6.</div>
+        
+                <div class="row">
+                
+        
+                     <div class="col-7 d-flex justify-content-start align-items-end under-space">6.1	My main business trades under the name and style of: </div>
+                     <div class="col-5 under-space"><input type="text" ></div>
+                     <div class="col-12 under-space"><input type="text" ></div>
+                     <div class="col-12 under-space"><input type="text" ></div>
+                     <div class="col-12 under-space"><input type="text" ></div>
+        
+           
+        
+        
+                    </div>
+          
+                    </div>
+
+
+
+
+                    
+
+
+            <div class="row justify-content-center align-items-center number-section">
+                <div class="col text-center no">7.</div>
+        
+                <div class="row">
+                    <div class="col-12"> 
+                        I have the following business infrastructure at my main business and satellite offices. (Please address this issue by confirming the following information):    
+                     </div> 
+        
+                     <div class="col-12 under-space indent"> 
+                        a)	Proof of rental or ownership of business premises is attached. (If you are not the owner or lessee provide full details of the person paying the rent or owning the premises and your business relationship with this person. Any informal agreement needs to be reduced to writing.)   
+                     </div>
+        
+                     <div class="col-12 under-space indent"> 
+                        b)	Details of the number of persons employed, duties and qualifications of each person. I attach an organogram for further clarity. 
+                    </div>
+                    <div class="col-12 under-space"><input type="text" ></div>
+                    <div class="col-12 under-space"><input type="text" ></div>
+                    <div class="col-12 under-space"><input type="text" ></div>
+                    <div class="col-12 under-space"><input type="text" ></div>
+                    <div class="col-12 under-space"><input type="text" ></div>
+        
+
+
+                    <div class="col-12 under-space "> 
+                        (Please complete an annexure if the provided space is not sufficient)
+                    </div>
+
+                    <div class="col-7 d-flex justify-content-start align-items-end under-space">c)	Number of desktops/laptops in use at your business: </div>
+                    <div class="col-5 under-space"><input type="text" ></div>
+                    <div class="col-12 under-space"><input type="text" ></div>
+                    <div class="col-12 under-space"><input type="text" ></div>
+                
+
+                    <div class="col-12 d-flex justify-content-start align-items-end under-space">d)	Number of printers, scanners and fax machines: </div>
+                   
+                    <div class="col-12 under-space"><input type="text" ></div>
+                    <div class="col-12 under-space"><input type="text" ></div>
+                    </div>
+                    
+
+                </div>
+                    
+      </app-card>
+    </div>
+  </div>
+  
