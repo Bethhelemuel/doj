@@ -9,7 +9,7 @@
         "@schematics/angular:component": {
           "style": "scss"
         }
-      }, 
+      },
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
@@ -18,15 +18,17 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "allowedCommonJsDependencies": ["bezier-easing", "apexcharts"],
-            "outputPath": "docs", 
+            "outputPath": "dist",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": ["src/favicon.ico", "src/assets"],
-            "styles": ["src/styles.scss"],
-            "scripts": []
+            "styles": ["src/styles.scss", 
+            "node_modules/bootstrap/dist/css/bootstrap.min.css"
+          ],
+            "scripts": ["node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"]
           },
           "configurations": {
             "production": {

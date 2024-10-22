@@ -1,8 +1,8 @@
 <ul class="list-unstyled">
   <li class="pc-h-item">
-    <a class="pc-head-link me-0 bg-gray-200">
+  <!--   <a class="pc-head-link me-0 bg-gray-200">
       <i antIcon type="github" theme="outline"></i>
-    </a>
+    </a> -->
   </li>
   <li class="dropdown pc-h-item" ngbDropdown>
     <a class="pc-head-link dropdown-toggle arrow-none me-0 bg-gray-200" data-bs-toggle="dropdown" ngbDropdownToggle>
@@ -92,7 +92,7 @@
   <li class="dropdown pc-h-item header-user-profile" ngbDropdown>
     <a class="pc-head-link dropdown-toggle arrow-none me-0" ngbDropdownToggle>
       <img src="assets/images/user/avatar-2.jpg" alt="user-image" class="user-avatar me-2" />
-      <span class="f-w-600">John Doe</span>
+      <span class="f-w-600">Qaqamba Damane</span>
     </a>
     <div class="dropdown-menu dropdown-user-profile dropdown-menu-end pc-h-dropdown" ngbDropdownMenu>
       <div class="dropdown-header">
@@ -116,11 +116,10 @@
           <ng-template ngbNavContent>
             @for (task of profile; track task) {
               <div>
-                <a class="dropdown-item" [routerLink]="task.url">
-                  <i class="text-muted" antIcon theme="outline" [type]="task.icon"></i>
+                <a class="dropdown-item">
+                  <i class="text-muted" antIcon theme="outline" type="{{ task.icon }}"></i>
                   <span>{{ task.title }}</span>
                 </a>
-                
               </div>
             }
             <div>

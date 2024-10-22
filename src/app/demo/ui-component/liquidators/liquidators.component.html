@@ -1,338 +1,787 @@
-<div class="row" >
-    <div class="row">
+<div class="row">
+  <!--     <div class="row">
         <div class="col-6">
-            <button class="btn btn-primary btn1" (click)="generatePDF()">print</button> 
-            <label for="file-upload"  class="btn btn-primary btn1">Upload background check files</label>
+            <button class="btn btn-primary btn1" (click)="generatePDF()">Print</button>
+            <label for="file-upload" class="btn btn-primary btn1">Upload Background Check Files</label>
             <input type="file" id="file-upload" style="display: none;">
-            <button class="btn btn-primary btn1" (click)="submit()">submit</button> 
+            <button class="btn btn-primary btn1" (click)="submit()">Submit</button>
         </div>
-        
-    </div>
-    <p></p>
-    <div class="col-sm-12 a4" id="a4">
-      <app-card cardTitle="Affidavit/Liquidators" blockClass="pc-component" >
-        <div class="row">
+    </div> -->
 
-            <div class="col-4">   <img src="assets/images/logo-dark.gif" alt="logo" width="290" /></div>
-            <div class="col-8 shaded-block">AFFIDAVIT PROVIDING REQUIRED INFORMATION FOR PERSONS APPLYING TO BE PLACED ON THE NATIONAL LIST OF LIQUIDATORS</div>
+  <p></p>
+
+  <div class="col-8" id="a4">
+    <app-card cardTitle="Affidavit/Liquidators" blockClass="pc-component">
+      <div class="row">
+        <div class="col-4"><img src="assets/images/logo-dark.gif" alt="logo" width="290" /></div>
+        <div class="col-8 shaded-block">
+          AFFIDAVIT PROVIDING REQUIRED INFORMATION FOR PERSONS APPLYING TO BE PLACED ON THE NATIONAL LIST OF LIQUIDATORS
         </div>
-        
-        <div class="row justify-content-center align-items-center number-section">
-            <div class="col text-center no">1.</div>
-            <div class="row">
-                <div class="col-1 d-flex justify-content-start align-items-end">I</div>
-                <div class="col-11 input-container"><input type="text" ></div>
-               
-                    <div class="row justify-content-center align-items-center under-space">
-                        (Full Names and Surname)
-                    </div>
-              
+      </div>
+
+      <div class="form-container">
+        <h2>Declaration Form</h2>
+        <form [formGroup]="personalInfoForm" (ngSubmit)="onSubmit()">
+          <div class="section" *ngIf="groupOneSection">
+            <label for="full-name">Full Names and Surname</label>
+            <input type="text" id="full-name" formControlName="fullName" placeholder="Enter full name" />
+            <div *ngIf="personalInfoForm.get('fullName').invalid && personalInfoForm.get('fullName').touched">
+              <small class="error">Full name is required.</small>
             </div>
 
-            <div class="row">
-                <div class="col-2 d-flex justify-content-start align-items-end">Identity Number</div>
-                <div class="col-10"><input type="text" ></div>
-            
+            <label for="id-number">Identity Number</label>
+            <input type="text" id="id-number" formControlName="identityNumber" placeholder="Enter identity number" />
+            <div *ngIf="personalInfoForm.get('identityNumber').invalid && personalInfoForm.get('identityNumber').touched">
+              <small class="error">Identity number is required.</small>
             </div>
 
-            <div class="row under-space">
-                <div class="col">the undersigned, (a certified copy of my Identity Document is attached) declare as follows:</div>
-     
-            
-            </div>
-
+            <p  >The undersigned, (a certified copy of my Identity Document is attached) declare as follows:</p>
           </div>
 
+          <div class="section" *ngIf="groupOneSection">
+            <h3 class="section-title">2. Personal Information</h3>
+            <p>All the information herein contained is within my own personal knowledge and belief both true and correct.</p>
 
-          <!-- ----------------------------------------------------------------------------- -->
-          
-          <div class="row justify-content-center align-items-center number-section">
-            <div class="col text-center no">2.</div>
-
-            <div class="row under-space">
-                <div class="col">All the information herein contained is within my own personal knowledge and belief both true and correct.</div>
+            <label for="race">Race</label>
+            <div class="radio-group" >
+              <label>
+                <input type="radio" formControlName="race" value="African"/>
+                African
+              </label>
+              <label>
+                <input type="radio" formControlName="race" value="Coloured"/>
+                Coloured
+              </label>
+              <label>
+                <input type="radio" formControlName="race" value="IndianAsian"/>
+                Indian/Asian
+              </label>
+              <label>
+                <input type="radio" formControlName="race" value="White"/>
+                White
+              </label>
+              <label>
+                <input type="radio" formControlName="race" value="Chinese"/>
+                Chinese
+              </label>
             </div>
-
-            <div class="row  under-space">
-                <div class="col">
-                My race and gender are as follows: 
+            <div *ngIf="f.race.invalid && f.race.touched">
+                <small class="error">Race is required.</small>
+              </div>
+<p></p>
+            <label for="gender">Gender</label>
+            <div class="radio-group">
+              <label>
+                <input type="radio" formControlName="gender" value="Male" />
+                Male
+              </label>
+              <label>
+                <input type="radio" formControlName="gender" value="Female" />
+                Female
+              </label>
+              <label>
+                <input type="radio" formControlName="gender" value="Non-Binary" />
+                Non-Binary
+              </label>
             </div>
+            <p></p>
+            <p>I submit the above information with the understanding that it will assist the Master’s Branch to determine my PDI status.</p>
+
+            <div class="section">
+              <h3 class="section-title">Submission</h3>
+              <p></p>
+              <button type="submit" >Save / Next</button>
+            </div>
+          </div>
+        </form>
+
+        <div class="section" *ngIf="groupTwoSection">
+          <h3 class="section-title">3. Verification Consent</h3>
+          <p>
+            I hereby grant the Department of Justice and Constitutional Development and/or the Master of the High Court or any person
+            authorised by him/her authority to verify the information given herein through an investigation.
+          </p>
         </div>
 
-        <div class="container mt-4">
-            <div class="row justify-content-center align-items-center under-space">
-                Race:
+        <div class="section" *ngIf="groupTwoSection">
+          <h3 class="section-title">4. Business Information</h3>
+          <label>I conduct or will conduct my insolvency business as follows (tick the correct box):</label>
+          <div class="checkbox-group">
+            <label>
+              <input type="checkbox" name="businessType" value="Sole Proprietorship" />
+              Sole Proprietorship
+            </label>
+            <label>
+              <input type="checkbox" name="businessType" value="Unincorporated Partnership" />
+              Unincorporated Partnership
+            </label>
+            <label>
+              <input type="checkbox" name="businessType" value="Close Corporation" />
+              Close Corporation
+            </label>
+            <label>
+              <input type="checkbox" name="businessType" value="Company" />
+              Company
+            </label>
+            <label>
+              <input type="checkbox" name="businessType" value="Employed by the above" />
+              Employed by any of the above
+            </label>
+          </div>
+
+          <label for="business-status">If none of the above is applicable, please state the status of your business:</label>
+          <textarea id="business-status" name="businessStatus" rows="3" placeholder="State business status"></textarea>
+          <p></p>
+
+          <div class="row">
+            <div class="col-6">
+              <button type="submit" (click)="moveGroupOneSection()">Back</button>
             </div>
-            <div class="row">   
-                <div class="col-md-4"> 
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="race" id="african" value="African">
-                        <label class="form-check-label" for="african">African</label>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="race" id="coloured" value="Coloured">
-                        <label class="form-check-label" for="coloured">Coloured</label>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="race" id="indian" value="Indian/Asian">
-                        <label class="form-check-label" for="indian">Indian/Asian</label>
-                    </div>
-                </div>
+
+            <div class="col-6">
+              <button type="submit" (click)="moveGroupThreeSection()">Save / Next</button>
             </div>
-        
-            <div class="row mt-3">
-                <div class="col-md-4">
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="race" id="white" value="White">
-                        <label class="form-check-label" for="white">White</label>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="race" id="chinese" value="Chinese">
-                        <label class="form-check-label" for="chinese">Chinese</label>
-                    </div>
-                </div>
-            </div>
-        
-            <div class="row justify-content-center align-items-center under-space mt-4">
-                Gender:
-            </div>
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="gender" id="male" value="Male">
-                        <label class="form-check-label" for="male">Male</label>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="female" value="Female">
-                        <label class="form-check-label" for="female">Female</label>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="gender" id="non-binary" value="Non-Binary">
-                        <label class="form-check-label" for="non-binary">Non-Binary</label>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row  under-space">
-            <div class="col"> 
-                I submit the above information with the understanding that it will assist the Master’s Branch to determine my PDI status. 
-        </div>
-    </div>
+          </div>
         </div>
 
+        <!-- Section 5: Employment Details -->
+        <div class="section" *ngIf="groupThreeSection">
+          <h3 class="section-title">5. Employment Details</h3>
 
-        <div class="row justify-content-center align-items-center number-section">
-            <div class="col text-center no">3.</div>
+          <label for="employer-name">I am employed as an insolvency practitioner by:</label>
+          <input type="text" id="employer-name" name="employerName" placeholder="Enter employer's name" />
 
-            <div class="row  under-space">
-                <div class="col"> 
-                    I hereby grant the Department of Justice and Constitutional Development and/or the Master of the High Court or any person authorised by him/her authority to verify the information given herein through an investigation including but not limited to the following: 
-            </div>
+          <label for="business-telephone">Business Telephone Number</label>
+          <input type="text" id="business-telephone" name="businessTelephone" placeholder="Enter business phone number" />
 
-            <div class="row under-space">
-                <div class="col-12">a)	A personal visit to the business premises mentioned below;</div>
-                <div class="col-12">b)	Interviews with any of the persons mentioned herein;</div>
-                <div class="col-12">c)	To verify documentation submitted herewith;</div>
-                <div class="col-12">d)	Request documentation or further documentation. </div>
-            </div>
-            </div>
-      
+          <label for="business-address">Business Postal Address</label>
+          <textarea id="business-address" name="businessAddress" rows="3" placeholder="Enter business postal address"></textarea>
+
+          <p>If employed in a professional partnership or incorporated company, furnish the following details:</p>
+
+          <label for="firm-name">Name of Firm or Company</label>
+          <input type="text" id="firm-name" name="firmName" placeholder="Enter name of firm or company" />
+
+          <label for="partners-or-directors">Full Names of Partners or Directors</label>
+          <textarea
+            id="partners-or-directors"
+            name="partnersOrDirectors"
+            rows="3"
+            placeholder="Enter full names of partners or directors"
+          ></textarea>
         </div>
 
+        <!-- Section 6: Business Trading Details -->
+        <div class="section" *ngIf="groupThreeSection">
+          <h3 class="section-title">6. Business Trading Details</h3>
 
-<div class="row justify-content-center align-items-center number-section">
-    <div class="col text-center no">4.</div>
+          <label for="business-name">6.1. My main business trades under the name and style of:</label>
+          <input type="text" id="business-name" name="businessName" placeholder="Enter business name and style" />
 
-    <div class="row  under-space">
-        <div class="col"> 
-            I conduct or will conduct my insolvency business as follows (please tick the correct box):    
-         </div>
+          <label for="business-details">6.2. Provide more details about the business:</label>
+          <textarea
+            id="business-details"
+            name="businessDetails"
+            rows="4"
+            placeholder="Provide additional details about the business"
+          ></textarea>
 
-            <div class="container mt-4">
-                <div class="row justify-content-center align-items-center under-space">
-                    Business Structure:
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="business_structure" id="sole-proprietorship" value="Sole Proprietorship">
-                            <label class="form-check-label" for="sole-proprietorship">Sole Proprietorship</label>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="business_structure" id="unincorporated-partnership" value="Unincorporated Partnership">
-                            <label class="form-check-label" for="unincorporated-partnership">Unincorporated Partnership</label>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="business_structure" id="close-corporation" value="Close Corporation">
-                            <label class="form-check-label" for="close-corporation">Close Corporation</label>
-                        </div>
-                    </div>
-                </div>
-            
-                <div class="row mt-3">
-                    <div class="col-md-4">
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="business_structure" id="company" value="Company">
-                            <label class="form-check-label" for="company">Company</label>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" id="employed" name="business_structure" value="Employed by any of the above">
-                            <label class="form-check-label" for="employed">Employed by any of the above</label>
-                        </div>
-                    </div>
-                </div>
+          <p>6.3. If applicable, provide the names and addresses of any trading partners:</p>
+          <textarea
+            id="trading-partners"
+            name="tradingPartners"
+            rows="4"
+            placeholder="Enter names and addresses of trading partners"
+          ></textarea>
+          <p></p>
+          <div class="row">
+            <div class="col-6">
+              <button type="submit" (click)="movebackGroupTwoSection()">Back</button>
             </div>
 
-            <div class="row under-space">
-                <div class="col-12"> 
-                    If none of the above is applicable please state the status of your business below: 
-                 </div>
-
-                 <div class="col-12"> <input type="text"></div>
-                 <div class="col-12"> <input type="text"></div>
-                 <div class="col-12"> <input type="text"></div>
-
+            <div class="col-6">
+              <button type="submit" (click)="moveGroupFourSection()">Save / Next</button>
             </div>
-            
-    </div>
+          </div>
+        </div>
 
-    </div>
+        <!-- Section 7: Business Infrastructure Details -->
+        <div class="section" *ngIf="groupFourSection">
+          <h3 class="section-title">7. Business Infrastructure Details</h3>
 
-    <div class="row justify-content-center align-items-center number-section">
-        <div class="col text-center no">5.</div>
+          <p>Please address this section by confirming the following information regarding your main business and satellite offices.</p>
 
-        <div class="row">
-            <div class="col-6 d-flex justify-content-start align-items-end">I am employed as an insolvency practitioner by: </div>
-            <div class="col-6"><input type="text" ></div>
+          <label for="proof-of-rental">a) Proof of rental or ownership of business premises is attached:</label>
+          <textarea
+            id="proof-of-rental"
+            name="proofOfRental"
+            rows="3"
+            placeholder="Provide details if not the owner/lessee, or your business relationship with the owner."
+          ></textarea>
 
-            <div class="col-12 under-space"> 
-               <b><u>The following are my business contact details: </u></b> 
-             </div>
+          <label for="staff-details">b) Details of the number of persons employed, duties, and qualifications:</label>
+          <textarea
+            id="staff-details"
+            name="staffDetails"
+            rows="4"
+            placeholder="Provide the number of persons employed, their duties, and qualifications. Attach an organogram if necessary."
+          ></textarea>
 
-             <div class="col-4 d-flex justify-content-start align-items-end under-space">5.1.1	Business telephone number: </div>
-             <div class="col-8 under-space"><input type="text" ></div>
+          <label for="num-computers">c) Number of desktops/laptops in use at your business:</label>
+          <input type="number" id="num-computers" name="numComputers" placeholder="Enter number of computers" />
 
-             <div class="col-4 d-flex justify-content-start align-items-end under-space">5.1.2 Business telefax number:  </div>
-             <div class="col-8 under-space"><input type="text" ></div>
+          <label for="num-printers">d) Number of printers, scanners, and fax machines:</label>
+          <input type="number" id="num-printers" name="numPrinters" placeholder="Enter number of printers, scanners, and fax machines" />
 
+          <label for="additional-info">e) Additional information you would like to bring to the Master's attention:</label>
+          <textarea
+            id="additional-info"
+            name="additionalInfo"
+            rows="4"
+            placeholder="Provide any additional information you feel is relevant."
+          ></textarea>
+        </div>
 
-             <div class="col-3 d-flex justify-content-start align-items-end under-space">5.1.3	Postal Address:  </div>
-             <div class="col-9 under-space"><input type="text" ></div>
-             <div class="col-12 under-space"><input type="text" ></div>
+        <!-- Section 8: Office Addresses in Other Provinces -->
+        <div class="section" *ngIf="groupFourSection">
+          <h3 class="section-title">8. Office Addresses in Other Provinces</h3>
 
-             <div class="col-6 d-flex justify-content-start align-items-end under-space">5.1.4	Physical Address at main place of business:   </div>
-             <div class="col-6 under-space"><input type="text" ></div>
-             <div class="col-12 under-space"><input type="text" ></div>
-        
+          <p>
+            Please provide your office addresses in other provinces and include (where applicable) the same information as set out in
+            Section 7 for each office.
+          </p>
 
-             <div class="col-6 d-flex justify-content-start align-items-end under-space">5.1.5	Physical Addresses of all satellite offices:   </div>
-             <div class="col-6 under-space"><input type="text" ></div>
-             <div class="col-12 under-space"><input type="text" ></div>
-             <div class="col-12 under-space"><input type="text" ></div>
-             <div class="col-12 under-space"><input type="text" ></div>
-        
-             <div class="col-3 d-flex justify-content-start align-items-end under-space">5.1.4	Mobile number:    </div>
-             <div class="col-9 under-space"><input type="text" ></div>
+          <label for="province-office-address">Office Address (Province 1):</label>
+          <textarea
+            id="province-office-address"
+            name="provinceOfficeAddress1"
+            rows="3"
+            placeholder="Enter the office address for the first province"
+          ></textarea>
 
-             <div class="col-5 d-flex justify-content-start align-items-end under-space">5.1.5	Electronic mail (e-mail) address:   </div>
-             <div class="col-7 under-space"><input type="text" ></div>
+          <label for="province-details1">Additional Details (e.g., rental proof, staff, infrastructure) for Office (Province 1):</label>
+          <textarea
+            id="province-details1"
+            name="provinceDetails1"
+            rows="4"
+            placeholder="Provide additional information such as proof of rental, staff, or equipment"
+          ></textarea>
 
-             <div class="col-5 d-flex justify-content-start align-items-end under-space">5.2 	Domicilium citandi et executandi: </div>
-             <div class="col-7 under-space"><input type="text" ></div>
-             <div class="col-12 under-space"><input type="text" ></div>
-             <div class="col-12 under-space"><input type="text" ></div>
+          <label for="province-office-address2">Office Address (Province 2):</label>
+          <textarea
+            id="province-office-address2"
+            name="provinceOfficeAddress2"
+            rows="3"
+            placeholder="Enter the office address for the second province"
+          ></textarea>
 
+          <label for="province-details2">Additional Details (e.g., rental proof, staff, infrastructure) for Office (Province 2):</label>
+          <textarea
+            id="province-details2"
+            name="provinceDetails2"
+            rows="4"
+            placeholder="Provide additional information for the second province office"
+          ></textarea>
 
+          <label for="province-office-address3">Office Address (Province 3):</label>
+          <textarea
+            id="province-office-address3"
+            name="provinceOfficeAddress3"
+            rows="3"
+            placeholder="Enter the office address for the third province"
+          ></textarea>
+
+          <label for="province-details3">Additional Details (e.g., rental proof, staff, infrastructure) for Office (Province 3):</label>
+          <textarea
+            id="province-details3"
+            name="provinceDetails3"
+            rows="4"
+            placeholder="Provide additional information for the third province office"
+          ></textarea>
+          <p></p>
+          <div class="row">
+            <div class="col-6">
+              <button type="submit" (click)="movebackGroupThreeSection()">Back</button>
             </div>
-  
+
+            <div class="col-6">
+              <button type="submit" (click)="moveGroupFiveSection()">Save / Next</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 9: Relevant Qualifications -->
+        <div class="section" *ngIf="groupFiveSection">
+          <h3 class="section-title">9. Relevant Qualifications</h3>
+
+          <p>
+            I have successfully completed the following relevant and required law/accounting qualifications and attach certified copies of
+            all mentioned qualifications:
+          </p>
+
+          <textarea name="qualifications" rows="4" placeholder="List your qualifications here."></textarea>
+        </div>
+
+        <!-- Section 10: Professional Memberships -->
+        <div class="section" *ngIf="groupFiveSection">
+          <h3 class="section-title">10. Professional Memberships</h3>
+
+          <p>
+            Further to my qualifications above, I am also a member in good standing of the following professional organizations (Legal
+            Practice Council (LPC)/ Institute of Accounting and Commerce (IAC)/ South African Institute of Professional Accountants (SAIPA)/
+            Chartered Institute for Business Accountants (CIBA)/ South African Institute of Chartered Accountant (SAICA)/ The Association of
+            Chartered Certified Accountants (ACCA). State not applicable if none.
+          </p>
+
+          <textarea name="professionalMemberships" rows="4" placeholder="List your professional memberships here."></textarea>
+          <label for="membership-confirmation">Attach current certificate/confirmation of good standing:</label>
+          <input type="file" id="membership-confirmation" name="membershipConfirmation" />
+          <p></p>
+          <div class="row">
+            <div class="col-6">
+              <button type="submit" (click)="movebackGroupFourSection()">Back</button>
             </div>
 
+            <div class="col-6">
+              <button type="submit" (click)="moveGroupSixSection()">Save / Next</button>
+            </div>
+          </div>
+        </div>
 
+        <!-- Section 11: Disqualification Provision -->
+        <div class="section" *ngIf="groupSixSection">
+          <h3 class="section-title">11. Disqualification Provision</h3>
 
-            <div class="row justify-content-center align-items-center number-section">
-                <div class="col text-center no">6.</div>
-        
-                <div class="row">
-                
-        
-                     <div class="col-7 d-flex justify-content-start align-items-end under-space">6.1	My main business trades under the name and style of: </div>
-                     <div class="col-5 under-space"><input type="text" ></div>
-                     <div class="col-12 under-space"><input type="text" ></div>
-                     <div class="col-12 under-space"><input type="text" ></div>
-                     <div class="col-12 under-space"><input type="text" ></div>
-        
-           
-        
-        
-                    </div>
-          
-                    </div>
+          <p>
+            I have perused the disqualification provision of the law attached to this form and have satisfied myself that I am not
+            disqualified on any grounds to take appointments as a trustee or liquidator and to conduct business as an insolvency
+            practitioner. I would like to bring the following to the attention of the Master of the High Court that could impact my
+            appointment. State not applicable if none:
+          </p>
 
+          <textarea name="disqualification" rows="4" placeholder="Provide details if applicable."></textarea>
+        </div>
 
+        <!-- Section 12: Relationship Disclosure -->
+        <div class="section" *ngIf="groupSixSection">
+          <h3 class="section-title">12. Relationship Disclosure</h3>
 
+          <p>Please tick the applicable box:</p>
 
-                    
+          <div>
+            <input type="radio" id="no-relationship" name="relationshipDisclosure" value="not_related" />
+            <label for="no-relationship">
+              I am not related to any official employed at any of the offices of the Master of the High Court by affinity/family/business or
+              partnership.
+            </label>
+          </div>
 
+          <div>
+            <input type="radio" id="has-relationship" name="relationshipDisclosure" value="related" />
+            <label for="has-relationship">
+              I do have a relationship with an employee of the Master and the nature of this relationship is as follows:
+            </label>
+          </div>
+          <textarea name="relationshipDetails" rows="3" placeholder="Provide relationship details if applicable."></textarea>
+          <p></p>
+          <div class="row">
+            <div class="col-6">
+              <button type="submit" (click)="movebackGroupFiveSection()">Back</button>
+            </div>
 
-            <div class="row justify-content-center align-items-center number-section">
-                <div class="col text-center no">7.</div>
-        
-                <div class="row">
-                    <div class="col-12"> 
-                        I have the following business infrastructure at my main business and satellite offices. (Please address this issue by confirming the following information):    
-                     </div> 
-        
-                     <div class="col-12 under-space indent"> 
-                        a)	Proof of rental or ownership of business premises is attached. (If you are not the owner or lessee provide full details of the person paying the rent or owning the premises and your business relationship with this person. Any informal agreement needs to be reduced to writing.)   
-                     </div>
-        
-                     <div class="col-12 under-space indent"> 
-                        b)	Details of the number of persons employed, duties and qualifications of each person. I attach an organogram for further clarity. 
-                    </div>
-                    <div class="col-12 under-space"><input type="text" ></div>
-                    <div class="col-12 under-space"><input type="text" ></div>
-                    <div class="col-12 under-space"><input type="text" ></div>
-                    <div class="col-12 under-space"><input type="text" ></div>
-                    <div class="col-12 under-space"><input type="text" ></div>
-        
+            <div class="col-6">
+              <button type="submit" (click)="moveGroupSevenSection()">Save / Next</button>
+            </div>
+          </div>
+        </div>
 
+        <!-- Section 13: Appointment Locations -->
+        <div class="section" *ngIf="groupSevenSection">
+          <h3 class="section-title">13. Appointment Locations</h3>
 
-                    <div class="col-12 under-space "> 
-                        (Please complete an annexure if the provided space is not sufficient)
-                    </div>
+          <p>
+            I wish to take appointments at the following Master’s Offices. I am aware that I will only be allowed to take up appointments at
+            the offices where I do have an acceptable infrastructure. Please tick the selected offices.
+          </p>
 
-                    <div class="col-7 d-flex justify-content-start align-items-end under-space">c)	Number of desktops/laptops in use at your business: </div>
-                    <div class="col-5 under-space"><input type="text" ></div>
-                    <div class="col-12 under-space"><input type="text" ></div>
-                    <div class="col-12 under-space"><input type="text" ></div>
-                
+          <div class="checkbox-group">
+            <div class="checkbox-item">
+              <input type="checkbox" id="johannesburg" name="appointmentLocations" value="Johannesburg" />
+              <label for="johannesburg">Johannesburg</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="kimberley" name="appointmentLocations" value="Kimberley" />
+              <label for="kimberley">Kimberley</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="nelspruit" name="appointmentLocations" value="Nelspruit" />
+              <label for="nelspruit">Nelspruit</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="pretoria" name="appointmentLocations" value="Pretoria" />
+              <label for="pretoria">Pretoria</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="mahikeng" name="appointmentLocations" value="Mahikeng" />
+              <label for="mahikeng">Mahikeng</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="thohoyandou" name="appointmentLocations" value="Thohoyandou" />
+              <label for="thohoyandou">Thohoyandou</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="cape-town" name="appointmentLocations" value="Cape Town" />
+              <label for="cape-town">Cape Town</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="durban" name="appointmentLocations" value="Durban" />
+              <label for="durban">Durban</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="bisho" name="appointmentLocations" value="Bisho" />
+              <label for="bisho">Bisho</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="pietermaritzburg" name="appointmentLocations" value="Pietermaritzburg" />
+              <label for="pietermaritzburg">Pietermaritzburg</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="mthatha" name="appointmentLocations" value="Mthatha" />
+              <label for="mthatha">Mthatha</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="polokwane" name="appointmentLocations" value="Polokwane" />
+              <label for="polokwane">Polokwane</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="gqebera" name="appointmentLocations" value="Gqebera" />
+              <label for="gqebera">Gqebera</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="bloemfontein" name="appointmentLocations" value="Bloemfontein" />
+              <label for="bloemfontein">Bloemfontein</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="makhanda" name="appointmentLocations" value="Makhanda" />
+              <label for="makhanda">Makhanda</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="middelburg" name="appointmentLocations" value="Middelburg" />
+              <label for="middelburg">Middelburg</label>
+            </div>
+          </div>
+        </div>
 
-                    <div class="col-12 d-flex justify-content-start align-items-end under-space">d)	Number of printers, scanners and fax machines: </div>
-                   
-                    <div class="col-12 under-space"><input type="text" ></div>
-                    <div class="col-12 under-space"><input type="text" ></div>
-                    </div>
-                    
+        <!-- Section 14: Employment History -->
+        <div class="section" *ngIf="groupSevenSection">
+          <h3 class="section-title">14. Employment History</h3>
 
-                </div>
-                    
-      </app-card>
+          <p>
+            My employment or activities for gain or for generating income that I conducted in the last three years are as follows (State not
+            applicable if none):
+          </p>
+
+          <textarea name="employmentHistory" rows="4" placeholder="Provide details of your employment history."></textarea>
+          <p></p>
+          <div class="row">
+            <div class="col-6">
+              <button type="submit" (click)="movebackGroupSixSection()">Back</button>
+            </div>
+
+            <div class="col-6">
+              <button type="submit" (click)="moveGroupEightSection()">Save / Next</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 15: Tax Clearance -->
+        <div class="section" *ngIf="groupEightSection">
+          <h3 class="section-title">15. Tax Clearance</h3>
+
+          <p>
+            a) The Master of the High Court, as a constituent body of the government of the Republic of South Africa, has an obligation by
+            all its stakeholders, including insolvency practitioners, to the South African Revenue Services (SARS). I attach a copy of a
+            valid tax clearance certificate for the current financial year (Personal & Business).
+          </p>
+          <p>
+            b) All practitioners need to annually provide a valid tax clearance within three months before expiry of the previous tax
+            clearance. Failure to submit might result in your suspension from the National List of Liquidators.
+          </p>
+
+          <label for="tax-clearance">Attach tax clearance certificate:</label>
+          <input type="file" id="tax-clearance" name="taxClearance" />
+        </div>
+
+        <!-- Section 16: Bond Facility -->
+        <div class="section" *ngIf="groupEightSection">
+          <h3 class="section-title">16. Bond Facility</h3>
+
+          <p>
+            I am aware that I will have to apply for a bond facility with one of the approved insurers and confirm that I will apply for
+            such a facility as soon as I have been informed that I was successful in the assessment process. I am aware that I will be
+            required to provide a letter by an approved insurer confirming that a facility has been granted in my favour.
+          </p>
+        </div>
+
+        <!-- Section 17: Bank Account Documentation -->
+        <div class="section" *ngIf="groupEightSection">
+          <h3 class="section-title">17. Bank Account Documentation</h3>
+
+          <p>
+            I confirm that I will open a separate bank account for funds received in my capacity as a liquidator/trustee and confirm that
+            the account has to be opened in a bank that is a member of the Association of Bankers of South Africa (ABSA).
+          </p>
+          <label for="bank-account-documentation">Attach proof of bank account:</label>
+          <input type="file" id="bank-account-documentation" name="bankAccountDocumentation" />
+        </div>
+
+        <!-- Section 18: Declaration -->
+        <div class="section" *ngIf="groupEightSection">
+          <h3 class="section-title">18. Declaration</h3>
+
+          <p>
+            I hereby declare that the information given in this declaration is true and correct to the best of my knowledge and belief. I
+            understand that any false or misleading information may result in my disqualification from appointment as a liquidator/trustee.
+          </p>
+
+          <div>
+            <input type="checkbox" id="agree-declaration" name="declaration" required />
+            <label for="agree-declaration">
+              I agree to the above declaration and the
+              <button type="button" class="link-button" data-bs-toggle="modal" data-bs-target="#termsModal">Terms and Conditions.</button>
+            </label>
+          </div>
+        </div>
+
+        <!-- Final Submission -->
+        <div class="section" *ngIf="groupEightSection">
+          <h3 class="section-title">Submission</h3>
+
+          <p></p>
+
+          <div class="row">
+            <div class="col-4">
+              <button type="submit" (click)="movebackGroupEightSection()">Back</button>
+            </div>
+
+            <div class="col-4">
+              <button type="submit">Save</button>
+            </div>
+
+            <div class="col-4">
+              <button type="submit">Submit Declaration Form</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Continue adding sections for paragraphs 6-22 similarly -->
+      </div>
+
+      <!-- Modal Structure -->
+      <div class="modal" id="termsModal" tabindex="-1" aria-labelledby="termsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable">
+          <!-- 'modal-dialog-scrollable' for scrollable content -->
+          <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h5 class="modal-title" id="termsModalLabel">Terms and Conditions</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              <!-- Close button -->
+            </div>
+
+            <!-- Modal Body (Scrollable) -->
+            <div class="modal-body">
+              <!-- Section 1 -->
+              <h4>1. Purpose</h4>
+              <p>
+                The purpose of these terms and conditions is to outline the obligations and responsibilities of the individual applying for
+                appointment as a liquidator/trustee.
+              </p>
+
+              <!-- Section 2 -->
+              <h4>2. Definitions</h4>
+              <p>
+                This section includes important definitions related to the terms used throughout this document, including "liquidator,"
+                "trustee," and "insolvency."
+              </p>
+
+              <!-- Section 3 -->
+              <h4>3. Eligibility</h4>
+              <p>
+                The individual must meet the eligibility criteria as per Section 55 of the Insolvency Act and other applicable regulations.
+              </p>
+
+              <!-- Section 4 -->
+              <h4>4. Disqualification Criteria</h4>
+              <p>
+                Any person who meets the disqualification criteria as outlined in Section 55 of the Insolvency Act will not be eligible for
+                appointment as a liquidator/trustee. These include:
+              </p>
+              <ul>
+                <li>(a) Any insolvent;</li>
+                <li>(b) A minor or person under legal disability;</li>
+                <li>(c) Individuals with a criminal record related to financial fraud.</li>
+              </ul>
+
+              <!-- Section 5 -->
+              <h4>5. Rights and Responsibilities</h4>
+              <p>This section outlines the rights and responsibilities of the liquidator/trustee in carrying out their duties.</p>
+
+              <!-- Section 6 -->
+              <h4>6. Legal Compliance</h4>
+              <p>
+                The applicant must comply with all relevant laws, regulations, and ethical standards while performing their duties as a
+                liquidator/trustee.
+              </p>
+
+              <!-- Section 7 -->
+              <h4>7. Confidentiality</h4>
+              <p>
+                The liquidator/trustee must maintain confidentiality regarding any sensitive information obtained during their appointment.
+              </p>
+
+              <!-- Section 8 -->
+              <h4>8. Indemnity</h4>
+              <p>
+                The liquidator/trustee agrees to indemnify the relevant authorities against any legal claims resulting from the performance
+                of their duties.
+              </p>
+
+              <!-- Section 9 -->
+              <h4>9. Conflict of Interest</h4>
+              <p>
+                Any conflict of interest must be declared by the liquidator/trustee immediately. Failure to do so may result in
+                disqualification.
+              </p>
+
+              <!-- Section 10 -->
+              <h4>10. Termination</h4>
+              <p>
+                The appointment of the liquidator/trustee may be terminated under the following circumstances: breach of terms, legal
+                disqualification, or gross misconduct.
+              </p>
+
+              <!-- Section 11 -->
+              <h4>11. Compensation</h4>
+              <p>Details regarding compensation, fees, and expenses for the liquidator/trustee are outlined in this section.</p>
+
+              <!-- Section 12 -->
+              <h4>12. Governing Law</h4>
+              <p>These terms and conditions are governed by the laws of the Republic of South Africa.</p>
+
+              <!-- Section 13 -->
+              <h4>13. Dispute Resolution</h4>
+              <p>Any disputes arising from the interpretation or implementation of these terms will be resolved through arbitration.</p>
+
+              <!-- Section 14 -->
+              <h4>14. Amendment</h4>
+              <p>
+                These terms and conditions may be amended from time to time. The liquidator/trustee will be informed of any significant
+                changes.
+              </p>
+
+              <!-- Section 15 -->
+              <h4>15. Communication</h4>
+              <p>
+                All communication between the liquidator/trustee and the relevant authorities will be conducted through the approved
+                channels.
+              </p>
+
+              <!-- Section 16 -->
+              <h4>16. Representation</h4>
+              <p>
+                The liquidator/trustee agrees to represent the interests of the creditors and comply with any directives issued by the court
+                or regulatory body.
+              </p>
+
+              <!-- Section 17 -->
+              <h4>17. Signature</h4>
+              <p>By signing this document, the applicant agrees to the terms and conditions outlined herein.</p>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </app-card>
+  </div>
+  <div class="col-4" id="a4">
+    <div class="progress-card">
+      <div class="progress-container">
+        <div class="progress-step" data-step="1" (click)="moveGroupOneSection()">
+          <a>
+            <div class="progress-step-wrapper">
+              <div class="circle">1</div>
+              <div class="text" [ngClass]="groupOneSectionText">Step 1: Personal Info</div>
+            </div>
+          </a>
+        </div>
+        <div class="progress-step" data-step="2" (click)="moveGroupTwoSection()">
+          <a>
+            <div class="progress-step-wrapper">
+              <div class="circle">2</div>
+              <div class="text" [ngClass]="groupTwoSectionText">Step 2: Verification & Business Information</div>
+            </div>
+          </a>
+        </div>
+        <div class="progress-step" data-step="3" (click)="moveGroupThreeSection()">
+          <a>
+            <div class="progress-step-wrapper">
+              <div class="circle">3</div>
+              <div class="text" [ngClass]="groupThreeSectionText">Step 3: Employment & Business Trading Details</div>
+            </div>
+          </a>
+        </div>
+        <div class="progress-step" data-step="4" (click)="moveGroupFourSection()">
+          <a>
+            <div class="progress-step-wrapper">
+              <div class="circle">4</div>
+              <div class="text" [ngClass]="groupFourSectionText">Step 4: Business Details & Office Addresses</div>
+            </div>
+          </a>
+        </div>
+        <div class="progress-step" data-step="5" (click)="moveGroupFiveSection()">
+          <a>
+            <div class="progress-step-wrapper">
+              <div class="circle">5</div>
+              <div class="text" [ngClass]="groupFiveSectionText">Step 5: Qualifications & Professional Memberships</div>
+            </div>
+          </a>
+        </div>
+        <div class="progress-step" data-step="6" (click)="moveGroupSixSection()">
+          <a>
+            <div class="progress-step-wrapper">
+              <div class="circle">6</div>
+              <div class="text" [ngClass]="groupSixSectionText">Step 6: Disqualification & Relationship Disclosure</div>
+            </div>
+          </a>
+        </div>
+        <div class="progress-step" data-step="7" (click)="moveGroupSevenSection()">
+          <a>
+            <div class="progress-step-wrapper">
+              <div class="circle">7</div>
+              <div class="text" [ngClass]="groupSevenSectionText">Step 7: Appointment & Employment History</div>
+            </div>
+          </a>
+        </div>
+        <div class="progress-step" data-step="8" (click)="moveGroupEightSection()">
+          <a>
+            <div class="progress-step-wrapper">
+              <div class="circle">8</div>
+              <div
+                class="text"
+                title="Tax Clearance, Bond Facility & Bank Account Documentation & Declaration"
+                [ngClass]="groupEightSectionText"
+              >
+                Step 8: Tax Clearance, Bond Facility & Bank Account Documentation & Declaration
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
     </div>
   </div>
-  
+</div>
