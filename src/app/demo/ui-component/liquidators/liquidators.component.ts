@@ -16,6 +16,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class LiquidatorsComponent {
   personalInfoForm: FormGroup;
 
+
  
 
   groupOneSection : boolean
@@ -28,13 +29,32 @@ export class LiquidatorsComponent {
   groupEightSection : boolean
 
   groupOneSectionText : any
+  groupOneSectionCircle : any
+  groupOneSectionEdit:boolean
+  groupOneSectionValid:boolean
+
   groupTwoSectionText : string
+  groupTwoSectionCircle : any
+
   groupThreeSectionText : string
+  groupThreeSectionCircle : any
+
   groupFourSectionText : string
+  groupFourSectionCircle : any
+
   groupFiveSectionText : string
+  groupFiveSectionCircle : any
+
   groupSixSectionText : string
+  groupSixSectionCircle : any
+
   groupSevenSectionText : string
+  groupSevenSectionCircle : any
+
   groupEightSectionText : string
+  groupEightSectionCircle : any
+
+
 
   constructor(private fb: FormBuilder){
     this.personalInfoForm = this.fb.group({
@@ -43,6 +63,37 @@ export class LiquidatorsComponent {
       race: ['', Validators.required], 
       gender: ['', Validators.required]
     });
+
+    this.personalInfoForm.statusChanges.subscribe(() => {
+      // Check if the form is invalid and any control is dirty or touched
+      if (
+        this.personalInfoForm.invalid &&
+        Object.keys(this.personalInfoForm.controls).some(
+          (key) => 
+            this.personalInfoForm.get(key)?.touched || this.personalInfoForm.get(key)?.dirty
+        )
+      ) {
+        this.groupOneSectionEdit = true;  // Show edit icon if form is touched/dirty and invalid
+        this.groupOneSectionText = "active edit-text"
+        this.groupOneSectionValid = false;
+      } else if (this.personalInfoForm.valid) {
+        this.groupOneSectionEdit = false;
+        this.groupOneSectionValid = true; // Show check icon if form is valid
+        this.groupOneSectionText = "active valid-text"
+      } else {
+        this.groupOneSectionEdit = false;
+        this.groupOneSectionValid = false;  // Reset to default state
+      }
+    });
+
+    
+    
+
+
+    
+    
+    
+    
   }
 
   ngOnInit(){
@@ -64,6 +115,24 @@ export class LiquidatorsComponent {
     this.groupSevenSectionText = ""
     this.groupEightSectionText = ""
 
+    this.groupOneSectionCircle = "active-circle"
+    this.groupTwoSectionCircle = ""
+    this.groupThreeSectionCircle = ""
+    this.groupFourSectionCircle = ""
+    this.groupFiveSectionCircle = ""
+    this.groupSixSectionCircle = ""
+    this.groupSevenSectionCircle = ""
+    this.groupEightSectionCircle = ""
+
+    this.groupOneSectionEdit = false
+    this.groupOneSectionValid = false
+
+
+    
+
+
+  
+
    
 
   }
@@ -83,6 +152,11 @@ export class LiquidatorsComponent {
       console.log(this.personalInfoForm.value);
       this.moveGroupTwoSection()
     } else {
+      
+      Object.keys(this.personalInfoForm.controls).forEach((controlName) => {
+        const control = this.personalInfoForm.get(controlName);
+        control?.markAsTouched();
+      });
       console.log('Form is not valid');
     }
   }
@@ -137,6 +211,15 @@ export class LiquidatorsComponent {
     this.groupSevenSectionText = ""
     this.groupEightSectionText = ""
 
+    this.groupOneSectionCircle = ""
+    this.groupTwoSectionCircle = "active-circle"
+    this.groupThreeSectionCircle = ""
+    this.groupFourSectionCircle = ""
+    this.groupFiveSectionCircle = ""
+    this.groupSixSectionCircle = ""
+    this.groupSevenSectionCircle = ""
+    this.groupEightSectionCircle = ""
+
   }
 
   moveGroupThreeSection(){
@@ -157,6 +240,15 @@ export class LiquidatorsComponent {
     this.groupSixSectionText = ""
     this.groupSevenSectionText = ""
     this.groupEightSectionText = ""
+
+    this.groupOneSectionCircle = ""
+    this.groupTwoSectionCircle = ""
+    this.groupThreeSectionCircle = "active-circle"
+    this.groupFourSectionCircle = ""
+    this.groupFiveSectionCircle = ""
+    this.groupSixSectionCircle = ""
+    this.groupSevenSectionCircle = ""
+    this.groupEightSectionCircle = ""
   }
 
   moveGroupOneSection(){ 
@@ -177,6 +269,16 @@ export class LiquidatorsComponent {
     this.groupSixSectionText = ""
     this.groupSevenSectionText = ""
     this.groupEightSectionText = ""
+
+    this.groupOneSectionCircle = "active-circle"
+    this.groupTwoSectionCircle = ""
+    this.groupThreeSectionCircle = ""
+    this.groupFourSectionCircle = ""
+    this.groupFiveSectionCircle = ""
+    this.groupSixSectionCircle = ""
+    this.groupSevenSectionCircle = ""
+    this.groupEightSectionCircle = ""
+
   }
 
   moveGroupFourSection(){
@@ -197,6 +299,15 @@ export class LiquidatorsComponent {
     this.groupSixSectionText = ""
     this.groupSevenSectionText = ""
     this.groupEightSectionText = ""
+
+    this.groupOneSectionCircle = ""
+    this.groupTwoSectionCircle = ""
+    this.groupThreeSectionCircle = ""
+    this.groupFourSectionCircle = "active-circle"
+    this.groupFiveSectionCircle = ""
+    this.groupSixSectionCircle = ""
+    this.groupSevenSectionCircle = ""
+    this.groupEightSectionCircle = ""
   }
 
   movebackGroupTwoSection(){
@@ -228,6 +339,15 @@ export class LiquidatorsComponent {
     this.groupSixSectionText = ""
     this.groupSevenSectionText = ""
     this.groupEightSectionText = ""
+
+    this.groupOneSectionCircle = ""
+    this.groupTwoSectionCircle = ""
+    this.groupThreeSectionCircle = ""
+    this.groupFourSectionCircle = ""
+    this.groupFiveSectionCircle = "active-circle"
+    this.groupSixSectionCircle = ""
+    this.groupSevenSectionCircle = ""
+    this.groupEightSectionCircle = ""
   }
 
   movebackGroupThreeSection(){
@@ -259,6 +379,14 @@ export class LiquidatorsComponent {
     this.groupSixSectionText = "active active-text"
     this.groupSevenSectionText = ""
     this.groupEightSectionText = ""
+
+    this.groupOneSectionCircle = ""
+    this.groupTwoSectionCircle = ""
+    this.groupThreeSectionCircle = ""
+    this.groupFourSectionCircle = ""
+    this.groupFiveSectionCircle = ""
+    this.groupSixSectionCircle = "active-circle"
+    this.groupSevenSectionCircle = ""
   }
 
   movebackGroupFourSection(){
@@ -290,6 +418,15 @@ export class LiquidatorsComponent {
     this.groupSixSectionText = ""
     this.groupSevenSectionText = "active active-text"
     this.groupEightSectionText = ""
+
+    this.groupOneSectionCircle = ""
+    this.groupTwoSectionCircle = ""
+    this.groupThreeSectionCircle = ""
+    this.groupFourSectionCircle = ""
+    this.groupFiveSectionCircle = ""
+    this.groupSixSectionCircle = ""
+    this.groupSevenSectionCircle = "active-circle"
+    this.groupEightSectionCircle = ""
   }
 
   movebackGroupFiveSection(){
@@ -321,6 +458,15 @@ export class LiquidatorsComponent {
     this.groupSixSectionText = ""
     this.groupSevenSectionText = ""
     this.groupEightSectionText = "active active-text"
+
+    this.groupOneSectionCircle = ""
+    this.groupTwoSectionCircle = ""
+    this.groupThreeSectionCircle = ""
+    this.groupFourSectionCircle = ""
+    this.groupFiveSectionCircle = ""
+    this.groupSixSectionCircle = ""
+    this.groupSevenSectionCircle = ""
+    this.groupEightSectionCircle = "active-circle"
   }
 
   movebackGroupSixSection(){
