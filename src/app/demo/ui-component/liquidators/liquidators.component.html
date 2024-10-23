@@ -35,7 +35,7 @@
               <small class="error">Identity number is required.</small>
             </div>
 
-            <p  >The undersigned, (a certified copy of my Identity Document is attached) declare as follows:</p>
+            <p>The undersigned, (a certified copy of my Identity Document is attached) declare as follows:</p>
           </div>
 
           <div class="section" *ngIf="groupOneSection">
@@ -43,32 +43,32 @@
             <p>All the information herein contained is within my own personal knowledge and belief both true and correct.</p>
 
             <label for="race">Race</label>
-            <div class="radio-group" >
+            <div class="radio-group">
               <label>
-                <input type="radio" formControlName="race" value="African"/>
+                <input type="radio" formControlName="race" value="African" />
                 African
               </label>
               <label>
-                <input type="radio" formControlName="race" value="Coloured"/>
+                <input type="radio" formControlName="race" value="Coloured" />
                 Coloured
               </label>
               <label>
-                <input type="radio" formControlName="race" value="IndianAsian"/>
+                <input type="radio" formControlName="race" value="IndianAsian" />
                 Indian/Asian
               </label>
               <label>
-                <input type="radio" formControlName="race" value="White"/>
+                <input type="radio" formControlName="race" value="White" />
                 White
               </label>
               <label>
-                <input type="radio" formControlName="race" value="Chinese"/>
+                <input type="radio" formControlName="race" value="Chinese" />
                 Chinese
               </label>
             </div>
             <div *ngIf="f.race.invalid && f.race.touched">
-                <small class="error">Race is required.</small>
-              </div>
-<p></p>
+              <small class="error">Please select a race to proceed.</small>
+            </div>
+            <p></p>
             <label for="gender">Gender</label>
             <div class="radio-group">
               <label>
@@ -84,13 +84,17 @@
                 Non-Binary
               </label>
             </div>
+            <div *ngIf="f.gender.invalid && f.gender.touched">
+              <small class="error">Please select a gender to proceed.</small>
+            </div>
+
             <p></p>
             <p>I submit the above information with the understanding that it will assist the Master’s Branch to determine my PDI status.</p>
 
             <div class="section">
               <h3 class="section-title">Submission</h3>
               <p></p>
-              <button type="submit" >Save / Next</button>
+              <button type="submit">Save / Next</button>
             </div>
           </div>
         </form>
@@ -106,25 +110,25 @@
         <div class="section" *ngIf="groupTwoSection">
           <h3 class="section-title">4. Business Information</h3>
           <label>I conduct or will conduct my insolvency business as follows (tick the correct box):</label>
-          <div class="checkbox-group">
+          <div class="radio-group">
             <label>
-              <input type="checkbox" name="businessType" value="Sole Proprietorship" />
+              <input type="radio" name="businessType" value="Sole Proprietorship" />
               Sole Proprietorship
             </label>
             <label>
-              <input type="checkbox" name="businessType" value="Unincorporated Partnership" />
+              <input type="radio" name="businessType" value="Unincorporated Partnership" />
               Unincorporated Partnership
             </label>
             <label>
-              <input type="checkbox" name="businessType" value="Close Corporation" />
+              <input type="radio" name="businessType" value="Close Corporation" />
               Close Corporation
             </label>
             <label>
-              <input type="checkbox" name="businessType" value="Company" />
+              <input type="radio" name="businessType" value="Company" />
               Company
             </label>
             <label>
-              <input type="checkbox" name="businessType" value="Employed by the above" />
+              <input type="radio" name="businessType" value="Employed by the above" />
               Employed by any of the above
             </label>
           </div>
@@ -713,16 +717,23 @@
       <div class="progress-container">
         <div class="progress-step" data-step="1" (click)="moveGroupOneSection()">
           <a>
-            <div class="progress-step-wrapper">
-              <div class="circle">1</div>
+            <div class="progress-step-wrapper">             
+              <div *ngIf="!groupOneSectionEdit && !groupOneSectionValid" class="circle" [ngClass]="groupOneSectionCircle">1</div>             
+              <div *ngIf="groupOneSectionEdit && !groupOneSectionValid" class="circle edit-active-circle" [ngClass]="groupOneSectionCircle">
+                <i class="fas fa-edit"></i>
+              </div>             
+              <div *ngIf="groupOneSectionValid" class="circle valid-active-circle" [ngClass]="groupOneSectionCircle">
+                <i class="fas fa-check"></i>
+              </div>
               <div class="text" [ngClass]="groupOneSectionText">Step 1: Personal Info</div>
             </div>
           </a>
         </div>
+
         <div class="progress-step" data-step="2" (click)="moveGroupTwoSection()">
           <a>
             <div class="progress-step-wrapper">
-              <div class="circle">2</div>
+              <div class="circle" [ngClass]="groupTwoSectionCircle">2</div>
               <div class="text" [ngClass]="groupTwoSectionText">Step 2: Verification & Business Information</div>
             </div>
           </a>
@@ -730,7 +741,7 @@
         <div class="progress-step" data-step="3" (click)="moveGroupThreeSection()">
           <a>
             <div class="progress-step-wrapper">
-              <div class="circle">3</div>
+              <div class="circle" [ngClass]="groupThreeSectionCircle">3</div>
               <div class="text" [ngClass]="groupThreeSectionText">Step 3: Employment & Business Trading Details</div>
             </div>
           </a>
@@ -738,7 +749,7 @@
         <div class="progress-step" data-step="4" (click)="moveGroupFourSection()">
           <a>
             <div class="progress-step-wrapper">
-              <div class="circle">4</div>
+              <div class="circle" [ngClass]="groupFourSectionCircle">4</div>
               <div class="text" [ngClass]="groupFourSectionText">Step 4: Business Details & Office Addresses</div>
             </div>
           </a>
@@ -746,7 +757,7 @@
         <div class="progress-step" data-step="5" (click)="moveGroupFiveSection()">
           <a>
             <div class="progress-step-wrapper">
-              <div class="circle">5</div>
+              <div class="circle" [ngClass]="groupFiveSectionCircle">5</div>
               <div class="text" [ngClass]="groupFiveSectionText">Step 5: Qualifications & Professional Memberships</div>
             </div>
           </a>
@@ -754,7 +765,7 @@
         <div class="progress-step" data-step="6" (click)="moveGroupSixSection()">
           <a>
             <div class="progress-step-wrapper">
-              <div class="circle">6</div>
+              <div class="circle" [ngClass]="groupSixSectionCircle">6</div>
               <div class="text" [ngClass]="groupSixSectionText">Step 6: Disqualification & Relationship Disclosure</div>
             </div>
           </a>
@@ -762,7 +773,8 @@
         <div class="progress-step" data-step="7" (click)="moveGroupSevenSection()">
           <a>
             <div class="progress-step-wrapper">
-              <div class="circle">7</div>
+              <div class="circle" [ngClass]="groupSevenSectionCircle">7</div>
+              <div class="circle" [ngClass]="groupSevenSectionCircle"><i class="fas fa-edit"></i></div>
               <div class="text" [ngClass]="groupSevenSectionText">Step 7: Appointment & Employment History</div>
             </div>
           </a>
@@ -770,7 +782,7 @@
         <div class="progress-step" data-step="8" (click)="moveGroupEightSection()">
           <a>
             <div class="progress-step-wrapper">
-              <div class="circle">8</div>
+              <div class="circle" [ngClass]="groupEightSectionCircle">8</div>
               <div
                 class="text"
                 title="Tax Clearance, Bond Facility & Bank Account Documentation & Declaration"

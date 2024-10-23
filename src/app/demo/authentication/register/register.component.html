@@ -1,64 +1,82 @@
 <div class="auth-main">
+  <div class="auth-bg"></div> <!-- Background image outside the sign-up container -->
   <div class="auth-wrapper v3">
     <div class="auth-form">
-      <div class="auth-header">
-        <a href="javascript:"><img src="assets/images/logo-dark.gif" alt="logo img" /></a>
+      <div class="auth-header text-center mb-3">
+        <a href="javascript:">
+          <img src="assets/images/logo-dark.gif" alt="logo img" />
+        </a>
       </div>
-      <div class="card my-5">
-        <div class="card-body">
-          <div class="d-flex justify-content-between align-items-end mb-4">
-            <h3 class="mb-0"><b>Sign up</b></h3>
-            <a [routerLink]="['/login']" class="link-primary">Already have an account?</a>
-          </div>
+      <div class="card my-4 shadow-lg rounded-lg border-0">
+        <div class="card-body px-3 py-4"> <!-- Reduced padding -->
+          <h3 class="text-center mb-3"><strong>Sign Up</strong></h3>
+
           <div class="row">
             <div class="col-md-6">
               <div class="form-group mb-3">
                 <label class="form-label" for="firstName">First Name*</label>
-                <input type="text" class="form-control" id="firstName" placeholder="First Name" />
+                <input type="text" class="form-control shadow-sm" id="firstName" placeholder="First Name" />
               </div>
             </div>
             <div class="col-md-6">
               <div class="form-group mb-3">
                 <label class="form-label" for="lastName">Last Name*</label>
-                <input type="text" class="form-control" id="lastName" placeholder="Last Name" />
+                <input type="text" class="form-control shadow-sm" id="lastName" placeholder="Last Name" />
               </div>
             </div>
           </div>
-     
-          <div class="form-group mb-3">
-            <label class="form-label" for="emailAddress">Email Address*</label>
-            <input type="email" class="form-control" id="emailAddress" placeholder="Email Address" />
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group mb-3">
+                <label class="form-label" for="emailAddress">Email Address*</label>
+                <input type="email" class="form-control shadow-sm" id="emailAddress" placeholder="Email Address" />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group mb-3">
+                <label class="form-label" for="role">Role*</label>
+                <select class="form-control shadow-sm" id="role">
+                  <option value="" disabled selected>Select Role</option>
+                  <option value="patient">Patient</option>
+                  <option value="nurse">Nurse</option>
+                  <option value="doctor">Doctor</option>
+                  <option value="pathology">Pathology</option>
+                  <option value="radiography">Radiography</option>
+                </select>
+              </div>
+            </div>
           </div>
-          <div class="form-group mb-3">
-            <label class="form-label" for="password">Password</label>
-            <input type="password" class="form-control" id="password" placeholder="Password" />
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group mb-3">
+                <label class="form-label" for="password">Password*</label>
+                <input type="password" class="form-control shadow-sm" id="password" placeholder="Password" />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group mb-3">
+                <label class="form-label" for="confirmPassword">Confirm Password*</label>
+                <input type="password" class="form-control shadow-sm" id="confirmPassword" placeholder="Confirm Password" />
+              </div>
+            </div>
           </div>
-          <p class="mt-4 text-sm text-muted">
-            By Signing up, you agree to our
-            <a href="javascript:" class="text-primary">Terms of Service</a>
-            and
-            <a href="javascript:" class="text-primary">Privacy Policy</a>
+
+          <p class="text-sm text-muted text-center mt-3">
+            By signing up, you agree to our
+            <a href="javascript:" class="text-primary">Terms of Service</a> and
+            <a href="javascript:" class="text-primary">Privacy Policy</a>.
           </p>
+
           <div class="d-grid mt-3">
-            <button type="button" class="btn btn-primary">Create Account</button>
+            <button type="button" class="btn btn-primary shadow">Create Account</button>
           </div>
-        
-      
-        </div>
-      </div>
-      <div class="auth-footer row">
-        <div class="col my-1">
-          <p class="m-0">
-            Copyright ©
-            <a href="https://www.justice.gov.za/" target="_blank">DOJ & cd</a>
+
+          <p class="text-center mt-3">
+            Already have an account? 
+            <a [routerLink]="['/login']" class="text-primary">Login here</a>
           </p>
-        </div>
-        <div class="col-auto my-1">
-          <ul class="list-inline footer-link mb-0">
-            <li class="list-inline-item"><a href="https://www.justice.gov.za/" target="_blank">Home</a></li>
-            <li class="list-inline-item"><a href="https://www.justice.gov.za/" target="_blank">Privacy Policy</a></li>
-            <li class="list-inline-item"><a href="https://www.justice.gov.za/" target="_blank">Contact us</a></li>
-          </ul>
         </div>
       </div>
     </div>
