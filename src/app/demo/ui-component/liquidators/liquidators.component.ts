@@ -15,6 +15,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class LiquidatorsComponent {
   personalInfoForm: FormGroup;
+  businessForm: FormGroup;
+  empBusTradingForm: FormGroup;
+  businessInfrasForm: FormGroup;
+
 
 
  
@@ -35,9 +39,13 @@ export class LiquidatorsComponent {
 
   groupTwoSectionText : string
   groupTwoSectionCircle : any
+  groupTwoSectionEdit:boolean
+  groupTwoSectionValid:boolean
 
   groupThreeSectionText : string
   groupThreeSectionCircle : any
+  groupThreeSectionEdit:boolean
+  groupThreeSectionValid:boolean
 
   groupFourSectionText : string
   groupFourSectionCircle : any
@@ -64,6 +72,24 @@ export class LiquidatorsComponent {
       gender: ['', Validators.required]
     });
 
+    this.businessForm = this.fb.group({
+      businessType: ['', Validators.required],
+      businessStatus: ['']
+    });
+
+    this.empBusTradingForm = this.fb.group({
+      employerName: ['', Validators.required],
+      businessTelephone: ['', Validators.required],
+      businessAddress: ['', Validators.required],
+      firmName: ['', Validators.required],
+      partnersOrDirectors: ['', Validators.required],
+
+      businessName: ['', Validators.required],
+      businessDetails: ['', Validators.required],
+      tradingPartners: ['', Validators.required]
+    });
+  
+
     this.personalInfoForm.statusChanges.subscribe(() => {
       // Check if the form is invalid and any control is dirty or touched
       if (
@@ -85,15 +111,7 @@ export class LiquidatorsComponent {
         this.groupOneSectionValid = false;  // Reset to default state
       }
     });
-
-    
-    
-
-
-    
-    
-    
-    
+      
   }
 
   ngOnInit(){
@@ -127,13 +145,8 @@ export class LiquidatorsComponent {
     this.groupOneSectionEdit = false
     this.groupOneSectionValid = false
 
-
-    
-
-
-  
-
-   
+    this.groupTwoSectionEdit = false
+    this.groupTwoSectionValid = false
 
   }
 
@@ -144,7 +157,11 @@ export class LiquidatorsComponent {
   }
 
   get f() {
-    return this.personalInfoForm.controls;
+    return this.personalInfoForm.controls
+  }
+
+  get g(){
+    return this.businessForm.controls
   }
 
   onSubmit(): void {
@@ -160,6 +177,60 @@ export class LiquidatorsComponent {
       console.log('Form is not valid');
     }
   }
+
+businessInfoSubmit(): void{
+  if (this.businessForm.valid) {
+    console.log(this.businessForm.value);
+   this.groupTwoSectionValid = true;
+    this.moveGroupThreeSection()
+  } 
+  else if(this.businessForm.invalid && Object.keys(this.businessForm.controls).some(
+      (key) => 
+        this.businessForm.get(key)?.touched || this.businessForm.get(key)?.dirty
+    )){
+
+      this.groupTwoSectionEdit = true;  // Show edit icon if form is touched/dirty and invalid
+      this.groupTwoSectionText = "active edit-text"
+      this.groupTwoSectionValid = false;
+
+  }
+  else{
+    
+    Object.keys(this.businessForm.controls).forEach((controlName) => {
+      const controlB = this.businessForm.get(controlName);
+      controlB?.markAsTouched();
+    });
+    console.log('Form is not valid');
+  }
+}
+
+
+empBusTradingSubmit(): void{
+  if (this.empBusTradingForm.valid) {
+    console.log(this.empBusTradingForm.value);
+   this.groupThreeSectionValid = true;
+    this.moveGroupFourSection()
+  } 
+  else if(this.empBusTradingForm.invalid && Object.keys(this.empBusTradingForm.controls).some(
+      (key) => 
+        this.empBusTradingForm.get(key)?.touched || this.empBusTradingForm.get(key)?.dirty
+    )){
+
+      this.groupThreeSectionEdit = true;  // Show edit icon if form is touched/dirty and invalid
+      this.groupThreeSectionText = "active edit-text"
+      this.groupThreeSectionValid = false;
+
+  }
+  else{
+    
+    Object.keys(this.empBusTradingForm.controls).forEach((controlName) => {
+      const controlB = this.empBusTradingForm.get(controlName);
+      controlB?.markAsTouched();
+    });
+    console.log('Form is not valid');
+  }
+}
+
   generatePDF() { 
     const data = document.getElementById('a4'); // ID of the HTML element to capture
 
