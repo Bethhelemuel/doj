@@ -21,6 +21,7 @@ export class LiquidatorsComponent {
   qualProMembershipForm: FormGroup;
   disqualRelationshipForm: FormGroup;
   appEmpHistoryForm: FormGroup;
+  taxBondBankForm: FormGroup;
 
   groupOneSection : boolean
   groupTwoSection : boolean
@@ -69,7 +70,7 @@ export class LiquidatorsComponent {
   groupEightSectionText : string
   groupEightSectionCircle : any
   groupEightSectionEdit:boolean
-  groupEightectionValid:boolean
+  groupEightSectionValid:boolean
 
 
   constructor(private fb: FormBuilder){
@@ -122,8 +123,8 @@ export class LiquidatorsComponent {
     this.disqualRelationshipForm = this.fb.group({
       disqualification: ['', Validators.required],
 
-      relationshipDisclosureNo: ['', Validators.required],
-      relationshipDisclosureYes: ['', Validators.required],
+      relationshipDisclosure: ['', Validators.required],
+     // relationshipDisclosureYes: ['', Validators.required],
       relationshipDetails: ['', Validators.required]
     });
     
@@ -131,6 +132,14 @@ export class LiquidatorsComponent {
       appointmentLocations: ['', Validators.required],
 
       employmentHistory: ['', Validators.required]
+    });
+ 
+    this.taxBondBankForm = this.fb.group({
+      taxClearance: ['', Validators.required],
+
+      bankAccountDocumentation: ['', Validators.required],
+
+      declaration: ['', Validators.required]
     });
 
     this.personalInfoForm.statusChanges.subscribe(() => {
@@ -372,6 +381,32 @@ appEmpHistorySubmit(): void{
     
     Object.keys(this.appEmpHistoryForm.controls).forEach((controlName) => {
       const controlB = this.appEmpHistoryForm.get(controlName);
+      controlB?.markAsTouched();
+    });
+    console.log('Form is not valid');
+  }
+}
+
+taxBondBankSubmit(): void{
+  if (this.taxBondBankForm.valid) {
+    console.log(this.taxBondBankForm.value);
+   this.groupEightSectionValid = true;
+    
+  } 
+  else if(this.taxBondBankForm.invalid && Object.keys(this.taxBondBankForm.controls).some(
+      (key) => 
+        this.taxBondBankForm.get(key)?.touched || this.taxBondBankForm.get(key)?.dirty
+    )){
+
+      this.groupEightSectionEdit = true;  // Show edit icon if form is touched/dirty and invalid
+      this.groupEightSectionText = "active edit-text"
+      this.groupEightSectionValid = false;
+
+  }
+  else{
+    
+    Object.keys(this.taxBondBankForm.controls).forEach((controlName) => {
+      const controlB = this.taxBondBankForm.get(controlName);
       controlB?.markAsTouched();
     });
     console.log('Form is not valid');

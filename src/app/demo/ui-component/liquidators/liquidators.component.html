@@ -18,7 +18,7 @@
           AFFIDAVIT PROVIDING REQUIRED INFORMATION FOR PERSONS APPLYING TO BE PLACED ON THE NATIONAL LIST OF LIQUIDATORS
         </div>
       </div>
-<!--Section 1-->
+<!--Step 1-->
       <div class="form-container">
         <h2>Declaration Form</h2>
         <form [formGroup]="personalInfoForm" (ngSubmit)="onSubmit()">
@@ -98,9 +98,9 @@
             </div>
           </div>
         </form>
-<!--End of section 1-->
+<!--End of Step 1-->
 
-        <!--Section 2-->
+        <!--Step 2-->
         <div class="section" *ngIf="groupTwoSection">
           <h3 class="section-title">3. Verification Consent</h3>
           <p>
@@ -154,9 +154,9 @@
             </div>
           </form>
         </div>
-  <!--End of Section 2-->
+  <!--End of Step 2-->
 
-<!--Section 3-->
+<!--Step 3-->
         <!-- Section 5: Employment Details -->
         <div class="section" *ngIf="groupThreeSection">
           <h3 class="section-title">5. Employment Details</h3>
@@ -249,9 +249,9 @@
         </div>
         
 
-        <!--End of Section 3-->
+        <!--End of Step 3-->
 
-        <!--Section 4-->
+        <!--Step 4-->
         <!-- Section 7: Business Infrastructure Details -->
         <div class="section" *ngIf="groupFourSection">
           <h3 class="section-title">7. Business Infrastructure Details</h3>
@@ -403,9 +403,9 @@
           </div>
         </form>
         </div>
-        <!--End of Section 4-->
+        <!--End of Step 4-->
 
-       <!--Section 5-->
+       <!--Step 5-->
         <!-- Section 9: Relevant Qualifications -->
         <div class="section" *ngIf="groupFiveSection">
           <h3 class="section-title">9. Relevant Qualifications</h3>
@@ -453,9 +453,9 @@
           </div>
           </form>
         </div>
-       <!--End of Section 5-->
+       <!--End of Step 5-->
 
-       <!--Section 6-->
+       <!--Step 6-->
         <!-- Section 11: Disqualification Provision -->
         <div class="section" *ngIf="groupSixSection">
           <h3 class="section-title">11. Disqualification Provision</h3>
@@ -483,7 +483,7 @@
           <p>Please tick the applicable box:</p>
 
           <div>
-            <input type="radio" id="no-relationship" name="relationshipDisclosure" formControlName="relationshipDisclosureNo" value="not_related" />
+            <input type="radio" id="no-relationship" name="relationshipDisclosure" formControlName="relationshipDisclosure" value="not_related" />
             <label for="no-relationship">
               I am not related to any official employed at any of the offices of the Master of the High Court by affinity/family/business or
               partnership.
@@ -491,11 +491,11 @@
           </div>
 
           <div>
-            <input type="radio" id="has-relationship" name="relationshipDisclosure" formControlName="relationshipDisclosureYes" value="related" />
+            <input type="radio" id="has-relationship" name="relationshipDisclosure" formControlName="relationshipDisclosure" value="related" />
             <label for="has-relationship">
               I do have a relationship with an employee of the Master and the nature of this relationship is as follows:
             </label>
-            <div *ngIf="(disqualRelationshipForm.get('relationshipDisclosureNo').invalid || disqualRelationshipForm.get('relationshipDisclosureYes').invalid) && (disqualRelationshipForm.get('relationshipDisclosureNo').touched || disqualRelationshipForm.get('relationshipDisclosureYes').touched)">
+            <div *ngIf="disqualRelationshipForm.get('relationshipDisclosure').invalid && disqualRelationshipForm.get('relationshipDisclosure').touched">
               <small class="error">Please tick the applicable box.</small>
             </div>
           </div>
@@ -515,7 +515,7 @@
           </div>
         </form>
         </div>
-         <!--End of Section 6-->
+         <!--End of Step 6-->
 
            <!--Step 7-->
         <!-- Section 13: Appointment Locations -->
@@ -629,9 +629,11 @@
         </div>
         <!--End of step 7-->
 
+         <!--step 8-->
         <!-- Section 15: Tax Clearance -->
         <div class="section" *ngIf="groupEightSection">
           <h3 class="section-title">15. Tax Clearance</h3>
+          <form [formGroup]="taxBondBankForm" (ngSubmit)="taxBondBankSubmit()">
 
           <p>
             a) The Master of the High Court, as a constituent body of the government of the Republic of South Africa, has an obligation by
@@ -644,7 +646,11 @@
           </p>
 
           <label for="tax-clearance">Attach tax clearance certificate:</label>
-          <input type="file" id="tax-clearance" name="taxClearance" />
+          <input type="file" id="tax-clearance" name="taxClearance" formControlName="taxClearance" />
+          <div *ngIf="taxBondBankForm.get('taxClearance').invalid && taxBondBankForm.get('taxClearance').touched">
+            <small class="error">Tax Clearance is required.</small>
+          </div>
+        </form>
         </div>
 
         <!-- Section 16: Bond Facility -->
@@ -661,18 +667,24 @@
         <!-- Section 17: Bank Account Documentation -->
         <div class="section" *ngIf="groupEightSection">
           <h3 class="section-title">17. Bank Account Documentation</h3>
+          <form [formGroup]="taxBondBankForm" (ngSubmit)="taxBondBankSubmit()">
 
           <p>
             I confirm that I will open a separate bank account for funds received in my capacity as a liquidator/trustee and confirm that
             the account has to be opened in a bank that is a member of the Association of Bankers of South Africa (ABSA).
           </p>
           <label for="bank-account-documentation">Attach proof of bank account:</label>
-          <input type="file" id="bank-account-documentation" name="bankAccountDocumentation" />
+          <input type="file" id="bank-account-documentation" name="bankAccountDocumentation" formControlName="bankAccountDocumentation" />
+          <div *ngIf="taxBondBankForm.get('bankAccountDocumentation').invalid && taxBondBankForm.get('bankAccountDocumentation').touched">
+            <small class="error">Bank Account Documentation is required.</small>
+          </div>
+        </form>
         </div>
 
         <!-- Section 18: Declaration -->
         <div class="section" *ngIf="groupEightSection">
           <h3 class="section-title">18. Declaration</h3>
+          <form [formGroup]="taxBondBankForm" (ngSubmit)="taxBondBankSubmit()">
 
           <p>
             I hereby declare that the information given in this declaration is true and correct to the best of my knowledge and belief. I
@@ -680,17 +692,22 @@
           </p>
 
           <div>
-            <input type="checkbox" id="agree-declaration" name="declaration" required />
+            <input type="checkbox" id="agree-declaration" name="declaration" formControlName="declaration"  required />
+            <div *ngIf="taxBondBankForm.get('declaration').invalid && taxBondBankForm.get('declaration').touched">
+              <small class="error">Declaration is required.</small>
+            </div>
             <label for="agree-declaration">
               I agree to the above declaration and the
               <button type="button" class="link-button" data-bs-toggle="modal" data-bs-target="#termsModal">Terms and Conditions.</button>
             </label>
           </div>
+          </form>
         </div>
 
         <!-- Final Submission -->
         <div class="section" *ngIf="groupEightSection">
           <h3 class="section-title">Submission</h3>
+          <form [formGroup]="taxBondBankForm" (ngSubmit)="taxBondBankSubmit()">
 
           <p></p>
 
@@ -707,10 +724,12 @@
               <button type="submit">Submit Declaration Form</button>
             </div>
           </div>
+          </form>
         </div>
       
         <!-- Continue adding sections for paragraphs 6-22 similarly -->
       </div>
+        <!--End of step 8-->
 
       <!-- Modal Structure -->
       <div class="modal" id="termsModal" tabindex="-1" aria-labelledby="termsModalLabel" aria-hidden="true">
@@ -863,10 +882,6 @@
 
         <div class="progress-step" data-step="2" (click)="moveGroupTwoSection()">
           <a>
-            <!-- <div class="progress-step-wrapper">
-              <div class="circle" [ngClass]="groupTwoSectionCircle">2</div>
-              <div class="text" [ngClass]="groupTwoSectionText">Step 2: Verification & Business Information</div>
-            </div> -->
             <div class="progress-step-wrapper">             
               <div *ngIf="!groupTwoSectionEdit && !groupTwoSectionValid" class="circle" [ngClass]="groupTwoSectionCircle">2</div>             
               <div *ngIf="groupTwoSectionEdit && !groupTwoSectionValid" class="circle edit-active-circle" [ngClass]="groupTwoSectionCircle">
@@ -881,10 +896,6 @@
         </div>
         <div class="progress-step" data-step="3" (click)="moveGroupThreeSection()">
           <a>
-            <!-- <div class="progress-step-wrapper">
-              <div class="circle" [ngClass]="groupThreeSectionCircle">3</div>
-              <div class="text" [ngClass]="groupThreeSectionText">Step 3: Employment & Business Trading Details</div>
-            </div> -->
             <div class="progress-step-wrapper">             
               <div *ngIf="!groupThreeSectionEdit && !groupThreeSectionValid" class="circle" [ngClass]="groupThreeSectionCircle">3</div>             
               <div *ngIf="groupThreeSectionEdit && !groupThreeSectionValid" class="circle edit-active-circle" [ngClass]="groupThreeSectionCircle">
@@ -899,10 +910,6 @@
         </div>
         <div class="progress-step" data-step="4" (click)="moveGroupFourSection()">
           <a>
-            <!-- <div class="progress-step-wrapper">
-              <div class="circle" [ngClass]="groupFourSectionCircle">4</div>
-              <div class="text" [ngClass]="groupFourSectionText">Step 4: Business Details & Office Addresses</div>
-            </div> -->
             <div class="progress-step-wrapper">             
               <div *ngIf="!groupFourSectionEdit && !groupFourSectionValid" class="circle" [ngClass]="groupFourSectionCircle">4</div>             
               <div *ngIf="groupFourSectionEdit && !groupFourSectionValid" class="circle edit-active-circle" [ngClass]="groupFourSectionCircle">
@@ -917,10 +924,6 @@
         </div>
         <div class="progress-step" data-step="5" (click)="moveGroupFiveSection()">
           <a>
-            <!-- <div class="progress-step-wrapper">
-              <div class="circle" [ngClass]="groupFiveSectionCircle">5</div>
-              <div class="text" [ngClass]="groupFiveSectionText">Step 5: Qualifications & Professional Memberships</div>
-            </div> -->
             <div class="progress-step-wrapper">             
               <div *ngIf="!groupFiveSectionEdit && !groupFiveSectionValid" class="circle" [ngClass]="groupFiveSectionCircle">5</div>             
               <div *ngIf="groupFiveSectionEdit && !groupFiveSectionValid" class="circle edit-active-circle" [ngClass]="groupFiveSectionCircle">
@@ -935,10 +938,6 @@
         </div>
         <div class="progress-step" data-step="6" (click)="moveGroupSixSection()">
           <a>
-            <!-- <div class="progress-step-wrapper">
-              <div class="circle" [ngClass]="groupSixSectionCircle">6</div>
-              <div class="text" [ngClass]="groupSixSectionText">Step 6: Disqualification & Relationship Disclosure</div>
-            </div> -->
             <div class="progress-step-wrapper">             
               <div *ngIf="!groupSixSectionEdit && !groupSixSectionValid" class="circle" [ngClass]="groupSixSectionCircle">6</div>             
               <div *ngIf="groupSixSectionEdit && !groupSixSectionValid" class="circle edit-active-circle" [ngClass]="groupSixSectionCircle">
@@ -953,11 +952,6 @@
         </div>
         <div class="progress-step" data-step="7" (click)="moveGroupSevenSection()">
           <a>
-            <!-- <div class="progress-step-wrapper">
-              <div class="circle" [ngClass]="groupSevenSectionCircle">7</div>
-              <div class="circle" [ngClass]="groupSevenSectionCircle"><i class="fas fa-edit"></i></div>
-              <div class="text" [ngClass]="groupSevenSectionText">Step 7: Appointment & Employment History</div>
-            </div> -->
             <div class="progress-step-wrapper">             
               <div *ngIf="!groupSevenSectionEdit && !groupSevenSectionValid" class="circle" [ngClass]="groupSevenSectionCircle">7</div>             
               <div *ngIf="groupSevenSectionEdit && !groupSevenSectionValid" class="circle edit-active-circle" [ngClass]="groupSevenSectionCircle">
@@ -972,7 +966,7 @@
         </div>
         <div class="progress-step" data-step="8" (click)="moveGroupEightSection()">
           <a>
-            <div class="progress-step-wrapper">
+            <!-- <div class="progress-step-wrapper">
               <div class="circle" [ngClass]="groupEightSectionCircle">8</div>
               <div
                 class="text"
@@ -981,6 +975,16 @@
               >
                 Step 8: Tax Clearance, Bond Facility & Bank Account Documentation & Declaration
               </div>
+            </div> -->
+            <div class="progress-step-wrapper">             
+              <div *ngIf="!groupEightSectionEdit && !groupEightSectionValid" class="circle" [ngClass]="groupEightSectionCircle">8</div>             
+              <div *ngIf="groupEightSectionEdit && !groupEightSectionValid" class="circle edit-active-circle" [ngClass]="groupEightSectionCircle">
+                <i class="fas fa-edit"></i>
+              </div>             
+              <div *ngIf="groupEightSectionValid" class="circle valid-active-circle" [ngClass]="groupEightSectionCircle">
+                <i class="fas fa-check"></i>
+              </div>
+              <div class="text" [ngClass]="groupEightSectionText">Step 8: Tax Clearance, Bond Facility & Bank Account Documentation & Declaration</div>
             </div>
           </a>
         </div>
