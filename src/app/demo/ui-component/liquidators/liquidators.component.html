@@ -966,16 +966,6 @@
         </div>
         <div class="progress-step" data-step="8" (click)="moveGroupEightSection()">
           <a>
-            <!-- <div class="progress-step-wrapper">
-              <div class="circle" [ngClass]="groupEightSectionCircle">8</div>
-              <div
-                class="text"
-                title="Tax Clearance, Bond Facility & Bank Account Documentation & Declaration"
-                [ngClass]="groupEightSectionText"
-              >
-                Step 8: Tax Clearance, Bond Facility & Bank Account Documentation & Declaration
-              </div>
-            </div> -->
             <div class="progress-step-wrapper">             
               <div *ngIf="!groupEightSectionEdit && !groupEightSectionValid" class="circle" [ngClass]="groupEightSectionCircle">8</div>             
               <div *ngIf="groupEightSectionEdit && !groupEightSectionValid" class="circle edit-active-circle" [ngClass]="groupEightSectionCircle">

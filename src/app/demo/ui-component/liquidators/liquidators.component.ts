@@ -124,7 +124,7 @@ export class LiquidatorsComponent {
       disqualification: ['', Validators.required],
 
       relationshipDisclosure: ['', Validators.required],
-     // relationshipDisclosureYes: ['', Validators.required],
+    
       relationshipDetails: ['', Validators.required]
     });
     
@@ -268,7 +268,7 @@ empBusTradingSubmit(): void{
         this.empBusTradingForm.get(key)?.touched || this.empBusTradingForm.get(key)?.dirty
     )){
 
-      this.groupThreeSectionEdit = true;  // Show edit icon if form is touched/dirty and invalid
+      this.groupThreeSectionEdit = true;
       this.groupThreeSectionText = "active edit-text"
       this.groupThreeSectionValid = false;
 
@@ -294,7 +294,7 @@ businessDetailsOfficeSubmit(): void{
         this.businessDetailsOfficeForm.get(key)?.touched || this.businessDetailsOfficeForm.get(key)?.dirty
     )){
 
-      this.groupFourSectionEdit = true;  // Show edit icon if form is touched/dirty and invalid
+      this.groupFourSectionEdit = true;
       this.groupFourSectionText = "active edit-text"
       this.groupFourSectionValid = false;
 
@@ -320,7 +320,7 @@ qualProMembershipSubmit(): void{
         this.qualProMembershipForm.get(key)?.touched || this.qualProMembershipForm.get(key)?.dirty
     )){
 
-      this.groupFiveSectionEdit = true;  // Show edit icon if form is touched/dirty and invalid
+      this.groupFiveSectionEdit = true;
       this.groupFiveSectionText = "active edit-text"
       this.groupFiveSectionValid = false;
 
@@ -346,7 +346,7 @@ disqualRelationshipSubmit(): void{
         this.disqualRelationshipForm.get(key)?.touched || this.disqualRelationshipForm.get(key)?.dirty
     )){
 
-      this.groupSixSectionEdit = true;  // Show edit icon if form is touched/dirty and invalid
+      this.groupSixSectionEdit = true;
       this.groupSixSectionText = "active edit-text"
       this.groupSixSectionValid = false;
 
@@ -372,7 +372,7 @@ appEmpHistorySubmit(): void{
         this.appEmpHistoryForm.get(key)?.touched || this.appEmpHistoryForm.get(key)?.dirty
     )){
 
-      this.groupSevenSectionEdit = true;  // Show edit icon if form is touched/dirty and invalid
+      this.groupSevenSectionEdit = true;
       this.groupSevenSectionText = "active edit-text"
       this.groupSevenSectionValid = false;
 
@@ -391,6 +391,7 @@ taxBondBankSubmit(): void{
   if (this.taxBondBankForm.valid) {
     console.log(this.taxBondBankForm.value);
    this.groupEightSectionValid = true;
+   this.groupEightSectionEdit = false;
     
   } 
   else if(this.taxBondBankForm.invalid && Object.keys(this.taxBondBankForm.controls).some(
@@ -398,7 +399,7 @@ taxBondBankSubmit(): void{
         this.taxBondBankForm.get(key)?.touched || this.taxBondBankForm.get(key)?.dirty
     )){
 
-      this.groupEightSectionEdit = true;  // Show edit icon if form is touched/dirty and invalid
+      this.groupEightSectionEdit = true;  
       this.groupEightSectionText = "active edit-text"
       this.groupEightSectionValid = false;
 
