@@ -17,11 +17,10 @@ export class LiquidatorsComponent {
   personalInfoForm: FormGroup;
   businessForm: FormGroup;
   empBusTradingForm: FormGroup;
-  businessInfrasForm: FormGroup;
-
-
-
- 
+  businessDetailsOfficeForm: FormGroup;
+  qualProMembershipForm: FormGroup;
+  disqualRelationshipForm: FormGroup;
+  appEmpHistoryForm: FormGroup;
 
   groupOneSection : boolean
   groupTwoSection : boolean
@@ -49,19 +48,28 @@ export class LiquidatorsComponent {
 
   groupFourSectionText : string
   groupFourSectionCircle : any
+  groupFourSectionEdit:boolean
+  groupFourSectionValid:boolean
 
   groupFiveSectionText : string
   groupFiveSectionCircle : any
-
+  groupFiveSectionEdit:boolean
+  groupFiveSectionValid:boolean
+  
   groupSixSectionText : string
   groupSixSectionCircle : any
+  groupSixSectionEdit:boolean
+  groupSixSectionValid:boolean
 
   groupSevenSectionText : string
   groupSevenSectionCircle : any
+  groupSevenSectionEdit:boolean
+  groupSevenSectionValid:boolean
 
   groupEightSectionText : string
   groupEightSectionCircle : any
-
+  groupEightSectionEdit:boolean
+  groupEightectionValid:boolean
 
 
   constructor(private fb: FormBuilder){
@@ -89,6 +97,41 @@ export class LiquidatorsComponent {
       tradingPartners: ['', Validators.required]
     });
   
+
+    this.businessDetailsOfficeForm = this.fb.group({
+      proofOfRental: ['', Validators.required],
+      staffDetails: ['', Validators.required],
+      numComputers: ['', Validators.required],
+      numPrinters: ['', Validators.required],
+      additionalInfo: ['', Validators.required],
+
+      provinceOfficeAddress1: ['', Validators.required],
+      provinceDetails1: ['', Validators.required],
+      provinceOfficeAddress2: ['', Validators.required],
+      provinceDetails2: ['', Validators.required],
+      provinceOfficeAddress3: ['', Validators.required],
+      provinceDetails3: ['', Validators.required],
+    });
+
+    this.qualProMembershipForm = this.fb.group({
+      qualifications: ['', Validators.required],
+
+      professionalMemberships: ['', Validators.required]
+    });
+    
+    this.disqualRelationshipForm = this.fb.group({
+      disqualification: ['', Validators.required],
+
+      relationshipDisclosureNo: ['', Validators.required],
+      relationshipDisclosureYes: ['', Validators.required],
+      relationshipDetails: ['', Validators.required]
+    });
+    
+    this.appEmpHistoryForm = this.fb.group({
+      appointmentLocations: ['', Validators.required],
+
+      employmentHistory: ['', Validators.required]
+    });
 
     this.personalInfoForm.statusChanges.subscribe(() => {
       // Check if the form is invalid and any control is dirty or touched
@@ -225,6 +268,110 @@ empBusTradingSubmit(): void{
     
     Object.keys(this.empBusTradingForm.controls).forEach((controlName) => {
       const controlB = this.empBusTradingForm.get(controlName);
+      controlB?.markAsTouched();
+    });
+    console.log('Form is not valid');
+  }
+}
+
+businessDetailsOfficeSubmit(): void{
+  if (this.businessDetailsOfficeForm.valid) {
+    console.log(this.businessDetailsOfficeForm.value);
+   this.groupFourSectionValid = true;
+    this.moveGroupFiveSection()
+  } 
+  else if(this.businessDetailsOfficeForm.invalid && Object.keys(this.businessDetailsOfficeForm.controls).some(
+      (key) => 
+        this.businessDetailsOfficeForm.get(key)?.touched || this.businessDetailsOfficeForm.get(key)?.dirty
+    )){
+
+      this.groupFourSectionEdit = true;  // Show edit icon if form is touched/dirty and invalid
+      this.groupFourSectionText = "active edit-text"
+      this.groupFourSectionValid = false;
+
+  }
+  else{
+    
+    Object.keys(this.businessDetailsOfficeForm.controls).forEach((controlName) => {
+      const controlB = this.businessDetailsOfficeForm.get(controlName);
+      controlB?.markAsTouched();
+    });
+    console.log('Form is not valid');
+  }
+}
+
+qualProMembershipSubmit(): void{
+  if (this.qualProMembershipForm.valid) {
+    console.log(this.qualProMembershipForm.value);
+   this.groupFiveSectionValid = true;
+    this.moveGroupSixSection()
+  } 
+  else if(this.qualProMembershipForm.invalid && Object.keys(this.qualProMembershipForm.controls).some(
+      (key) => 
+        this.qualProMembershipForm.get(key)?.touched || this.qualProMembershipForm.get(key)?.dirty
+    )){
+
+      this.groupFiveSectionEdit = true;  // Show edit icon if form is touched/dirty and invalid
+      this.groupFiveSectionText = "active edit-text"
+      this.groupFiveSectionValid = false;
+
+  }
+  else{
+    
+    Object.keys(this.qualProMembershipForm.controls).forEach((controlName) => {
+      const controlB = this.qualProMembershipForm.get(controlName);
+      controlB?.markAsTouched();
+    });
+    console.log('Form is not valid');
+  }
+}
+
+disqualRelationshipSubmit(): void{
+  if (this.disqualRelationshipForm.valid) {
+    console.log(this.disqualRelationshipForm.value);
+   this.groupSixSectionValid = true;
+    this.moveGroupSevenSection()
+  } 
+  else if(this.disqualRelationshipForm.invalid && Object.keys(this.disqualRelationshipForm.controls).some(
+      (key) => 
+        this.disqualRelationshipForm.get(key)?.touched || this.disqualRelationshipForm.get(key)?.dirty
+    )){
+
+      this.groupSixSectionEdit = true;  // Show edit icon if form is touched/dirty and invalid
+      this.groupSixSectionText = "active edit-text"
+      this.groupSixSectionValid = false;
+
+  }
+  else{
+    
+    Object.keys(this.disqualRelationshipForm.controls).forEach((controlName) => {
+      const controlB = this.disqualRelationshipForm.get(controlName);
+      controlB?.markAsTouched();
+    });
+    console.log('Form is not valid');
+  }
+}
+
+appEmpHistorySubmit(): void{
+  if (this.appEmpHistoryForm.valid) {
+    console.log(this.appEmpHistoryForm.value);
+   this.groupSevenSectionValid = true;
+    this.moveGroupEightSection()
+  } 
+  else if(this.appEmpHistoryForm.invalid && Object.keys(this.appEmpHistoryForm.controls).some(
+      (key) => 
+        this.appEmpHistoryForm.get(key)?.touched || this.appEmpHistoryForm.get(key)?.dirty
+    )){
+
+      this.groupSevenSectionEdit = true;  // Show edit icon if form is touched/dirty and invalid
+      this.groupSevenSectionText = "active edit-text"
+      this.groupSevenSectionValid = false;
+
+  }
+  else{
+    
+    Object.keys(this.appEmpHistoryForm.controls).forEach((controlName) => {
+      const controlB = this.appEmpHistoryForm.get(controlName);
       controlB?.markAsTouched();
     });
     console.log('Form is not valid');
