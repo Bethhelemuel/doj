@@ -33,24 +33,6 @@ export const NavigationItems: NavigationItem[] = [
         url: '/dashboard/default',
         icon: 'dashboard',
         breadcrumbs: false
-      }
-    ]
-  },
-  {
-    id: 'AFFIDAVIT ',
-    title: 'AFFIDAVIT ',
-    type: 'group',
-    icon: 'icon-navigation',
-    children: [
-      {
-        id: 'LIQUIDATORS', 
-        title: 'Liquidators',
-        type: 'item',
-        classes: 'nav-item',
-        url: '/liquidators',
-        icon: 'login',
-        target: true,
-        breadcrumbs: false
       },
       {
         id: 'register',
@@ -64,65 +46,24 @@ export const NavigationItems: NavigationItem[] = [
       }
     ]
   },
-  // {
-  //   id: 'utilities',
-  //   title: 'UI Components',
-  //   type: 'group',
-  //   icon: 'icon-navigation',
-  //   children: [
-  //     {
-  //       id: 'typography',
-  //       title: 'Typography',
-  //       type: 'item',
-  //       classes: 'nav-item',
-  //       url: '/typography',
-  //       icon: 'font-size'
-  //     },
-  //     {
-  //       id: 'color',
-  //       title: 'Colors',
-  //       type: 'item',
-  //       classes: 'nav-item',
-  //       url: '/color',
-  //       icon: 'bg-colors'
-  //     },
-  //     {
-  //       id: 'tabler',
-  //       title: 'Tabler',
-  //       type: 'item',
-  //       classes: 'nav-item',
-  //       url: 'https://ant.design/components/icon',
-  //       icon: 'ant-design',
-  //       target: true,
-  //       external: true
-  //     }
-  //   ]
-  // },
-
-  // {
-  //   id: 'other',
-  //   title: 'Other',
-  //   type: 'group',
-  //   icon: 'icon-navigation',
-  //   children: [
-  //     {
-  //       id: 'sample-page',
-  //       title: 'Sample Page',
-  //       type: 'item',
-  //       url: '/sample-page',
-  //       classes: 'nav-item',
-  //       icon: 'chrome'
-  //     },
-  //     {
-  //       id: 'document',
-  //       title: 'Document',
-  //       type: 'item',
-  //       classes: 'nav-item',
-  //       url: 'https://codedthemes.gitbook.io/mantis-angular/',
-  //       icon: 'question',
-  //       target: true,
-  //       external: true
-  //     }
-  //   ]
-  // }
+  {
+    id: 'AFFIDAVIT',
+    title: 'AFFIDAVIT ',
+    type: 'group',
+    icon: 'icon-navigation',
+    children: [
+      {
+        id: 'LIQUIDATORS', 
+        title: 'Liquidators',
+        type: 'item',
+        classes: 'nav-item',
+        url: '/liquidators',
+        icon: 'login',
+        target: true,
+        breadcrumbs: false
+      }
+      
+    ]
+  },
+  
 ];
