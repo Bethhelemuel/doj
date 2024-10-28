@@ -8,10 +8,14 @@ import { ReactiveFormsModule } from '@angular/forms'; // Add this line
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SharedModule } from './theme/shared/shared.module';
+import { HttpClientModule } from '@angular/common/http';
+import { AuthService } from './services/auth.service';
+
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, AppRoutingModule, SharedModule, BrowserAnimationsModule,ReactiveFormsModule],
+  imports: [BrowserModule, AppRoutingModule, SharedModule, BrowserAnimationsModule, ReactiveFormsModule, HttpClientModule],
+  providers:[AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
