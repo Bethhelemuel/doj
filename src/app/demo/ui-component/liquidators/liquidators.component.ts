@@ -15,9 +15,13 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class LiquidatorsComponent {
   personalInfoForm: FormGroup;
-
-
- 
+  businessForm: FormGroup;
+  empBusTradingForm: FormGroup;
+  businessDetailsOfficeForm: FormGroup;
+  qualProMembershipForm: FormGroup;
+  disqualRelationshipForm: FormGroup;
+  appEmpHistoryForm: FormGroup;
+  taxBondBankForm: FormGroup;
 
   groupOneSection : boolean
   groupTwoSection : boolean
@@ -35,25 +39,38 @@ export class LiquidatorsComponent {
 
   groupTwoSectionText : string
   groupTwoSectionCircle : any
+  groupTwoSectionEdit:boolean
+  groupTwoSectionValid:boolean
 
   groupThreeSectionText : string
   groupThreeSectionCircle : any
+  groupThreeSectionEdit:boolean
+  groupThreeSectionValid:boolean
 
   groupFourSectionText : string
   groupFourSectionCircle : any
+  groupFourSectionEdit:boolean
+  groupFourSectionValid:boolean
 
   groupFiveSectionText : string
   groupFiveSectionCircle : any
-
+  groupFiveSectionEdit:boolean
+  groupFiveSectionValid:boolean
+  
   groupSixSectionText : string
   groupSixSectionCircle : any
+  groupSixSectionEdit:boolean
+  groupSixSectionValid:boolean
 
   groupSevenSectionText : string
   groupSevenSectionCircle : any
+  groupSevenSectionEdit:boolean
+  groupSevenSectionValid:boolean
 
   groupEightSectionText : string
   groupEightSectionCircle : any
-
+  groupEightSectionEdit:boolean
+  groupEightSectionValid:boolean
 
 
   constructor(private fb: FormBuilder){
@@ -62,6 +79,67 @@ export class LiquidatorsComponent {
       identityNumber: ['', Validators.required],
       race: ['', Validators.required], 
       gender: ['', Validators.required]
+    });
+
+    this.businessForm = this.fb.group({
+      businessType: ['', Validators.required],
+      businessStatus: ['']
+    });
+
+    this.empBusTradingForm = this.fb.group({
+      employerName: ['', Validators.required],
+      businessTelephone: ['', Validators.required],
+      businessAddress: ['', Validators.required],
+      firmName: ['', Validators.required],
+      partnersOrDirectors: ['', Validators.required],
+
+      businessName: ['', Validators.required],
+      businessDetails: ['', Validators.required],
+      tradingPartners: ['', Validators.required]
+    });
+  
+
+    this.businessDetailsOfficeForm = this.fb.group({
+      proofOfRental: ['', Validators.required],
+      staffDetails: ['', Validators.required],
+      numComputers: ['', Validators.required],
+      numPrinters: ['', Validators.required],
+      additionalInfo: ['', Validators.required],
+
+      provinceOfficeAddress1: ['', Validators.required],
+      provinceDetails1: ['', Validators.required],
+      provinceOfficeAddress2: ['', Validators.required],
+      provinceDetails2: ['', Validators.required],
+      provinceOfficeAddress3: ['', Validators.required],
+      provinceDetails3: ['', Validators.required],
+    });
+
+    this.qualProMembershipForm = this.fb.group({
+      qualifications: ['', Validators.required],
+
+      professionalMemberships: ['', Validators.required]
+    });
+    
+    this.disqualRelationshipForm = this.fb.group({
+      disqualification: ['', Validators.required],
+
+      relationshipDisclosure: ['', Validators.required],
+    
+      relationshipDetails: ['', Validators.required]
+    });
+    
+    this.appEmpHistoryForm = this.fb.group({
+      appointmentLocations: ['', Validators.required],
+
+      employmentHistory: ['', Validators.required]
+    });
+ 
+    this.taxBondBankForm = this.fb.group({
+      taxClearance: ['', Validators.required],
+
+      bankAccountDocumentation: ['', Validators.required],
+
+      declaration: ['', Validators.required]
     });
 
     this.personalInfoForm.statusChanges.subscribe(() => {
@@ -85,15 +163,7 @@ export class LiquidatorsComponent {
         this.groupOneSectionValid = false;  // Reset to default state
       }
     });
-
-    
-    
-
-
-    
-    
-    
-    
+      
   }
 
   ngOnInit(){
@@ -127,13 +197,8 @@ export class LiquidatorsComponent {
     this.groupOneSectionEdit = false
     this.groupOneSectionValid = false
 
-
-    
-
-
-  
-
-   
+    this.groupTwoSectionEdit = false
+    this.groupTwoSectionValid = false
 
   }
 
@@ -144,7 +209,11 @@ export class LiquidatorsComponent {
   }
 
   get f() {
-    return this.personalInfoForm.controls;
+    return this.personalInfoForm.controls
+  }
+
+  get g(){
+    return this.businessForm.controls
   }
 
   onSubmit(): void {
@@ -160,6 +229,191 @@ export class LiquidatorsComponent {
       console.log('Form is not valid');
     }
   }
+
+businessInfoSubmit(): void{
+  if (this.businessForm.valid) {
+    console.log(this.businessForm.value);
+   this.groupTwoSectionValid = true;
+    this.moveGroupThreeSection()
+  } 
+  else if(this.businessForm.invalid && Object.keys(this.businessForm.controls).some(
+      (key) => 
+        this.businessForm.get(key)?.touched || this.businessForm.get(key)?.dirty
+    )){
+
+      this.groupTwoSectionEdit = true;  // Show edit icon if form is touched/dirty and invalid
+      this.groupTwoSectionText = "active edit-text"
+      this.groupTwoSectionValid = false;
+
+  }
+  else{
+    
+    Object.keys(this.businessForm.controls).forEach((controlName) => {
+      const controlB = this.businessForm.get(controlName);
+      controlB?.markAsTouched();
+    });
+    console.log('Form is not valid');
+  }
+}
+
+
+empBusTradingSubmit(): void{
+  if (this.empBusTradingForm.valid) {
+    console.log(this.empBusTradingForm.value);
+   this.groupThreeSectionValid = true;
+    this.moveGroupFourSection()
+  } 
+  else if(this.empBusTradingForm.invalid && Object.keys(this.empBusTradingForm.controls).some(
+      (key) => 
+        this.empBusTradingForm.get(key)?.touched || this.empBusTradingForm.get(key)?.dirty
+    )){
+
+      this.groupThreeSectionEdit = true;
+      this.groupThreeSectionText = "active edit-text"
+      this.groupThreeSectionValid = false;
+
+  }
+  else{
+    
+    Object.keys(this.empBusTradingForm.controls).forEach((controlName) => {
+      const controlB = this.empBusTradingForm.get(controlName);
+      controlB?.markAsTouched();
+    });
+    console.log('Form is not valid');
+  }
+}
+
+businessDetailsOfficeSubmit(): void{
+  if (this.businessDetailsOfficeForm.valid) {
+    console.log(this.businessDetailsOfficeForm.value);
+   this.groupFourSectionValid = true;
+    this.moveGroupFiveSection()
+  } 
+  else if(this.businessDetailsOfficeForm.invalid && Object.keys(this.businessDetailsOfficeForm.controls).some(
+      (key) => 
+        this.businessDetailsOfficeForm.get(key)?.touched || this.businessDetailsOfficeForm.get(key)?.dirty
+    )){
+
+      this.groupFourSectionEdit = true;
+      this.groupFourSectionText = "active edit-text"
+      this.groupFourSectionValid = false;
+
+  }
+  else{
+    
+    Object.keys(this.businessDetailsOfficeForm.controls).forEach((controlName) => {
+      const controlB = this.businessDetailsOfficeForm.get(controlName);
+      controlB?.markAsTouched();
+    });
+    console.log('Form is not valid');
+  }
+}
+
+qualProMembershipSubmit(): void{
+  if (this.qualProMembershipForm.valid) {
+    console.log(this.qualProMembershipForm.value);
+   this.groupFiveSectionValid = true;
+    this.moveGroupSixSection()
+  } 
+  else if(this.qualProMembershipForm.invalid && Object.keys(this.qualProMembershipForm.controls).some(
+      (key) => 
+        this.qualProMembershipForm.get(key)?.touched || this.qualProMembershipForm.get(key)?.dirty
+    )){
+
+      this.groupFiveSectionEdit = true;
+      this.groupFiveSectionText = "active edit-text"
+      this.groupFiveSectionValid = false;
+
+  }
+  else{
+    
+    Object.keys(this.qualProMembershipForm.controls).forEach((controlName) => {
+      const controlB = this.qualProMembershipForm.get(controlName);
+      controlB?.markAsTouched();
+    });
+    console.log('Form is not valid');
+  }
+}
+
+disqualRelationshipSubmit(): void{
+  if (this.disqualRelationshipForm.valid) {
+    console.log(this.disqualRelationshipForm.value);
+   this.groupSixSectionValid = true;
+    this.moveGroupSevenSection()
+  } 
+  else if(this.disqualRelationshipForm.invalid && Object.keys(this.disqualRelationshipForm.controls).some(
+      (key) => 
+        this.disqualRelationshipForm.get(key)?.touched || this.disqualRelationshipForm.get(key)?.dirty
+    )){
+
+      this.groupSixSectionEdit = true;
+      this.groupSixSectionText = "active edit-text"
+      this.groupSixSectionValid = false;
+
+  }
+  else{
+    
+    Object.keys(this.disqualRelationshipForm.controls).forEach((controlName) => {
+      const controlB = this.disqualRelationshipForm.get(controlName);
+      controlB?.markAsTouched();
+    });
+    console.log('Form is not valid');
+  }
+}
+
+appEmpHistorySubmit(): void{
+  if (this.appEmpHistoryForm.valid) {
+    console.log(this.appEmpHistoryForm.value);
+   this.groupSevenSectionValid = true;
+    this.moveGroupEightSection()
+  } 
+  else if(this.appEmpHistoryForm.invalid && Object.keys(this.appEmpHistoryForm.controls).some(
+      (key) => 
+        this.appEmpHistoryForm.get(key)?.touched || this.appEmpHistoryForm.get(key)?.dirty
+    )){
+
+      this.groupSevenSectionEdit = true;
+      this.groupSevenSectionText = "active edit-text"
+      this.groupSevenSectionValid = false;
+
+  }
+  else{
+    
+    Object.keys(this.appEmpHistoryForm.controls).forEach((controlName) => {
+      const controlB = this.appEmpHistoryForm.get(controlName);
+      controlB?.markAsTouched();
+    });
+    console.log('Form is not valid');
+  }
+}
+
+taxBondBankSubmit(): void{
+  if (this.taxBondBankForm.valid) {
+    console.log(this.taxBondBankForm.value);
+   this.groupEightSectionValid = true;
+   this.groupEightSectionEdit = false;
+    
+  } 
+  else if(this.taxBondBankForm.invalid && Object.keys(this.taxBondBankForm.controls).some(
+      (key) => 
+        this.taxBondBankForm.get(key)?.touched || this.taxBondBankForm.get(key)?.dirty
+    )){
+
+      this.groupEightSectionEdit = true;  
+      this.groupEightSectionText = "active edit-text"
+      this.groupEightSectionValid = false;
+
+  }
+  else{
+    
+    Object.keys(this.taxBondBankForm.controls).forEach((controlName) => {
+      const controlB = this.taxBondBankForm.get(controlName);
+      controlB?.markAsTouched();
+    });
+    console.log('Form is not valid');
+  }
+}
+
   generatePDF() { 
     const data = document.getElementById('a4'); // ID of the HTML element to capture
 
