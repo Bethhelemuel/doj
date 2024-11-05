@@ -12,8 +12,11 @@ import { CardComponent } from './components/card/card.component';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 import { IconModule } from '@ant-design/icons-angular';
 
+import { PdfViewerModule } from 'ng2-pdf-viewer';
+
 // bootstrap import
-import { NgbDropdownModule, NgbNavModule, NgbModule, NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDropdownModule, NgbNavModule, NgbModule, NgbCollapseModule, } from '@ng-bootstrap/ng-bootstrap';
+
 
 @NgModule({
   imports: [
@@ -27,7 +30,8 @@ import { NgbDropdownModule, NgbNavModule, NgbModule, NgbCollapseModule } from '@
     NgbCollapseModule,
     NgScrollbarModule,
     CardComponent,
-    IconModule
+    IconModule,
+    PdfViewerModule
   ],
   exports: [
     CommonModule,
@@ -41,7 +45,8 @@ import { NgbDropdownModule, NgbNavModule, NgbModule, NgbCollapseModule } from '@
     NgbCollapseModule,
     NgScrollbarModule,
     CardComponent,
-    IconModule
+    IconModule,
+    PdfViewerModule
   ],
   declarations: [SpinnerComponent]
 })

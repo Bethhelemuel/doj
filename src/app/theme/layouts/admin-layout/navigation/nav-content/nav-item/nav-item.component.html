@@ -2,9 +2,8 @@
   <li [ngClass]="item.classes!" [routerLinkActive]="['active']">
     <a [target]="item.target ? '_self' : '_self'" [routerLink]="[item.url]" (click)="closeOtherMenu($event)">
       @if (item.icon) {
-        <span class="coded-micon">
-          <i antIcon type="{{ item.icon }}" theme="outline"></i>
-        </span>
+     
+        <i class="bi {{ item.icon }} icon"></i>
       }
       @if (item.icon) {
         <span class="coded-mtext">{{ item.title }}</span>
@@ -18,9 +17,7 @@
   <li [ngClass]="item.classes!">
     <a [target]="item.target ? '_self' : '_self'" [href]="item.url">
       @if (item.icon) {
-        <span class="coded-micon">
-          <i antIcon type="{{ item.icon }}" theme="outline"></i>
-        </span>
+        <i class="bi {{ item.icon }}"></i>
       }
       @if (item.icon) {
         <span class="coded-mtext">{{ item.title }}</span>

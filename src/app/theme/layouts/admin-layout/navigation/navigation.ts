@@ -30,8 +30,9 @@ export const NavigationItems: NavigationItem[] = [
         title: 'Home',
         type: 'item',
         classes: 'nav-item',
-        url: '/dashboard/default',
-        icon: 'dashboard',
+        url: '/home',
+        icon: 'bi-house',
+        
         breadcrumbs: false
       }
     ]
@@ -48,17 +49,27 @@ export const NavigationItems: NavigationItem[] = [
         type: 'item',
         classes: 'nav-item',
         url: '/liquidators',
-        icon: 'login',
+        icon: 'bi-file-pdf-fill',
+        target: true,
+        breadcrumbs: false
+      },
+      {
+        id: 'track',
+        title: 'Track',
+        type: 'item',
+        classes: 'nav-item',
+        url: '/track',
+        icon: 'bi-eye',
         target: true,
         breadcrumbs: false
       },
       {
         id: 'register',
-        title: 'Track',
+        title: 'Applications',
         type: 'item',
         classes: 'nav-item',
-        url: '/track',
-        icon: 'profile',
+        url: '/applications',
+        icon: 'bi-files',
         target: true,
         breadcrumbs: false
       }
