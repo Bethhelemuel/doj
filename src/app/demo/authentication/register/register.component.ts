@@ -73,7 +73,7 @@ export default class RegisterComponent {
         this.signUpForm.get('role').enable(); // Enable the role field if email is valid
 
         // Set role based on email domain
-        if (email.endsWith('@justice.gov.co.za')) {
+        if (email.endsWith('@justice.gov.za')) {
           this.signUpForm.get('role').disable();
           this.signUpForm.get('role').setValue('official');
         } else {
