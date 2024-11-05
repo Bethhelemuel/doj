@@ -19,10 +19,10 @@ const routes: Routes = [
         redirectTo: '/dashboard/default',
         pathMatch: 'full'
       },
-      {
+/*       {
         path: 'dashboard/default',
         loadComponent: () => import('./demo/default/dashboard/dashboard.component').then((c) => c.DefaultComponent)
-      },
+      }, */
       {
         path: 'liquidators',
         loadComponent: () => import('./demo/ui-component/liquidators/liquidators.component').then((m) => m.LiquidatorsComponent)
