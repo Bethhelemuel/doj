@@ -6,18 +6,15 @@ import { ReactiveFormsModule } from '@angular/forms'; // Import ReactiveFormsMod
 // Project Imports
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { SharedModule } from './theme/shared/shared.module'; // Import your shared module
+import { SharedModule } from './theme/shared/shared.module';
+import { HttpClientModule } from '@angular/common/http';
+import { AuthService } from './services/auth.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
-  declarations: [
-    AppComponent // Declare your main app component
-  ],
-  imports: [
-    BrowserModule, // Browser module is required for all Angular apps
-    AppRoutingModule, // Import your routing module
-    SharedModule, // Import the shared module that contains Material and other components
-    ReactiveFormsModule, // Import ReactiveFormsModule for reactive forms
-  ],
-  bootstrap: [AppComponent] // Bootstrap your main app component
+  declarations: [AppComponent],
+  imports: [BrowserModule, AppRoutingModule, SharedModule, BrowserAnimationsModule, ReactiveFormsModule, HttpClientModule],
+  providers: [AuthService],
+  bootstrap: [AppComponent]
 })
 export class AppModule {}

@@ -36,6 +36,12 @@ File: style.css
 @import 'scss/themes/layouts/footer/footer.scss';
 
 @import 'scss/themes/preset-style.scss'; 
+
+@import 'scss/themes/preset-style.scss';
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+@import 'ngx-toastr/toastr';
+
+
 .custom-xl-modal .modal-dialog {
     width:90vw !important;
     min-width: 90vw !important;

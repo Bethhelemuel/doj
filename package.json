@@ -12,6 +12,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "lint-fix": "ng lint --fix"
+   
   },
   "private": false,
   "dependencies": {
@@ -20,6 +21,7 @@
     "@angular/compiler": "^18.0.5",
     "@angular/core": "^18.0.5",
     "@angular/forms": "^18.0.5",
+    "@angular/material": "^18.2.10",
     "@angular/platform-browser": "^18.0.5",
     "@angular/platform-browser-dynamic": "^18.0.5",
     "@angular/router": "^18.0.5",
@@ -28,6 +30,7 @@
     "@fullcalendar/core": "^6.1.15",
     "@fullcalendar/daygrid": "^6.1.15",
     "@fullcalendar/interaction": "^6.1.15",
+    "@material/dialog": "^14.0.0",
     "@ng-bootstrap/ng-bootstrap": "^17.0.0",
     "@popperjs/core": "^2.11.8",
     "apexcharts": "^3.49.2",
@@ -38,9 +41,12 @@
     "jquery": "^3.7.1",
     "jquery-ui": "^1.14.1",
     "jspdf": "^2.5.2",
+    "jwt-decode": "^4.0.0",
     "ng-apexcharts": "^1.11.0",
     "ng2-pdf-viewer": "^10.3.4",
+    "ng-snotify": "^9.0.1",
     "ngx-scrollbar": "^15.0.1",
+    "ngx-toastr": "^19.0.0",
     "rxjs": "~7.8.1",
     "tslib": "^2.6.3",
     "zone.js": "~0.14.7"

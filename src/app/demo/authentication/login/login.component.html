@@ -1,50 +1,79 @@
 <div class="auth-main">
+  <div class="auth-bg"></div>
   <div class="auth-wrapper v3">
     <div class="auth-form">
-      <div class="auth-header">
-        <a href="javascript:"><img src="assets/images/logo-dark.gif" alt="logo" /></a>
-      </div>
-      <div class="card my-5">
-        <div class="card-body">
-          <div class="d-flex justify-content-between align-items-end mb-4">
-            <h3 class="mb-0"><b>Login</b></h3>
-            <a [routerLink]="['/register']" class="link-primary">Don't have an account?</a>
+      <div class="card my-4 shadow-lg rounded-lg border-0">
+        <div class="card-body px-3 py-4">
+          <!-- Auth Header within Login Container -->
+          <div class="auth-header text-center mb-3">
+            <a href="javascript:">
+              <img src="assets/images/logo-dark.gif" alt="logo" />
+            </a>
           </div>
-          <div class="form-group mb-3">
-            <label class="form-label" for="email">Email Address</label>
-            <input type="email" class="form-control" id="email" placeholder="Email Address" />
+
+          <h3 class="text-center mb-3"><strong>Login</strong></h3>
+          <div *ngIf="alertVisible" [ngClass]="{'alert': true, 'alert-success': alertType === 'success', 'alert-danger': alertType === 'danger'}" role="alert">
+            {{ alertMessage }}
+            <button type="button" class="close" aria-label="Close" (click)="closeAlert()">
+              <span aria-hidden="true">&times;</span>
+            </button>
           </div>
-          <div class="form-group mb-3">
-            <label class="form-label" for="password">Password</label>
-            <input type="password" class="form-control" id="password" placeholder="Password"  />
-          </div>
-          <div class="d-flex mt-1 justify-content-between">
-            <div class="form-check">
-              <input class="form-check-input input-primary" type="checkbox" id="customCheckc1" checked="" />
-              <label class="form-check-label text-muted" for="customCheckc1">Keep me sign in</label>
+
+          <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <div class="form-group mb-3">
+              <label class="form-label" for="email">Email Address*</label>
+              <input
+                type="email"
+                formControlName="email"
+                class="form-control shadow-sm"
+                id="email"
+                placeholder="Email Address"
+              />
+              <div *ngIf="f.email.invalid && f.email.touched">
+                <small class="error" *ngIf="f.email.errors?.required">Email is required.</small>
+                <small class="error" *ngIf="f.email.errors?.email">Enter a valid email.</small>
+              </div>
             </div>
-            <h5 class="text-secondary f-w-400"><a href="javascript:">Forgot Password?</a></h5>
-          </div>
-          <div class="d-grid mt-4">
-            <button type="button" class="btn btn-primary">Login</button>
-          </div>
-        
-      
-        </div>
-      </div>
-      <div class="auth-footer row">
-        <div class="col my-1">
-          <p class="m-0">
-            Copyright &copy;
-            <a href="https://www.justice.gov.za/" target="_blank">DOJ & cd</a>
-          </p>
-        </div>
-        <div class="col-auto my-1">
-          <ul class="list-inline footer-link mb-0">
-            <li class="list-inline-item"><a href="https://www.justice.gov.za/" target="_blank">Home</a></li>
-            <li class="list-inline-item"><a href="https://www.justice.gov.za/" target="_blank">Privacy Policy</a></li>
-            <li class="list-inline-item"><a href="https://www.justice.gov.za/" target="_blank">Contact us</a></li>
-          </ul>
+
+            <div class="form-group mb-3 position-relative">
+              <label class="form-label" for="password">Password*</label>
+              <input
+                type="password"
+                formControlName="password"
+                class="form-control shadow-sm"
+                id="password"
+                placeholder="Password"
+              />
+              <div *ngIf="f.password.invalid && f.password.touched">
+                <small class="error" *ngIf="f.password.errors?.required">Password is required.</small>
+                <small class="error" *ngIf="f.password.errors?.minlength">Password must be at least 6 characters.</small>
+              </div>
+            </div>
+
+            
+
+            <div class="d-flex mt-1 justify-content-between">
+              <div class="form-check">
+                <input
+                  class="form-check-input input-primary"
+                  formControlName="rememberMe"
+                  type="checkbox"
+                  id="customCheckc1"
+                />
+                <label class="form-check-label text-muted" for="customCheckc1">Keep me signed in</label>
+              </div>
+              <div class="forgot-password"><a href="javascript:"> Forgot Password?</a></div>
+            </div>
+
+            <div class="d-grid mt-4">
+              <button type="submit" class="btn btn-primary shadow" [disabled]="loginForm.invalid">Login</button>
+            </div>
+
+            <p class="text-center mt-3">
+              Don't have an account?
+              <a [routerLink]="['/register']" class="text-primary">Sign up here</a>
+            </p>
+          </form>
         </div>
       </div>
     </div>

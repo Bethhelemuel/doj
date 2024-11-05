@@ -1,5 +1,6 @@
 // angular import
 import { Component } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -8,5 +9,18 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   // public props
-  title = 'mantis-free-version';
+  showApprovalStatus = false;
+
+  constructor(private router: Router) {}
+
+  ngOnInit(): void {
+    // Listen for the NavigationEnd event to get the final URL
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        console.log(event.url) 
+        // Check if the URL matches /approval-status
+        this.showApprovalStatus = event.url.includes('/approval-status')  ;
+      }
+    });
+  }
 }
