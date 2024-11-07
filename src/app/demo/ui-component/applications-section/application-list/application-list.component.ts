@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SharedModule } from 'src/app/theme/shared/shared.module';
 
@@ -28,9 +28,9 @@ export class ApplicationListComponent {
    loadingTax = true;
    loadingBank = true;
 
-  constructor(private route: ActivatedRoute,private modalService: NgbModal) { } 
-
-  ngOnInit(): void {
+  constructor(private route: ActivatedRoute,private modalService: NgbModal,private router: Router) { } 
+ 
+  ngOnInit(): void { 
     this.route.queryParamMap.subscribe(params => {
       this.startDate = params.get('start'); // Get the user ID from the query parameters
       this.endDate = params.get('end'); // Get the user type from the query parameters
@@ -117,5 +117,11 @@ resetLoader(){
   this.loadingDoc = true;
   this.loadingTax = true;
   this.loadingBank = true;
+}
+
+back(){
+  this.router.navigate(['/applications']).then(() => {
+    window.location.reload();
+  });
 }
 }

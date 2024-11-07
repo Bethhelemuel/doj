@@ -47,7 +47,7 @@ export class ApplicationsComponent {
       headerToolbar: {  
         left: 'title',
         center: 'dayGridDay,dayGridWeek,dayGridMonth',
-        right: 'prev,next today',
+        right: 'prev,next today', 
       }, 
       events: [
         { title: '103 Application', start: new Date(y, m, 1), url: 'application-list?start='+this.formatDate(new Date(y, m, 1))+'&end='+this.formatDate(new Date(y, m, 1)), className: 'success' },
@@ -170,13 +170,17 @@ export class ApplicationsComponent {
   setCustomDateRange(): void {
     if (this.customStartDate && this.customEndDate) {
       this.addCalendarEvent('Custom Date Range', this.customStartDate, this.customEndDate);
-      this.startDate=this.customStartDate;
-      this.endDate=this.customEndDate;
+      this.startDate=this.convertStringToDate(this.customStartDate.toString());
+      this.endDate=this.convertStringToDate(this.customEndDate.toString());
     } else {
       alert('Please select both start and end dates.');
     }
   }
 
+  convertStringToDate(dateString: string): Date | null {
+    const date = new Date(dateString);
+    return isNaN(date.getTime()) ? null : date;
+  }
   formatDate(date: Date): string {
     const year = date.getFullYear();
     const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Months are zero-based, so add 1
@@ -186,14 +190,15 @@ export class ApplicationsComponent {
   } 
 
   search(){ 
-    console.log(this.startDate);
-    console.log(this.endDate); 
+   
     if(this.isDateNotEmpty(this.startDate) || this.isDateNotEmpty(this.endDate)){
       if(this.startDate <= this.endDate){
         var start=this.formatDate(this.startDate);
         var end=this.formatDate(this.endDate);
-        this.router.navigate(['/application-list'], { queryParams: { start: start, end: end } });
-
+        this.router.navigate(['/application-list'], { queryParams: { start: start, end: end } }).then(() => {
+          window.location.reload();
+        });;
+       
       }
 
     }

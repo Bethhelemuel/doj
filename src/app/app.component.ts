@@ -18,6 +18,7 @@ export class AppComponent implements OnInit {
     '/liquidators': 'app-liquidators',
     '/track': 'app-track',
     '/applications': 'app-applications',
+    '/application-list':'app-application-list',
     '/': 'app-default',
     // Add more routes and their corresponding selectors
   };
