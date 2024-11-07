@@ -62,7 +62,7 @@ export class BreadcrumbComponent {
         const breadcrumbList = this.filterNavigation(this.navigations, activeLink);
         this.navigationList = breadcrumbList;
         const title = breadcrumbList[breadcrumbList.length - 1]?.title || 'DOJ';
-        this.titleService.setTitle(title + ' | Department Justice and constitutional Development RSA');
+        this.titleService.setTitle(title + ' | Department Justice and Constitutional Development RSA');
       }
     });
   }

@@ -13,7 +13,7 @@ const routes: Routes = [
     component: AdminComponent,
     canActivate: [AuthGuard], 
     children: [
-      {
+      { 
         path: '',
         redirectTo: '',  
         pathMatch: 'full'
@@ -81,7 +81,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { useHash: true }) // Use hash-based routing to prevent 404 on refresh
+    RouterModule.forRoot(routes) // Use hash-based routing to prevent 404 on refresh
   ],
   exports: [RouterModule]
 })
