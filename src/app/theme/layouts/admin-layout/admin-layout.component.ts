@@ -7,11 +7,12 @@ import { RouterModule } from '@angular/router';
 import { SharedModule } from '../../shared/shared.module';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { NavigationComponent } from './navigation/navigation.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-admin',
   standalone: true,
-  imports: [CommonModule, SharedModule, NavigationComponent, NavBarComponent, RouterModule],
+  imports: [CommonModule, SharedModule, NavigationComponent, NavBarComponent, RouterModule, ReactiveFormsModule],
   templateUrl: './admin-layout.component.html',
   styleUrls: ['./admin-layout.component.scss']
 })

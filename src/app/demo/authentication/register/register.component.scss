@@ -69,6 +69,14 @@
       max-width: 100%; /* Make sure the logo fits */
       height: auto; /* Maintain aspect ratio */
     }
+
+    .error {
+      color: red;
+      font-size: 0.9em;
+      margin-top: 5px;
+    }
+    
+  
     
 
     .auth-footer {
@@ -87,3 +95,50 @@
     }
   }
 }
+.position-relative {
+  position: relative;
+}
+
+.show-hide-icon {
+  position: absolute;
+  right: 15px; /* Adjust spacing from the right */
+  top: 70%; /* Center vertically */
+  transform: translateY(-50%); /* Shift back up by half its height */
+  color: #6c757d; /* Default color */
+  font-size: 1.2em; /* Adjust size as necessary */
+  cursor: pointer; /* Indicate clickable */
+  pointer-events: all; /* Ensure clicks are registered */
+}
+
+.show-hide-icon:hover {
+  color: #007bff; /* Change color on hover */
+}
+
+.alert {
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+
+.alert-success {
+  color: #155724;
+  background-color: #d4edda;
+  border-color: #c3e6cb;
+}
+
+.alert-danger {
+  color: #721c24;
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+}
+
+.close {
+  float: right;
+  font-size: 1.5rem;
+  line-height: 1;
+  color: inherit;
+  border: none;
+  background: none;
+}
+

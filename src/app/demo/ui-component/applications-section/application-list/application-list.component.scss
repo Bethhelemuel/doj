@@ -1,0 +1,66 @@
+.white{
+    background-color: #ffffff !important;
+}
+
+::ng-deep .custom-xl-modal .modal-dialog {
+    width:90vw !important;
+    min-width: 90vw !important;
+    max-width: 90vw !important; /* or any other value */
+ 
+    height:90vh !important;
+    min-height: 90vh !important;
+    max-height: 90vh !important; /* or any other value */
+  }
+  ::ng-deep .modal-content{
+    height:90vh !important;
+    min-height: 90vh !important;
+    max-height: 90vh !important; /* or any other value */  
+}
+  .pdf-container {
+    width: 100%;  /* Full width of the parent container */
+    height: 70vh; /* Set height as needed */
+    overflow: auto; /* Enable scrolling if the PDF exceeds the div height */
+    border: 1px solid #ddd; /* Optional border */
+  }
+
+  .space{
+    margin-bottom:15px;
+  }
+
+  .approve{
+    color:green;
+  }
+
+  .reject{
+    color:red;
+  }
+
+  .pending{
+    color:yellow;
+  }
+
+  .back{
+    font-size: 25px;
+  }
+
+  .date-content{
+    margin-top:20px;
+  }
+
+  .arms{
+    margin-right:8px;
+  }
+
+  .bg-primary {
+    background-color: #F47F0C !important; 
+    border-color: #F47F0C !important;
+}
+
+.loader{
+    position: absolute;
+    width: 100%;
+    height:100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

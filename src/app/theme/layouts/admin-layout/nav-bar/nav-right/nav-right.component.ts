@@ -1,6 +1,6 @@
 // angular import
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 // project import
 import { SharedModule } from 'src/app/theme/shared/shared.module';
@@ -28,6 +28,7 @@ import {
   ArrowRightOutline,
   GithubOutline
 } from '@ant-design/icons-angular/icons';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-nav-right',
@@ -41,8 +42,9 @@ export class NavRightComponent {
   @Output() Customize = new EventEmitter();
   windowWidth: number;
   screenFull: boolean = true;
+  userData: any;
 
-  constructor(private iconService: IconService) {
+  constructor(private iconService: IconService,private authService: AuthService, private router: Router) {
     this.windowWidth = window.innerWidth;
     this.iconService.addIcon(
       ...[
@@ -67,6 +69,13 @@ export class NavRightComponent {
     );
   }
 
+  ngOnInit(): void {
+    // Call decodeToken from AuthService and store the result in userData
+    this.userData = this.authService.decodeToken();
+    console.log('Decoded User Data:', this.userData); // Check decoded data
+  }
+
+
   profile = [
     {
       icon: 'edit',
@@ -76,17 +85,11 @@ export class NavRightComponent {
       icon: 'user',
       title: 'View Profile'
     },
-    {
-      icon: 'profile',
-      title: 'Social Profile'
-    },
-    {
-      icon: 'wallet',
-      title: 'Billing'
-    }
+
+
   ];
 
-  setting = [
+ /*  setting = [
     {
       icon: 'question-circle',
       title: 'Support'
@@ -107,5 +110,12 @@ export class NavRightComponent {
       icon: 'unordered-list',
       title: 'History'
     }
-  ];
+  ]; */
+
+  logout(): void {
+    localStorage.clear();  // Clears all data in localStorage
+    this.router.navigate(['/login']).then(() => {
+      window.location.reload();
+    });
+  }
 }
