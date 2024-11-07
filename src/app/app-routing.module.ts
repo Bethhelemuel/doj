@@ -19,7 +19,7 @@ const routes: Routes = [
         pathMatch: 'full'
       },
       {
-        path: '', 
+        path: 'dashboard/default', 
         loadComponent: () => import('./demo/default/dashboard/dashboard.component').then((c) => c.DefaultComponent)
       },
     
