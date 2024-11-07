@@ -81,13 +81,15 @@ export class NavContentComponent implements OnInit {
       this.router.navigate(['/liquidators']);
 
     } else {
-      this.navigations = []; // Adjust to include other roles if needed
+      this.navigations = NavigationItems; // Adjust to include other roles if needed
+      
     }
 
     // Responsive layout setup
     if (this.windowWidth < 1025) {
       (document.querySelector('.coded-navbar') as HTMLDivElement).classList.add('menupos-static');
     }
+  
   }
 
   fireOutClick() {

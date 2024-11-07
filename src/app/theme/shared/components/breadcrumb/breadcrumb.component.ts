@@ -47,6 +47,7 @@ export class BreadcrumbComponent {
     private titleService: Title,
     private iconService: IconService
   ) {
+   
     this.navigations = NavigationItems;
     this.type = 'theme1';
     this.setBreadcrumb();

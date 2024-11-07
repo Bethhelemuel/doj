@@ -15,11 +15,11 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: '', 
+        redirectTo: 'login', 
         pathMatch: 'full'
       },
       {
-        path: '',
+        path: '', 
         loadComponent: () => import('./demo/default/dashboard/dashboard.component').then((c) => c.DefaultComponent)
       },
     
@@ -62,12 +62,12 @@ const routes: Routes = [
     loadComponent: () =>
       import('../app/theme/shared/components/approval-status/approval-status.component').then((m) => m.ApprovalStatusComponent)
   },
-  {
+  { 
     path: '',
     component: GuestComponent,
     canActivate: [GuestGuard],  // Protect guest routes with GuestGuard
     children: [
-      {
+      { 
         path: 'login',
         loadComponent: () => import('./demo/authentication/login/login.component')
       },

@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { AlertComponent } from 'src/app/theme/shared/components/alert/alert.component';
 import { SharedModule } from 'src/app/theme/shared/shared.module';
@@ -43,7 +43,8 @@ export default class RegisterComponent {
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -169,5 +170,11 @@ export default class RegisterComponent {
   // Utility getter to access form controls easily
   get f() {
     return this.signUpForm.controls;
+  }
+
+  login(){
+    this.router.navigate(['/login']).then(() => {
+      window.location.reload();
+    });
   }
 }

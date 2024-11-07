@@ -1,7 +1,7 @@
 // Angular import
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 // Project import
 import { NavigationItem } from '../../navigation';
@@ -17,6 +17,7 @@ import { SharedModule } from 'src/app/theme/shared/shared.module';
 export class NavItemComponent {
   // public props
   @Input() item!: NavigationItem;
+  constructor(private router: Router) {}
 
   // public method
   closeOtherMenu(event: MouseEvent) {
@@ -46,4 +47,11 @@ export class NavItemComponent {
       (document.querySelector('app-navigation.pc-sidebar') as HTMLDivElement).classList.remove('mob-open');
     }
   }
+
+  navigate(url: string): void {
+    this.router.navigate([url], { replaceUrl: true }); // Replace history entry
+
+        // this.router.navigate([url]);
+      }
+  
 }

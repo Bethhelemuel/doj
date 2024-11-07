@@ -30,7 +30,7 @@ export const NavigationItems: NavigationItem[] = [
         title: 'Home',
         type: 'item',
         classes: 'nav-item',
-        url: '/home',
+        url: '/',
         icon: 'bi-house',
         
         breadcrumbs: false
@@ -75,24 +75,6 @@ export const NavigationItems: NavigationItem[] = [
       }
     ]
   },
-  {
-    id: 'AFFIDAVIT',
-    title: 'AFFIDAVIT ',
-    type: 'group',
-    icon: 'icon-navigation',
-    children: [
-      {
-        id: 'LIQUIDATORS', 
-        title: 'Liquidators',
-        type: 'item',
-        classes: 'nav-item',
-        url: '/liquidators',
-        icon: 'login',
-        target: true,
-        breadcrumbs: false
-      }
-      
-    ]
-  },
+
   
 ];
