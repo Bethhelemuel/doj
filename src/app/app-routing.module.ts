@@ -9,13 +9,13 @@ import { GuestGuard } from './services/guest.guard';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'doj', 
     component: AdminComponent,
     canActivate: [AuthGuard], 
-    children: [
+    children: [ 
       {
         path: '',
-        redirectTo: 'login', 
+        redirectTo: '', 
         pathMatch: 'full'
       },
       {
@@ -63,7 +63,7 @@ const routes: Routes = [
       import('../app/theme/shared/components/approval-status/approval-status.component').then((m) => m.ApprovalStatusComponent)
   },
   { 
-    path: '',
+    path: 'doj',
     component: GuestComponent,
     canActivate: [GuestGuard],  // Protect guest routes with GuestGuard
     children: [
