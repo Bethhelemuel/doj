@@ -30,7 +30,7 @@ export const NavigationItems: NavigationItem[] = [
         title: 'Home',
         type: 'item',
         classes: 'nav-item',
-        url: '/dashboard/default',
+        url: '/',
         icon: 'bi-house',
         
         breadcrumbs: false

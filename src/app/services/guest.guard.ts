@@ -11,7 +11,7 @@ export class GuestGuard implements CanActivate {
     const token = localStorage.getItem('sessionToken');
     if (token) {
       // Redirect logged-in users to the dashboard
-      return this.router.createUrlTree(['/dashboard/default']);
+      return this.router.createUrlTree(['/']);
     }
     return true;
   }
