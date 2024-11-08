@@ -12,7 +12,6 @@
     "test": "ng test",
     "lint": "ng lint",
     "lint-fix": "ng lint --fix"
-   
   },
   "private": false,
   "dependencies": {
@@ -43,8 +42,8 @@
     "jspdf": "^2.5.2",
     "jwt-decode": "^4.0.0",
     "ng-apexcharts": "^1.11.0",
-    "ng2-pdf-viewer": "^10.3.4",
     "ng-snotify": "^9.0.1",
+    "ng2-pdf-viewer": "^10.3.4",
     "ngx-scrollbar": "^15.0.1",
     "ngx-toastr": "^19.0.0",
     "rxjs": "~7.8.1",
