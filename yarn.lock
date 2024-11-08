@@ -241,10 +241,10 @@
     vite "5.2.11"
     watchpack "2.4.1"
 
-"@angular/cdk@>=17.0.0", "@angular/cdk@18.2.10":
-  version "18.2.10"
-  resolved "https://registry.npmjs.org/@angular/cdk/-/cdk-18.2.10.tgz"
-  integrity sha512-Weh0slrfWNp5N6UO4m3tXzs2QBFexNsnJf1dq0oaLDBgfkuqUmxdCkurSv5+lWZRkTPLYmd/hQeJpvrhxMCleg==
+"@angular/cdk@>=17.0.0", "@angular/cdk@18.2.12":
+  version "18.2.12"
+  resolved "https://registry.npmjs.org/@angular/cdk/-/cdk-18.2.12.tgz"
+  integrity sha512-FOklA6KatPtb0yO0doRhBI/UVY23A8ZhOSws5VuZTQl/6r/jXEXGV9n5JQj4rm8t/6IrReO55hdyw9XfHfZFjQ==
   dependencies:
     tslib "^2.3.0"
   optionalDependencies:
@@ -325,10 +325,10 @@
     fast-glob "3.3.2"
     yargs "^17.2.1"
 
-"@angular/material@^18.2.10":
-  version "18.2.10"
-  resolved "https://registry.npmjs.org/@angular/material/-/material-18.2.10.tgz"
-  integrity sha512-XZISsICpTOzq2qR9yUaWrAz9WZCAh/B457gq/ftkkiiafLwFCvbKur19FFUJO5GX+uVdo074133L85xreOkFFw==
+"@angular/material@^18.2.12":
+  version "18.2.12"
+  resolved "https://registry.npmjs.org/@angular/material/-/material-18.2.12.tgz"
+  integrity sha512-5q8Os6i3D1e3qN+RqP95UgIR+Kx3goncSSYDeT6yPNrdrcqcWdyDPXGK6UsZqTTx/CJee/I7ZxgVVK1YDoVASQ==
   dependencies:
     tslib "^2.3.0"
 
