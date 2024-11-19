@@ -1,7 +1,7 @@
 // Angular import
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { CommonModule, Location, LocationStrategy } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 // project import
 import { NavigationItem, NavigationItems } from '../navigation';
@@ -10,6 +10,7 @@ import { SharedModule } from 'src/app/theme/shared/shared.module';
 import { NavCollapseComponent } from './nav-collapse/nav-collapse.component';
 import { NavGroupComponent } from './nav-group/nav-group.component';
 import { NavItemComponent } from './nav-item/nav-item.component';
+
 
 // icon
 import { IconService } from '@ant-design/icons-angular';
@@ -24,6 +25,7 @@ import {
   BgColorsOutline,
   AntDesignOutline
 } from '@ant-design/icons-angular/icons';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-nav-content',
@@ -42,14 +44,15 @@ export class NavContentComponent implements OnInit {
   title = 'Demo application for version numbering';
   currentApplicationVersion = environment.appVersion;
 
-  navigation = NavigationItems;
   windowWidth = window.innerWidth;
 
   // Constructor
   constructor(
     private location: Location,
     private locationStrategy: LocationStrategy,
-    private iconService: IconService
+    private iconService: IconService,
+    private authService: AuthService, // Add AuthService to constructor
+    private router: Router
   ) {
     this.iconService.addIcon(
       ...[
@@ -64,14 +67,29 @@ export class NavContentComponent implements OnInit {
         QuestionOutline
       ]
     );
-    this.navigations = NavigationItems;
   }
 
   // Life cycle events
   ngOnInit() {
+    // Set navigation items based on user role
+    const userRole = this.authService.decodeToken();; // Get the user's role
+
+    if (userRole.role === 'liquidator'  ) {
+      console.log(NavigationItems)
+      // Show only the AFFIDAVIT group for Liquidator role
+      this.navigations = NavigationItems.filter(item => item.id === 'AFFIDAVIT');
+      this.router.navigate(['/liquidators']);
+
+    } else {
+      this.navigations = NavigationItems; // Adjust to include other roles if needed
+      
+    }
+
+    // Responsive layout setup
     if (this.windowWidth < 1025) {
       (document.querySelector('.coded-navbar') as HTMLDivElement).classList.add('menupos-static');
     }
+  
   }
 
   fireOutClick() {

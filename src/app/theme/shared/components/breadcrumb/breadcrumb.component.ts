@@ -47,6 +47,7 @@ export class BreadcrumbComponent {
     private titleService: Title,
     private iconService: IconService
   ) {
+   
     this.navigations = NavigationItems;
     this.type = 'theme1';
     this.setBreadcrumb();
@@ -60,8 +61,8 @@ export class BreadcrumbComponent {
         const activeLink = router.url;
         const breadcrumbList = this.filterNavigation(this.navigations, activeLink);
         this.navigationList = breadcrumbList;
-        const title = breadcrumbList[breadcrumbList.length - 1]?.title || 'Welcome';
-        this.titleService.setTitle(title + ' | Mantis  Angular Admin Template');
+        const title = breadcrumbList[breadcrumbList.length - 1]?.title || 'DOJ';
+        this.titleService.setTitle(title + ' | Department Justice and constitutional Development RSA');
       }
     });
   }

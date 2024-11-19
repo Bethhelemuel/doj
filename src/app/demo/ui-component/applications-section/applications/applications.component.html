@@ -1,0 +1,125 @@
+<div class="row">
+
+  <div class="col-md-3">
+    <app-card cardTitle="Date Range">
+      <div class="col-md-12">
+        <button type="button" class="btn btn-light d-space form-control" (click)="setToday()">Today</button>
+      </div>
+      <div class="col-md-12">
+        <button type="button" class="btn btn-light d-space form-control" (click)="setYesterday()">Yesterday</button>
+      </div>
+      <div class="col-md-12">
+        <button type="button" class="btn btn-light d-space form-control" (click)="setLast7Days()">Last 7 days</button>
+      </div>
+      <div class="col-md-12">
+        <button type="button" class="btn btn-light d-space form-control" (click)="setLast30Days()">Last 30 days</button>
+      </div>
+      <div class="col-md-12">
+        <button type="button" class="btn btn-light d-space form-control" (click)="setLast3Months()">Last 3 months</button>
+      </div>
+      <div class="col-md-12">
+        <button type="button" class="btn btn-light d-space form-control" (click)="setLast6Months()">Last 6 months</button>
+      </div>
+      <div class="col-md-12">
+        <button type="button" class="btn btn-light d-space form-control" (click)="setLastYear()">Last year</button>
+      </div>
+      <div class="col-md-12">
+        <button type="button" class="btn btn-light d-space form-control" (click)="setThisYear()">This year</button>
+      </div>
+      <div class="col-md-12">
+        
+
+
+
+
+        <div ngbDropdown [autoClose]="'outside'">
+          <button class="btn btn-light d-space form-control" ngbDropdownToggle>Custom date</button>
+          <div ngbDropdownMenu class="date-range">
+            <div class="mb-3">
+              <label for="startDate" class="form-label">Start date</label>
+              <input type="date" id="startDate" [(ngModel)]="customStartDate" class="form-control">
+            </div>
+            <div class="mb-3">
+              <label for="endDate" class="form-label">End date</label>
+              <input type="date" id="endDate" [(ngModel)]="customEndDate" class="form-control">
+            </div>
+        
+            <button type="submit" class="btn btn-primary" (click)="setCustomDateRange()">Apply</button>
+          </div>
+        </div>
+
+
+  
+        
+        
+        
+        
+
+
+
+
+
+      </div>
+      <div class="col-md-12">
+        <button type="button" class="btn btn-primary d-space form-control" (click)="search()" >Search</button>
+      </div>
+
+  </app-card>
+</div>
+    <div class="col-md-9"> 
+      <app-card cardTitle="Calendar">
+
+
+
+    <div id="wrap">
+      <div id="calendar"></div>
+    </div>
+    
+
+
+    
+    
+      </app-card>
+    </div>
+    <div class="col-md-12">
+      <app-card cardTitle="Recent">
+        <table class="table table-hover mb-0">
+          <thead>
+            <tr>
+              <th>USER ID</th>
+              <th>USER NAME</th>
+              <th>APPLIED FOR</th>
+              <th>Date</th>
+              <th class="text-end">APPLICATION STATUS</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><a href="javascript:" class="text-muted">#U001</a></td>
+              <td>John Doe</td>
+              <td>Company Application & Background Check</td>
+              <td> 20 July 2024<small class="text-body-secondary link-opacity-75"> 2 days ago</small></td>
+              <td class="text-end"><span class="badge bg-success">Approved</span></td>
+            </tr>
+            <tr>
+              <td><a href="javascript:" class="text-muted">#U002</a></td>
+              <td>Jane Smith</td>
+              <td>NATIONAL LIST OF LIQUIDATORS</td>
+              <td>122 August 2024<small class="text-body-secondary link-opacity-75"> 4 hours ago</small></td>
+              <td class="text-end"><span class="badge bg-warning">Pending</span></td>
+            </tr>
+            <tr>
+              <td><a href="javascript:" class="text-muted">#U003</a></td> 
+              <td>Robert Brown</td>
+              <td>NATIONAL LIST OF LIQUIDATORS</td>
+              <td> 3 April 2024<small class="text-body-secondary link-opacity-75"> 3 months ago</small></td>
+              <td class="text-end"><span class="badge bg-danger">Rejected</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </app-card>
+    </div>
+    <!-- [ Typography ] end -->
+  </div>
+  <!-- [ Main Content ] end -->
+  

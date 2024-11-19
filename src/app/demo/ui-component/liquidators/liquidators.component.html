@@ -21,8 +21,8 @@
 <!--Step 1-->
       <div class="form-container">
         <h2>Declaration Form</h2>
-        <form [formGroup]="personalInfoForm" (ngSubmit)="onSubmit()">
-          <div class="section" *ngIf="groupOneSection">
+        <form [formGroup]="personalInfoForm" >
+          <div class="section" *ngIf="group1Section">
             <label for="full-name">Full Names and Surname</label>
             <input type="text" id="full-name" formControlName="fullName" placeholder="Enter full name" />
             <div *ngIf="personalInfoForm.get('fullName').invalid && personalInfoForm.get('fullName').touched">
@@ -38,7 +38,7 @@
             <p>The undersigned, (a certified copy of my Identity Document is attached) declare as follows:</p>
           </div>
 
-          <div class="section" *ngIf="groupOneSection">
+          <div class="section" *ngIf="group1Section">
             <h3 class="section-title">2. Personal Information</h3>
             <p>All the information herein contained is within my own personal knowledge and belief both true and correct.</p>
 
@@ -94,14 +94,15 @@
             <div class="section">
               <h3 class="section-title">Submission</h3>
               <p></p>
-              <button type="submit">Save / Next</button>
+              <button type="submit" *ngIf="!section1Details" (click)="PersonalInformationSubmit()">Save / Next</button>
+              <button type="submit" *ngIf="section1Details" (click)="editSection()">Update / Next</button>
             </div>
           </div>
         </form>
 <!--End of Step 1-->
 
         <!--Step 2-->
-        <div class="section" *ngIf="groupTwoSection">
+        <div class="section" *ngIf="group2Section">
           <h3 class="section-title">3. Verification Consent</h3>
           <p>
             I hereby grant the Department of Justice and Constitutional Development and/or the Master of the High Court or any person
@@ -109,9 +110,9 @@
           </p>
         </div>
 
-        <div class="section" *ngIf="groupTwoSection">
+        <div class="section" *ngIf="group2Section">
           <h3 class="section-title">4. Business Information</h3>
-          <form [formGroup]="businessForm" (ngSubmit)="businessInfoSubmit()">
+          <form [formGroup]="businessForm" >
             <label>I conduct or will conduct my insolvency business as follows (tick the correct box):</label>
             <div class="radio-group">
               <label>
@@ -148,8 +149,11 @@
                 <button type="button" (click)="moveGroupOneSection()">Back</button>
               </div>
         
-              <div class="col-6">
-                <button type="submit">Save / Next</button>
+              <div class="col-6" *ngIf="!section2Details">
+                <button type="submit" (click)="businessInfoSubmit()">Save / Next</button>
+              </div>
+              <div class="col-6" *ngIf="section2Details">
+                <button type="submit" (click)="editSection2()">Update / Next</button>
               </div>
             </div>
           </form>
@@ -158,9 +162,9 @@
 
 <!--Step 3-->
         <!-- Section 5: Employment Details -->
-        <div class="section" *ngIf="groupThreeSection">
+        <div class="section" *ngIf="group3Section">
           <h3 class="section-title">5. Employment Details</h3>
-          <form [formGroup]="empBusTradingForm" (ngSubmit)="empBusTradingSubmit()">
+          <form [formGroup]="empBusTradingForm" >
             
             <label for="employer-name">I am employed as an insolvency practitioner by:</label>
             <input type="text" id="employer-name" name="employerName" formControlName="employerName" placeholder="Enter employer's name" />
@@ -196,16 +200,16 @@
             <div *ngIf="empBusTradingForm.get('partnersOrDirectors').invalid && empBusTradingForm.get('partnersOrDirectors').touched">
               <small class="error">Full names of Partners or Directors are required.</small>
             </div>
-        >
+        
         
           </form> <!-- End of form for Section 5 -->
         </div>
         
         <!-- Section 6: Business Trading Details -->
-        <div class="section" *ngIf="groupThreeSection">
+        <div class="section" *ngIf="group3Section">
           <h3 class="section-title">6. Business Trading Details</h3>
         
-          <form [formGroup]="empBusTradingForm" (ngSubmit)="empBusTradingSubmit()">
+          <form [formGroup]="empBusTradingForm" >
             <label for="business-name">6.1. My main business trades under the name and style of:</label>
             <input type="text" id="business-name" name="businessName" formControlName="businessName" placeholder="Enter business name and style" />
             <div *ngIf="empBusTradingForm.get('businessName').invalid && empBusTradingForm.get('businessName').touched">
@@ -242,7 +246,8 @@
               </div>
         
               <div class="col-6">
-                <button type="submit">Save / Next</button>
+                <button type="submit" (click)="empBusTradingSubmit()" *ngIf="!section3Details">Save / Next</button>
+                <button type="submit" (click)="editSection3()" *ngIf="section3Details">Update / Next</button>
               </div>
             </div>
           </form>
@@ -253,9 +258,9 @@
 
         <!--Step 4-->
         <!-- Section 7: Business Infrastructure Details -->
-        <div class="section" *ngIf="groupFourSection">
+        <div class="section" *ngIf="group4Section">
           <h3 class="section-title">7. Business Infrastructure Details</h3>
-          <form [formGroup]="businessDetailsOfficeForm" (ngSubmit)="businessDetailsOfficeSubmit()">
+          <form [formGroup]="businessDetailsOfficeForm" >
 
           <p>Please address this section by confirming the following information regarding your main business and satellite offices.</p>
 
@@ -310,9 +315,9 @@
         </div>
 
         <!-- Section 8: Office Addresses in Other Provinces -->
-        <div class="section" *ngIf="groupFourSection">
+        <div class="section" *ngIf="group4Section">
           <h3 class="section-title">8. Office Addresses in Other Provinces</h3>
-          <form [formGroup]="businessDetailsOfficeForm" (ngSubmit)="businessDetailsOfficeSubmit()">
+          <form [formGroup]="businessAdressDetailsForm" >
 
           <p>
             Please provide your office addresses in other provinces and include (where applicable) the same information as set out in
@@ -327,7 +332,7 @@
             rows="3"
             placeholder="Enter the office address for the first province"
           ></textarea>
-          <div *ngIf="businessDetailsOfficeForm.get('provinceOfficeAddress1').invalid && businessDetailsOfficeForm.get('provinceOfficeAddress1').touched">
+          <div *ngIf="businessAdressDetailsForm.get('provinceOfficeAddress1').invalid && businessAdressDetailsForm.get('provinceOfficeAddress1').touched">
             <small class="error">Office address is required.</small>
           </div>
 
@@ -339,7 +344,7 @@
             rows="4"
             placeholder="Provide additional information such as proof of rental, staff, or equipment"
           ></textarea>
-          <div *ngIf="businessDetailsOfficeForm.get('provinceDetails1').invalid && businessDetailsOfficeForm.get('provinceDetails1').touched">
+          <div *ngIf="businessAdressDetailsForm.get('provinceDetails1').invalid && businessAdressDetailsForm.get('provinceDetails1').touched">
             <small class="error">Additional details is required.</small>
           </div>
 
@@ -351,7 +356,7 @@
             rows="3"
             placeholder="Enter the office address for the second province"
           ></textarea>
-          <div *ngIf="businessDetailsOfficeForm.get('provinceOfficeAddress2').invalid && businessDetailsOfficeForm.get('provinceOfficeAddress2').touched">
+          <div *ngIf="businessAdressDetailsForm.get('provinceOfficeAddress2').invalid && businessAdressDetailsForm.get('provinceOfficeAddress2').touched">
             <small class="error">Office address is required.</small>
           </div>
 
@@ -363,7 +368,7 @@
             rows="4"
             placeholder="Provide additional information for the second province office"
           ></textarea>
-          <div *ngIf="businessDetailsOfficeForm.get('provinceDetails2').invalid && businessDetailsOfficeForm.get('provinceDetails2').touched">
+          <div *ngIf="businessAdressDetailsForm.get('provinceDetails2').invalid && businessAdressDetailsForm.get('provinceDetails2').touched">
             <small class="error">Additional Details is required.</small>
           </div>
 
@@ -375,7 +380,7 @@
             rows="3"
             placeholder="Enter the office address for the third province"
           ></textarea>
-          <div *ngIf="businessDetailsOfficeForm.get('provinceOfficeAddress3').invalid && businessDetailsOfficeForm.get('provinceOfficeAddress3').touched">
+          <div *ngIf="businessAdressDetailsForm.get('provinceOfficeAddress3').invalid && businessAdressDetailsForm.get('provinceOfficeAddress3').touched">
             <small class="error">Office address is required.</small>
           </div>
 
@@ -387,7 +392,7 @@
             rows="4"
             placeholder="Provide additional information for the third province office"
           ></textarea>
-          <div *ngIf="businessDetailsOfficeForm.get('provinceDetails3').invalid && businessDetailsOfficeForm.get('provinceDetails3').touched">
+          <div *ngIf="businessAdressDetailsForm.get('provinceDetails3').invalid && businessAdressDetailsForm.get('provinceDetails3').touched">
             <small class="error">Additional details is required.</small>
           </div>
           <p></p>
@@ -398,7 +403,8 @@
             
 
             <div class="col-6">
-              <button type="submit">Save / Next</button>
+              <button type="submit" (click)="businessDetailsOfficeSubmit()" >Save / Next</button>
+              <button type="submit"  *ngIf="section4Details && section5Details">Update / Next</button>
             </div>
           </div>
         </form>
@@ -407,7 +413,7 @@
 
        <!--Step 5-->
         <!-- Section 9: Relevant Qualifications -->
-        <div class="section" *ngIf="groupFiveSection">
+        <div class="section" *ngIf="group5Section">
           <h3 class="section-title">9. Relevant Qualifications</h3>
           <form [formGroup]="qualProMembershipForm" (ngSubmit)="qualProMembershipSubmit()">
 
@@ -424,7 +430,7 @@
         </div>
 
         <!-- Section 10: Professional Memberships -->
-        <div class="section" *ngIf="groupFiveSection">
+        <div class="section" *ngIf="group5Section">
           <h3 class="section-title">10. Professional Memberships</h3>
           <form [formGroup]="qualProMembershipForm" (ngSubmit)="qualProMembershipSubmit()">
 
@@ -457,7 +463,7 @@
 
        <!--Step 6-->
         <!-- Section 11: Disqualification Provision -->
-        <div class="section" *ngIf="groupSixSection">
+        <div class="section" *ngIf="group6Section">
           <h3 class="section-title">11. Disqualification Provision</h3>
           <form [formGroup]="disqualRelationshipForm" (ngSubmit)="disqualRelationshipSubmit()">
 
@@ -476,7 +482,7 @@
         </div>
 
         <!-- Section 12: Relationship Disclosure -->
-        <div class="section" *ngIf="groupSixSection">
+        <div class="section" *ngIf="group6Section">
           <h3 class="section-title">12. Relationship Disclosure</h3>
           <form [formGroup]="disqualRelationshipForm" (ngSubmit)="disqualRelationshipSubmit()">
 
@@ -519,7 +525,7 @@
 
            <!--Step 7-->
         <!-- Section 13: Appointment Locations -->
-        <div class="section" *ngIf="groupSevenSection">
+        <div class="section" *ngIf="group7Section">
           <h3 class="section-title">13. Appointment Locations</h3>
           <form [formGroup]="appEmpHistoryForm" (ngSubmit)="appEmpHistorySubmit()">
 
@@ -602,7 +608,7 @@
         </div>
 
         <!-- Section 14: Employment History -->
-        <div class="section" *ngIf="groupSevenSection">
+        <div class="section" *ngIf="group7Section">
           <h3 class="section-title">14. Employment History</h3>
           <form [formGroup]="appEmpHistoryForm" (ngSubmit)="appEmpHistorySubmit()">
 
@@ -631,7 +637,7 @@
 
          <!--step 8-->
         <!-- Section 15: Tax Clearance -->
-        <div class="section" *ngIf="groupEightSection">
+        <div class="section" *ngIf="group8Section">
           <h3 class="section-title">15. Tax Clearance</h3>
           <form [formGroup]="taxBondBankForm" (ngSubmit)="taxBondBankSubmit()">
 
@@ -654,7 +660,7 @@
         </div>
 
         <!-- Section 16: Bond Facility -->
-        <div class="section" *ngIf="groupEightSection">
+        <div class="section" *ngIf="group8Section">
           <h3 class="section-title">16. Bond Facility</h3>
 
           <p>
@@ -665,7 +671,7 @@
         </div>
 
         <!-- Section 17: Bank Account Documentation -->
-        <div class="section" *ngIf="groupEightSection">
+        <div class="section" *ngIf="group8Section">
           <h3 class="section-title">17. Bank Account Documentation</h3>
           <form [formGroup]="taxBondBankForm" (ngSubmit)="taxBondBankSubmit()">
 
@@ -682,7 +688,7 @@
         </div>
 
         <!-- Section 18: Declaration -->
-        <div class="section" *ngIf="groupEightSection">
+        <div class="section" *ngIf="group8Section">
           <h3 class="section-title">18. Declaration</h3>
           <form [formGroup]="taxBondBankForm" (ngSubmit)="taxBondBankSubmit()">
 
@@ -705,7 +711,7 @@
         </div>
 
         <!-- Final Submission -->
-        <div class="section" *ngIf="groupEightSection">
+        <div class="section" *ngIf="group8Section">
           <h3 class="section-title">Submission</h3>
           <form [formGroup]="taxBondBankForm" (ngSubmit)="taxBondBankSubmit()">
 
@@ -867,15 +873,17 @@
       <div class="progress-container">
         <div class="progress-step" data-step="1" (click)="moveGroupOneSection()">
           <a>
-            <div class="progress-step-wrapper">             
-              <div *ngIf="!groupOneSectionEdit && !groupOneSectionValid" class="circle" [ngClass]="groupOneSectionCircle">1</div>             
-              <div *ngIf="groupOneSectionEdit && !groupOneSectionValid" class="circle edit-active-circle" [ngClass]="groupOneSectionCircle">
+            <div class="progress-step-wrapper">   
+               
+              <div *ngIf="!group1SectionEdit && !group1SectionValid && !section1Details" class="circle" [ngClass]="group1SectionCircle">1</div>             
+              <div *ngIf="group1SectionEdit && !group1SectionValid" class="circle edit-active-circle" [ngClass]="group1SectionCircle">
                 <i class="fas fa-edit"></i>
               </div>             
-              <div *ngIf="groupOneSectionValid" class="circle valid-active-circle" [ngClass]="groupOneSectionCircle">
+              <div *ngIf="group1SectionValid" class="circle valid-active-circle" [ngClass]="group1SectionCircle">
                 <i class="fas fa-check"></i>
               </div>
-              <div class="text" [ngClass]="groupOneSectionText">Step 1: Personal Info</div>
+       
+              <div class="text" [ngClass]="group1SectionText">Step 1: Personal Info</div>
             </div>
           </a>
         </div>
@@ -883,98 +891,98 @@
         <div class="progress-step" data-step="2" (click)="moveGroupTwoSection()">
           <a>
             <div class="progress-step-wrapper">             
-              <div *ngIf="!groupTwoSectionEdit && !groupTwoSectionValid" class="circle" [ngClass]="groupTwoSectionCircle">2</div>             
-              <div *ngIf="groupTwoSectionEdit && !groupTwoSectionValid" class="circle edit-active-circle" [ngClass]="groupTwoSectionCircle">
+              <div *ngIf="!group2SectionEdit && !group2SectionValid" class="circle" [ngClass]="group2SectionCircle">2</div>             
+              <div *ngIf="group2SectionEdit && !group2SectionValid" class="circle edit-active-circle" [ngClass]="group2SectionCircle">
                 <i class="fas fa-edit"></i>
               </div>             
-              <div *ngIf="groupTwoSectionValid" class="circle valid-active-circle" [ngClass]="groupTwoSectionCircle">
+              <div *ngIf="group2SectionValid" class="circle valid-active-circle" [ngClass]="group2SectionCircle">
                 <i class="fas fa-check"></i>
               </div>
-              <div class="text" [ngClass]="groupTwoSectionText">Step 2: Verification & Business Information</div>
+              <div class="text" [ngClass]="group2SectionText">Step 2: Verification & Business Information</div>
             </div>
           </a>
         </div>
         <div class="progress-step" data-step="3" (click)="moveGroupThreeSection()">
           <a>
             <div class="progress-step-wrapper">             
-              <div *ngIf="!groupThreeSectionEdit && !groupThreeSectionValid" class="circle" [ngClass]="groupThreeSectionCircle">3</div>             
-              <div *ngIf="groupThreeSectionEdit && !groupThreeSectionValid" class="circle edit-active-circle" [ngClass]="groupThreeSectionCircle">
+              <div *ngIf="!group3SectionEdit && !group3SectionValid" class="circle" [ngClass]="group3SectionCircle">3</div>             
+              <div *ngIf="group3SectionEdit && !group3SectionValid" class="circle edit-active-circle" [ngClass]="group3SectionCircle">
                 <i class="fas fa-edit"></i>
               </div>             
-              <div *ngIf="groupThreeSectionValid" class="circle valid-active-circle" [ngClass]="groupThreeSectionCircle">
+              <div *ngIf="group3SectionValid" class="circle valid-active-circle" [ngClass]="group3SectionCircle">
                 <i class="fas fa-check"></i>
               </div>
-              <div class="text" [ngClass]="groupThreeSectionText">Step 3: Employment & Business Trading Details</div>
+              <div class="text" [ngClass]="group3SectionText">Step 3: Employment & Business Trading Details</div>
             </div>
           </a>
         </div>
         <div class="progress-step" data-step="4" (click)="moveGroupFourSection()">
           <a>
             <div class="progress-step-wrapper">             
-              <div *ngIf="!groupFourSectionEdit && !groupFourSectionValid" class="circle" [ngClass]="groupFourSectionCircle">4</div>             
-              <div *ngIf="groupFourSectionEdit && !groupFourSectionValid" class="circle edit-active-circle" [ngClass]="groupFourSectionCircle">
+              <div *ngIf="!group4SectionEdit && !group4SectionValid" class="circle" [ngClass]="group4SectionCircle">4</div>             
+              <div *ngIf="group4SectionEdit && !group4SectionValid" class="circle edit-active-circle" [ngClass]="group4SectionCircle">
                 <i class="fas fa-edit"></i>
               </div>             
-              <div *ngIf="groupFourSectionValid" class="circle valid-active-circle" [ngClass]="groupFourSectionCircle">
+              <div *ngIf="group4SectionValid" class="circle valid-active-circle" [ngClass]="group4SectionCircle">
                 <i class="fas fa-check"></i>
               </div>
-              <div class="text" [ngClass]="groupFourSectionText">Step 4: Business Details & Office Addresses</div>
+              <div class="text" [ngClass]="group4SectionText">Step 4: Business Details & Office Addresses</div>
             </div>
           </a>
         </div>
         <div class="progress-step" data-step="5" (click)="moveGroupFiveSection()">
           <a>
             <div class="progress-step-wrapper">             
-              <div *ngIf="!groupFiveSectionEdit && !groupFiveSectionValid" class="circle" [ngClass]="groupFiveSectionCircle">5</div>             
-              <div *ngIf="groupFiveSectionEdit && !groupFiveSectionValid" class="circle edit-active-circle" [ngClass]="groupFiveSectionCircle">
+              <div *ngIf="!group5SectionEdit && !group5SectionValid" class="circle" [ngClass]="group5SectionCircle">5</div>             
+              <div *ngIf="group5SectionEdit && !group5SectionValid" class="circle edit-active-circle" [ngClass]="group5SectionCircle">
                 <i class="fas fa-edit"></i>
               </div>             
-              <div *ngIf="groupFiveSectionValid" class="circle valid-active-circle" [ngClass]="groupFiveSectionCircle">
+              <div *ngIf="group5SectionValid" class="circle valid-active-circle" [ngClass]="group5SectionCircle">
                 <i class="fas fa-check"></i>
               </div>
-              <div class="text" [ngClass]="groupFiveSectionText">Step 5: Qualifications & Professional Memberships</div>
+              <div class="text" [ngClass]="group5SectionText">Step 5: Qualifications & Professional Memberships</div>
             </div>
           </a>
         </div>
         <div class="progress-step" data-step="6" (click)="moveGroupSixSection()">
           <a>
             <div class="progress-step-wrapper">             
-              <div *ngIf="!groupSixSectionEdit && !groupSixSectionValid" class="circle" [ngClass]="groupSixSectionCircle">6</div>             
-              <div *ngIf="groupSixSectionEdit && !groupSixSectionValid" class="circle edit-active-circle" [ngClass]="groupSixSectionCircle">
+              <div *ngIf="!group6SectionEdit && !group6SectionValid" class="circle" [ngClass]="group6SectionCircle">6</div>             
+              <div *ngIf="group6SectionEdit && !group6SectionValid" class="circle edit-active-circle" [ngClass]="group6SectionCircle">
                 <i class="fas fa-edit"></i>
               </div>             
-              <div *ngIf="groupSixSectionValid" class="circle valid-active-circle" [ngClass]="groupSixSectionCircle">
+              <div *ngIf="group6SectionValid" class="circle valid-active-circle" [ngClass]="group6SectionCircle">
                 <i class="fas fa-check"></i>
               </div>
-              <div class="text" [ngClass]="groupSixSectionText">Step 6: Disqualification & Relationship Disclosure</div>
+              <div class="text" [ngClass]="group6SectionText">Step 6: Disqualification & Relationship Disclosure</div>
             </div>
           </a>
         </div>
         <div class="progress-step" data-step="7" (click)="moveGroupSevenSection()">
           <a>
             <div class="progress-step-wrapper">             
-              <div *ngIf="!groupSevenSectionEdit && !groupSevenSectionValid" class="circle" [ngClass]="groupSevenSectionCircle">7</div>             
-              <div *ngIf="groupSevenSectionEdit && !groupSevenSectionValid" class="circle edit-active-circle" [ngClass]="groupSevenSectionCircle">
+              <div *ngIf="!group7SectionEdit && !group7SectionValid" class="circle" [ngClass]="group7SectionCircle">7</div>             
+              <div *ngIf="group7SectionEdit && !group7SectionValid" class="circle edit-active-circle" [ngClass]="group7SectionCircle">
                 <i class="fas fa-edit"></i>
               </div>             
-              <div *ngIf="groupSevenSectionValid" class="circle valid-active-circle" [ngClass]="groupSevenSectionCircle">
+              <div *ngIf="group7SectionValid" class="circle valid-active-circle" [ngClass]="group7SectionCircle">
                 <i class="fas fa-check"></i>
               </div>
-              <div class="text" [ngClass]="groupSevenSectionText">Step 7: Appointment & Employment History</div>
+              <div class="text" [ngClass]="group7SectionText">Step 7: Appointment & Employment History</div>
             </div>
           </a>
         </div>
         <div class="progress-step" data-step="8" (click)="moveGroupEightSection()">
           <a>
             <div class="progress-step-wrapper">             
-              <div *ngIf="!groupEightSectionEdit && !groupEightSectionValid" class="circle" [ngClass]="groupEightSectionCircle">8</div>             
-              <div *ngIf="groupEightSectionEdit && !groupEightSectionValid" class="circle edit-active-circle" [ngClass]="groupEightSectionCircle">
+              <div *ngIf="!group8SectionEdit && !group8SectionValid" class="circle" [ngClass]="group8SectionCircle">8</div>             
+              <div *ngIf="group8SectionEdit && !group8SectionValid" class="circle edit-active-circle" [ngClass]="group8SectionCircle">
                 <i class="fas fa-edit"></i>
               </div>             
-              <div *ngIf="groupEightSectionValid" class="circle valid-active-circle" [ngClass]="groupEightSectionCircle">
+              <div *ngIf="group8SectionValid" class="circle valid-active-circle" [ngClass]="group8SectionCircle">
                 <i class="fas fa-check"></i>
               </div>
-              <div class="text" [ngClass]="groupEightSectionText">Step 8: Tax Clearance, Bond Facility & Bank Account Documentation & Declaration</div>
+              <div class="text" [ngClass]="group8SectionText">Step 8: Tax Clearance, Bond Facility & Bank Account Documentation & Declaration</div>
             </div>
           </a>
         </div>
