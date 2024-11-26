@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { RouterModule } from '@angular/router';
@@ -15,75 +15,64 @@ import { OtpComponent } from '../otp/otp.component';
   styleUrls: ['./register.component.scss']
 })
 export default class RegisterComponent {
-  SignUpOptions = [
-    {
-      image: 'assets/images/authentication/google.svg',
-      name: 'Google'
-    },
-    {
-      image: 'assets/images/authentication/twitter.svg',
-      name: 'Twitter'
-    },
-    {
-      image: 'assets/images/authentication/facebook.svg',
-      name: 'Facebook'
-    }
-  ];
-
-  signUpForm: FormGroup; // Form group for the sign-up form
-  submitted: boolean = false; // Track form submission status
+  signUpForm: FormGroup;
   showPassword: boolean = false;
   showConfirmPassword: boolean = false;
 
   alertMessage: string = '';
-  alertType: 'success' | 'danger' | 'warning' | 'info' = 'info';
-  alertVisible: boolean = false; // Track the alert's visibility
-  alertTimeout: any; // To store the timeout ID
+  alertType: 'success' | 'danger' = 'danger';
+  alertVisible: boolean = false;
+  alertTimeout: any;
 
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
     this.initializeForm();
-    this.signUpForm.get('role').disable();
+    this.onFormChanges();
   }
 
   // Initialize the form with default controls and validators
   initializeForm(): void {
     this.signUpForm = this.formBuilder.group(
       {
-        firstName: ['', [Validators.required, Validators.minLength(2)]],
-        lastName: ['', [Validators.required, Validators.minLength(2)]],
+        firstName: ['', Validators.required],
+        lastName: ['', Validators.required],
         emailAddress: ['', [Validators.required, Validators.email]],
         role: ['', Validators.required],
         password: ['', [Validators.required, Validators.minLength(6)]],
-        confirmPassword: ['', [Validators.required]]
+        confirmPassword: ['', Validators.required]
       },
-      {
-        validator: this.passwordMatchValidator // Custom validator for password match
-      }
+      { validator: this.passwordMatchValidator }
     );
 
-    // Subscribe to emailAddress changes
-    this.signUpForm.get('emailAddress').valueChanges.subscribe((email) => {
-      if (this.signUpForm.get('emailAddress').valid) {
-        this.signUpForm.get('role').enable(); // Enable the role field if email is valid
-
-        // Set role based on email domain
+    // Enable/disable role based on email validity
+    this.signUpForm.get('emailAddress')?.valueChanges.subscribe((email) => {
+      const roleControl = this.signUpForm.get('role');
+      if (this.signUpForm.get('emailAddress')?.valid) {
+        roleControl?.enable();
         if (email.endsWith('@justice.gov.za')) {
-          this.signUpForm.get('role').disable();
-          this.signUpForm.get('role').setValue('official');
+          roleControl?.setValue('official');
+          roleControl?.disable();
         } else {
-          this.signUpForm.get('role').setValue('liquidator');
-          this.signUpForm.get('role').disable();
+          roleControl?.setValue('liquidator');
+          roleControl?.disable();
         }
       } else {
-        this.signUpForm.get('role').disable(); // Disable the role field if email is invalid
-        this.signUpForm.get('role').setValue(''); // Clear the role field
+        roleControl?.disable();
+        roleControl?.setValue('');
       }
+    });
+  }
+
+  // Detect changes and trigger manual change detection for error updates
+  private onFormChanges(): void {
+    this.signUpForm.valueChanges.subscribe(() => {
+      this.cdr.detectChanges();
     });
   }
 
@@ -91,7 +80,6 @@ export default class RegisterComponent {
   passwordMatchValidator(form: FormGroup) {
     const password = form.get('password')?.value;
     const confirmPassword = form.get('confirmPassword')?.value;
-
     return password === confirmPassword ? null : { mismatch: true };
   }
 
@@ -103,70 +91,58 @@ export default class RegisterComponent {
     this.showConfirmPassword = !this.showConfirmPassword;
   }
 
-  // Handle form submission
   onSubmit() {
     if (this.signUpForm.valid) {
-      this.authService
-        .register({
-          firstName: this.signUpForm.get('firstName')?.value,
-          lastName: this.signUpForm.get('lastName')?.value,
-          email: this.signUpForm.get('emailAddress')?.value,
-          password: this.signUpForm.get('confirmPassword')?.value,
-          role: this.signUpForm.get('role')?.value
-        })
-        .subscribe({
-          next: (response) => {
-            // Show the success alert
-            this.showAlert(response.message, 'success');
-  
-            // Set a timeout to close the alert and open the OTP modal in sync
-            setTimeout(() => {
-              // Close the alert
-              this.closeAlert();  // Assuming you have a method to close the alert
-  
-              // Open the OTP modal
-              const dialogRef = this.dialog.open(OtpComponent, {
-                data: {
-                  email: this.signUpForm.get('emailAddress')?.value,
-                }
-              });
-            }, 3000); // Adjust the timeout duration as needed
-          },
-          error: (error) => {
-            // Show an error alert if registration fails
-            this.showAlert(error.error.message, 'danger');
-          }
-        });
+      this.authService.register({
+        firstName: this.signUpForm.get('firstName')?.value,
+        lastName: this.signUpForm.get('lastName')?.value,
+        email: this.signUpForm.get('emailAddress')?.value,
+        password: this.signUpForm.get('password')?.value,
+        role: this.signUpForm.get('role')?.value
+      }).subscribe({
+        next: (response) => {
+          this.showAlert(response.message, 'success');
+          setTimeout(() => {
+            this.closeAlert();
+            this.dialog.open(OtpComponent, {
+              data: {
+                email: this.signUpForm.get('emailAddress')?.value,
+              }
+            });
+          }, 3000);
+        },
+        error: (error) => {
+          this.showAlert(error.error.message, 'danger');
+        }
+      });
     } else {
-      // Show an alert if form validation fails
       this.showAlert('Please fill in all required fields correctly.', 'danger');
     }
   }
-  
 
   showAlert(message: string, type: 'success' | 'danger') {
     this.alertMessage = message;
     this.alertType = type;
     this.alertVisible = true;
 
-    // Clear any existing timeout to prevent multiple timeouts running
     if (this.alertTimeout) {
       clearTimeout(this.alertTimeout);
     }
 
-    // Hide the alert after 5 seconds (5000 milliseconds)
     this.alertTimeout = setTimeout(() => {
-      this.alertVisible = false; // Hide the alert after the specified time
-    }, 5000);
+      this.alertVisible = false;
+      this.cdr.detectChanges(); // Ensure the view updates when the alert disappears
+    }, 3000);
   }
 
   closeAlert() {
-    this.alertVisible = false; // Hide the alert
+    this.alertVisible = false;
     if (this.alertTimeout) {
-      clearTimeout(this.alertTimeout); // Clear timeout if alert is closed manually
+      clearTimeout(this.alertTimeout);
     }
+    this.cdr.detectChanges();
   }
-  // Utility getter to access form controls easily
+
   get f() {
     return this.signUpForm.controls;
   }

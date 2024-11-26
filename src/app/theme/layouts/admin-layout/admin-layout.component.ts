@@ -21,6 +21,10 @@ export class AdminComponent {
   navCollapsed: boolean;
   navCollapsedMob: boolean;
 
+  ngOnInit() {
+   
+  }
+
   // public method
   navMobClick() {
     if (this.navCollapsedMob && !document.querySelector('app-navigation.pc-sidebar')?.classList.contains('mob-open')) {

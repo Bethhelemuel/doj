@@ -1,5 +1,5 @@
 // angular import
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
@@ -11,16 +11,19 @@ export class AppComponent {
   // public props
   showApprovalStatus = false;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private cdr: ChangeDetectorRef) {}
 
-  ngOnInit(): void {
+  ngOnInit(): void { 
+
     // Listen for the NavigationEnd event to get the final URL
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         console.log(event.url) 
         // Check if the URL matches /approval-status
         this.showApprovalStatus = event.url.includes('/approval-status')  ;
+      //  window.location.reload();
       }
     });
+   
   }
 }

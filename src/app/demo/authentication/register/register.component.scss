@@ -2,26 +2,26 @@
   position: relative;
   display: flex;
   justify-content: center;
-  align-items: flex-start; /* Align items to the start to show the logo */
+  align-items: flex-start;
   background-color: #f5f7fa;
-  padding-top: 20px; /* Add padding to the top for some space */
+  padding-top: 20px;
 }
 
 .auth-bg {
   position: absolute;
-  top: 0; /* Start from the top */
+  top: 0;
   left: 0;
   width: 100%;
-  height: 200px; /* Adjust the height as needed */
+  height: 200px;
   background: url('../../../../assets/images/authentication/img-auth-bg.svg') no-repeat center top;
-  background-size: cover; /* Ensure the image covers the area without distortion */
-  z-index: -1; /* Keeps the image behind the form */
+  background-size: cover;
+  z-index: -1;
 }
 
 .auth-wrapper {
   width: 100%;
-  max-width: 600px; /* Decreased width of the signup container */
-  margin: 0 auto; /* Centering the container */
+  max-width: 600px;
+  margin: 0 auto;
 
   .auth-form {
     padding: 2rem;
@@ -36,22 +36,22 @@
     }
 
     .card-body {
-      padding: 1rem; /* Reduced padding */
+      padding: 1rem;
     }
 
     .form-control {
       border: 1px solid #e1e3e6;
       border-radius: 0.25rem;
-      padding: 0.75rem;
+      padding-right: 2.5rem; /* Space for the eye icon */
+      height: 2.5rem; /* Consistent height */
       transition: all 0.2s ease;
-
+      padding-right: 2.5rem; /* Space for the eye icon */
+      
       &:focus {
         border-color: #007bff;
         box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
       }
     }
-
-    margin-bottom: 1rem; /* Reduced space between form groups */
 
     .btn-primary {
       padding: 0.75rem;
@@ -66,8 +66,8 @@
     }
 
     .auth-header img {
-      max-width: 100%; /* Make sure the logo fits */
-      height: auto; /* Maintain aspect ratio */
+      max-width: 100%;
+      height: auto;
     }
 
     .error {
@@ -75,9 +75,6 @@
       font-size: 0.9em;
       margin-top: 5px;
     }
-    
-  
-    
 
     .auth-footer {
       font-size: 0.875rem;
@@ -95,23 +92,24 @@
     }
   }
 }
+
 .position-relative {
   position: relative;
 }
 
 .show-hide-icon {
   position: absolute;
-  right: 15px; /* Adjust spacing from the right */
-  top: 70%; /* Center vertically */
-  transform: translateY(-50%); /* Shift back up by half its height */
+  right: 15px; /* Align to the right of the input field */
+  top: 50%; /* Center vertically */
+  transform: translateY(-50%); /* Precise vertical centering */
   color: #6c757d; /* Default color */
-  font-size: 1.2em; /* Adjust size as necessary */
-  cursor: pointer; /* Indicate clickable */
-  pointer-events: all; /* Ensure clicks are registered */
+  font-size: 1.2em; /* Adjust the icon size if needed */
+  cursor: pointer; /* Indicates that the icon is clickable */
+  pointer-events: all; /* Ensure the icon is clickable */
 }
 
 .show-hide-icon:hover {
-  color: #007bff; /* Change color on hover */
+  color: #007bff;
 }
 
 .alert {
