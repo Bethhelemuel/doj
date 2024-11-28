@@ -1,123 +1,180 @@
-<div class="row">
-    <!-- First Table: Companies Applying -->
-    <div class="col-md-12 col-xl-8">
-      <h5 class="mb-3">Recent Applications - Companies Applying</h5>
-      <div class="card tbl-card">
-        <div class="table-responsive">
-          <table class="table table-hover mb-0">
-            <thead>
-              <tr>
-                <th>TRACKING NO.</th>
-                <th>COMPANY NAME</th>
-                <th>STATUS</th>
-                <th class="text-end">TOTAL Applications</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><a href="javascript:" class="text-muted">#12345</a></td>
-                <td>ABC Tech Solutions</td>
-                <td><span class="d-block"><i class="badge-circle bg-success f-10 m-r-5"></i> Approved</span></td>
-                <td class="text-end">50</td>
-              </tr>
-              <tr>
-                <td><a href="javascript:" class="text-muted">#67890</a></td>
-                <td>XYZ Innovations</td>
-                <td><span class="d-block"><i class="badge-circle bg-warning f-10 m-r-5"></i> Pending</span></td>
-                <td class="text-end">30</td>
-              </tr>
-              <tr>
-                <td><a href="javascript:" class="text-muted">#11223</a></td>
-                <td>Global Corp</td>
-                <td><span class="d-block"><i class="badge-circle bg-danger f-10 m-r-5"></i> Rejected</span></td>
-                <td class="text-end">70</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+<div class="container">
+  <!-- Current Opening and Closing Dates Section -->
+  <div class="dates-section mb-4 p-3 rounded">
+    <div class="d-flex justify-content-between align-items-center">
+      <h5 class="section-title">Current Application Period</h5>
+      <div>
+        <span><strong>Opening Date:</strong> {{ currentPeriod?.opening_date }}</span>
+        <span class="ms-4"><strong>Closing Date:</strong> {{ currentPeriod?.closing_date }}</span>
       </div>
     </div>
   </div>
-  
-  <div class="row mt-4">
-    <!-- Second Table: Background Checks -->
-    <div class="col-md-12 col-xl-8">
-      <h5 class="mb-3">Recent Applications - Background Checks</h5>
-      <div class="card tbl-card">
-        <div class="table-responsive">
-          <table class="table table-hover mb-0">
-            <thead>
-              <tr>
-                <th>CHECK ID</th>
-                <th>COMPANY NAME</th>
-                <th>STATUS</th>
-                <th class="text-end">TOTAL Checks</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><a href="javascript:" class="text-muted">#BC001</a></td>
-                <td>ABC Tech Solutions</td>
-                <td><span class="d-block"><i class="badge-circle bg-success f-10 m-r-5"></i> Clear</span></td>
-                <td class="text-end">25</td>
-              </tr>
-              <tr>
-                <td><a href="javascript:" class="text-muted">#BC002</a></td>
-                <td>XYZ Innovations</td>
-                <td><span class="d-block"><i class="badge-circle bg-warning f-10 m-r-5"></i> In Progress</span></td>
-                <td class="text-end">15</td>
-              </tr>
-              <tr>
-                <td><a href="javascript:" class="text-muted">#BC003</a></td>
-                <td>Global Corp</td>
-                <td><span class="d-block"><i class="badge-circle bg-danger f-10 m-r-5"></i> Issue Found</span></td>
-                <td class="text-end">40</td>
-              </tr>
-            </tbody>
-          </table>
+
+  <!-- Summary Section -->
+  <div class="container">
+    <div class="summary-section d-flex justify-content-between align-items-center p-3 rounded shadow-sm">
+      <div class="summary-item">
+        <div class="icon text-primary me-2">
+          <i class="fas fa-file-alt"></i>
         </div>
+        <span>Total Applications:</span>
+        <strong class="summary-value">{{summary.total}}</strong>
+      </div>
+
+
+      <div class="summary-item">
+        <div class="icon text-warning me-2">
+          <i class="fas fa-hourglass-half"></i>
+        </div>
+        <span>Submitted:</span>
+        <strong class="summary-value">{{ (summary.reviewed ) + (summary.draft) + (summary.submitted)}}</strong>
+      </div>
+
+      <div class="summary-item">
+        <div class="icon text-success me-2">
+          <i class="fas fa-check-circle"></i>
+        </div>
+        <span>Approved:</span>
+        <strong class="summary-value">{{summary.approved}}</strong>
+      </div>
+ 
+      <div class="summary-item">
+        <div class="icon text-danger me-2">
+          <i class="fas fa-times-circle"></i>
+        </div>
+        <span>Rejected:</span>
+        <strong class="summary-value">{{summary.rejected}}</strong>
       </div>
     </div>
   </div>
-  
-  <div class="row mt-4">
-    <!-- Third Table: Users Applying for Both -->
-    <div class="col-md-12 col-xl-8">
-      <h5 class="mb-3">Recent Applications - Users Applying for First and Second</h5>
-      <div class="card tbl-card">
-        <div class="table-responsive">
-          <table class="table table-hover mb-0">
-            <thead>
-              <tr>
-                <th>USER ID</th>
-                <th>USER NAME</th>
-                <th>APPLIED FOR</th>
-                <th class="text-end">APPLICATION STATUS</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><a href="javascript:" class="text-muted">#U001</a></td>
-                <td>John Doe</td>
-                <td>Company Application & Background Check</td>
-                <td class="text-end"><span class="badge bg-success">Approved</span></td>
-              </tr>
-              <tr>
-                <td><a href="javascript:" class="text-muted">#U002</a></td>
-                <td>Jane Smith</td>
-                <td>Company Application</td>
-                <td class="text-end"><span class="badge bg-warning">Pending</span></td>
-              </tr>
-              <tr>
-                <td><a href="javascript:" class="text-muted">#U003</a></td>
-                <td>Robert Brown</td>
-                <td>Background Check</td>
-                <td class="text-end"><span class="badge bg-danger">Rejected</span></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
+
+  <!-- Filter and Search Section -->
+  <div class="filter-search d-flex justify-content-between align-items-center mt-4 flex-wrap">
+  <input 
+    type="text" 
+    [(ngModel)]="searchQuery" 
+    (input)="onFilterChange()" 
+    class="form-control mb-2" 
+    placeholder="Search by Name or Surname or ID" 
+    style="max-width: 150px;"
+  >
+
+  <select 
+    [(ngModel)]="statusFilter" 
+    (change)="onFilterChange()" 
+    class="form-select mb-2" 
+    aria-label="Filter by Status" 
+    style="max-width: 150px;"
+  >
+    <option value="all">All Statuses</option>
+    <option value="Approved">Approved</option>
+    <option value="Draft">Pending</option>
+    <option value="Rejected">Rejected</option>
+  </select>
+
+  <!-- Province Filter -->
+  <select 
+    [(ngModel)]="provinceFilter" 
+    (change)="onFilterChange()" 
+    class="form-select mb-2" 
+    aria-label="Filter by Province" 
+    style="max-width: 150px;"
+  >
+    <option value="all">All Provinces</option>
+    <option *ngFor="let province of provinces" [value]="province">{{ province }}</option>
+  </select>
+
+  <div class="d-flex align-items-center mb-2">
+    <label for="openingDate" class="me-2">Opening Date:</label>
+    <input 
+      type="date" 
+      id="openingDate" 
+      [(ngModel)]="openingDate" 
+      (change)="onFilterChange()" 
+      class="form-control" 
+      style="max-width: 100px;"
+    >
   </div>
   
+  <div class="d-flex align-items-center mb-2 ms-3">
+    <label for="closingDate" class="me-2">Closing Date:</label>
+    <input 
+      type="date" 
+      id="closingDate" 
+      [(ngModel)]="closingDate" 
+      (change)="onFilterChange()" 
+      class="form-control" 
+      style="max-width: 100px;"
+    >
+  </div>
+
+  <button (click)="onFilterChange()" class="btn btn-primary mb-2" style="max-width: 150px;">Search</button>
+</div>
+
+  
+
+  <!-- Applications Table -->
+  <div class="card table-card mt-4">
+    <div class="table-responsive">
+      <table class="table table-hover mb-0">
+        <thead>
+          <tr>
+            <th>TRACKING NO.</th>
+            <th>NAME</th>
+            <th>EMAIL</th>
+            <th>CONTACT NUMBER</th>
+            <th>STATUS</th>
+            <th class="text-center">PROGRESS</th>
+            <th>ACTIONS</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let application of allApplications">
+            <td>#{{ application.application_id }}</td>
+            <td>{{ application.practitioner_name }}</td>
+            <td>{{ application.email }}</td>
+            <td>{{ application.contact_number }}</td>
+            
+            <td>
+              <span 
+                [class]="
+                  application.status === 'Draft' ? 'badge bg-secondary text-white' :
+                  application.status === 'Submitted' ? 'badge bg-primary text-white' :
+                  application.status === 'Under Review' ? 'badge bg-info text-dark' :
+                  application.status === 'Approved' ? 'badge bg-success text-white' :
+                  application.status === 'Rejected' ? 'badge bg-danger text-white' : ''
+                ">
+                {{ application.overall_status }}
+              </span>
+            </td>
+
+            <!-- Dynamic Progress Calculation -->
+            <td class="text-center">
+              <div class="progress" style="height: 10px;">
+                <div
+                  class="progress-bar"
+                  role="progressbar"
+                  [style.width.%]="(application.current_step / 9) * 100"
+                  [ngClass]="{
+                    'bg-success': application.current_step === 9,  
+                    'bg-danger': application.current_step < 9    
+                  }"
+                  [attr.aria-valuenow]="application.current_step"
+                  aria-valuemin="0"
+                  aria-valuemax="9"
+                ></div>
+              </div>
+              <small *ngIf="application.current_step === 9" class="text-success">Completed ({{application.current_step}}/9)</small>
+              <small *ngIf="application.current_step < 9" class="text-primary">In Progress ({{application.current_step}}/9)</small>
+            </td>
+
+            <td class="action-buttons">
+              <button class="btn btn-sm btn-info">View</button>
+              <button class="btn btn-sm btn-secondary" (click)="reviewApplication()">Assess</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

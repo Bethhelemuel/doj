@@ -1,102 +1,136 @@
 // angular import
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 // project import
 import tableData from 'src/fake-data/default-data.json';
 import { SharedModule } from 'src/app/theme/shared/shared.module';
 
-
 // icons
 import { IconService } from '@ant-design/icons-angular';
 import { FallOutline, GiftOutline, MessageOutline, RiseOutline, SettingOutline } from '@ant-design/icons-angular/icons';
+import { TrackingService } from 'src/app/services/tracking.service';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-track',
   standalone: true,
-  imports: [],
+  imports: [SharedModule],
   templateUrl: './track.component.html',
   styleUrl: './track.component.scss'
 })
 export class TrackComponent {
- // constructor
- constructor(private iconService: IconService) {
-  this.iconService.addIcon(...[RiseOutline, FallOutline, SettingOutline, GiftOutline, MessageOutline]);
+  currentPeriod: any;
+  allApplications: any;
+  summary: any;
+  searchQuery: string = '';
+  statusFilter: string = 'all';
+  openingDate: string = '';
+  closingDate: string = '';
+  provinceFilter: string = 'all';
+  // constructor
+
+  provinces: string[] = [
+    'Eastern Cape', 'Free State', 'Gauteng', 'KwaZulu-Natal', 'Limpopo', 
+    'Mpumalanga', 'Northern Cape', 'North West', 'Western Cape'
+  ];
+
+  constructor(
+    private iconService: IconService,
+    private trackingService: TrackingService,
+    private toastr: ToastrService,
+    private cdr: ChangeDetectorRef,
+    private router: Router
+  ) {
+    this.iconService.addIcon(...[RiseOutline, FallOutline, SettingOutline, GiftOutline, MessageOutline]);
+  }
+
+  ngOnInit() {
+    this.getCurrentPeriod()
+    this.getAllApplications()
+    this. getSummary()
+  }
+
+  getCurrentPeriod() {
+    this.trackingService.getCurrentPeriod().subscribe({
+      next: (response) => {
+        console.log(response);
+        if (response) {
+          this.currentPeriod = response
+        }
+      },
+      error: (error) => {
+        this.toastr.error(error.error?.message, 'Error');
+      },
+      complete: () => {}
+    });
+  }
+
+  getAllApplications() {
+    this.trackingService.getAllApplications().subscribe({
+      next: (response) => {
+        console.log(response);
+        if (response) {
+          this.allApplications = response
+        }
+      },
+      error: (error) => {
+        this.toastr.error(error.error?.message, 'Error');
+      },
+      complete: () => {}
+    });
+  }
+
+  getSummary() {
+    this.trackingService.getSummaryData().subscribe({
+      next: (response) => {
+        console.log(response);
+        if (response) {
+          this.summary = response
+        }
+      },
+      error: (error) => {
+        this.toastr.error(error.error?.message, 'Error');
+      },
+      complete: () => {}
+    });
+  }
+
+  filterApplications() {
+    // Reset allApplications to ensure no old data is shown
+    this.allApplications = [];
+    this.cdr.detectChanges();
+
+    const filters = {
+        search: this.searchQuery,
+        status: this.statusFilter !== 'all' ? this.statusFilter : '',
+        openingDate: this.openingDate,
+        closingDate: this.closingDate
+    };
+
+    this.trackingService.filterApplications(filters).subscribe({
+        next: (response) => {
+            // Assign the new filtered data to allApplications
+            this.allApplications = response;
+        },
+        error: (error) => {
+            this.toastr.error(error.error?.message, 'Error');
+        }
+    });
 }
 
-recentOrder = tableData;
 
-AnalyticEcommerce = [
-  {
-    title: 'Total Page Views',
-    amount: '4,42,236',
-    background: 'bg-light-primary ',
-    border: 'border-primary',
-    icon: 'rise',
-    img:'2.jpg',
-    percentage: '59.3%',
-    color: 'text-primary',
-    number: '35,000'
-  },
-  {
-    title: 'Total Users',
-    amount: '78,250',
-    background: 'bg-light-primary ',
-    border: 'border-primary',
-    icon: 'rise',
-    img:'3.jpg',
-    percentage: '70.5%',
-    color: 'text-primary',
-    number: '8,900'
-  },
-  {
-    title: 'Total Order',
-    amount: '18,800',
-    background: 'bg-light-warning ',
-    border: 'border-warning',
-    icon: 'fall',
-    img:'4.jpg',
-    percentage: '27.4%',
-    color: 'text-warning',
-    number: '1,943'
-  }, 
-  {
-    title: 'Total Sales',
-    amount: '$35,078',
-    background: 'bg-light-warning ',
-    border: 'border-warning',
-    icon: 'fall',
-    img:'5.jpg',
-    percentage: '27.4%',
-    color: 'text-warning',
-    number: '$20,395'
-  }
-];
 
-transaction = [
-  {
-    background: 'text-success bg-light-success',
-    icon: 'gift',
-    title: 'Order #002434',
-    time: 'Today, 2:00 AM',
-    amount: '+ $1,430',
-    percentage: '78%'
-  },
-  {
-    background: 'text-primary bg-light-primary',
-    icon: 'message',
-    title: 'Order #984947',
-    time: '5 August, 1:45 PM',
-    amount: '- $302',
-    percentage: '8%'
-  },
-  {
-    background: 'text-danger bg-light-danger',
-    icon: 'setting',
-    title: 'Order #988784',
-    time: '7 hours ago',
-    amount: '- $682',
-    percentage: '16%'
+  onFilterChange() {
+    this.filterApplications();
   }
-];
+
+  reviewApplication(){
+    // this.router.navigate(['/review-application']);
+    const applicationId = '95'; // Replace with your dynamic value
+window.location.href = `/review-application/${applicationId}`;
+  }
+
+  
 }

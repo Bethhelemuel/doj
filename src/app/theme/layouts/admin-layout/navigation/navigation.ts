@@ -30,15 +30,24 @@ export const NavigationItems: NavigationItem[] = [
         title: 'Home',
         type: 'item',
         classes: 'nav-item',
-        url: '/',
-        icon: 'bi-house',
-        
+        url: '/dashboard/default',
+        icon: 'dashboard',
+        breadcrumbs: false
+      },
+      {
+        id: 'register',
+        title: 'Track',
+        type: 'item',
+        classes: 'nav-item',
+        url: '/track',
+        icon: 'profile',
+        target: true,
         breadcrumbs: false
       }
     ]
   },
   {
-    id: 'AFFIDAVIT ',
+    id: 'AFFIDAVIT',
     title: 'AFFIDAVIT ',
     type: 'group',
     icon: 'icon-navigation',
@@ -49,32 +58,12 @@ export const NavigationItems: NavigationItem[] = [
         type: 'item',
         classes: 'nav-item',
         url: '/liquidators',
-        icon: 'bi-file-pdf-fill',
-        target: true,
-        breadcrumbs: false
-      },
-      {
-        id: 'track',
-        title: 'Track',
-        type: 'item',
-        classes: 'nav-item',
-        url: '/track',
-        icon: 'bi-eye',
-        target: true,
-        breadcrumbs: false
-      },
-      {
-        id: 'register',
-        title: 'Applications',
-        type: 'item',
-        classes: 'nav-item',
-        url: '/applications',
-        icon: 'bi-files',
+        icon: 'login',
         target: true,
         breadcrumbs: false
       }
+      
     ]
   },
-
   
 ];

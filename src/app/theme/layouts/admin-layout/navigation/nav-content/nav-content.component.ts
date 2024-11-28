@@ -1,7 +1,7 @@
 // Angular import
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { CommonModule, Location, LocationStrategy } from '@angular/common';
-import { Router, RouterModule } from '@angular/router';
+import { NavigationEnd, Router, RouterModule } from '@angular/router';
 
 // project import
 import { NavigationItem, NavigationItems } from '../navigation';
@@ -30,11 +30,11 @@ import { AuthService } from 'src/app/services/auth.service';
 @Component({
   selector: 'app-nav-content',
   standalone: true,
-  imports: [SharedModule, CommonModule, RouterModule, NavCollapseComponent, NavGroupComponent, NavItemComponent],
+  imports: [SharedModule, CommonModule, RouterModule, NavGroupComponent],
   templateUrl: './nav-content.component.html',
   styleUrls: ['./nav-content.component.scss']
 })
-export class NavContentComponent implements OnInit {
+export class NavContentComponent  {
   // public props
   @Output() NavCollapsedMob: EventEmitter<string> = new EventEmitter();
 
@@ -68,28 +68,40 @@ export class NavContentComponent implements OnInit {
       ]
     );
   }
-
-  // Life cycle events
+  currentRoute: string = '';
   ngOnInit() {
-    // Set navigation items based on user role
-    const userRole = this.authService.decodeToken();; // Get the user's role
+    // Initialize navigation
+    this.updateNavigation();
 
-    if (userRole.role === 'liquidator'  ) {
-      console.log(NavigationItems)
-      // Show only the AFFIDAVIT group for Liquidator role
-      this.navigations = NavigationItems.filter(item => item.id === 'AFFIDAVIT');
-      this.router.navigate(['/liquidators']);
+    // Update navigation on route changes
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.currentRoute = event.urlAfterRedirects; // Capture the current route
+        this.updateNavigation();
+      }
+    });
+  }
 
-    } else {
-      this.navigations = NavigationItems; // Adjust to include other roles if needed
-      
-    }
+  updateNavigation() {
+    // Clone navigation items
+    this.navigations = [...NavigationItems];
 
-    // Responsive layout setup
+    // Highlight or modify navigation based on current route
+    this.navigations = this.navigations.map((item) => ({
+      ...item,
+      active: item.link === this.currentRoute // Add 'active' state if the route matches
+    }));
+
+    console.log('Current Route:', this.currentRoute);
+    console.log('Updated Navigations:', this.navigations);
+  }
+  setupResponsiveLayout() {
     if (this.windowWidth < 1025) {
-      (document.querySelector('.coded-navbar') as HTMLDivElement).classList.add('menupos-static');
+      const navbar = document.querySelector('.coded-navbar') as HTMLDivElement;
+      if (navbar) {
+        navbar.classList.add('menupos-static');
+      }
     }
-  
   }
 
   fireOutClick() {

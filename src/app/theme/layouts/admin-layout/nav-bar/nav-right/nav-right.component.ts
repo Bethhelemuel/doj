@@ -113,9 +113,7 @@ export class NavRightComponent {
   ]; */
 
   logout(): void {
-    localStorage.clear();  // Clears all data in localStorage
-    this.router.navigate(['/login']).then(() => {
-      window.location.reload();
-    });
+    localStorage.clear(); // Clears all data in localStorage
+    window.location.href = '/login'; // Force page reload and navigate to login
   }
-}
+} 

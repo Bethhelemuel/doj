@@ -13,16 +13,13 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 import { IconModule } from '@ant-design/icons-angular';
 
-import { PdfViewerModule } from 'ng2-pdf-viewer';
-
 // bootstrap import
-import { NgbDropdownModule, NgbNavModule, NgbModule, NgbCollapseModule, } from '@ng-bootstrap/ng-bootstrap';
-
-
+import { NgbDropdownModule, NgbNavModule, NgbModule, NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { ApprovalStatusComponent } from './components/approval-status/approval-status.component';
 import { SnotifyModule, SnotifyService, ToastDefaults } from 'ng-snotify';
 import { ToastrModule, provideToastr } from 'ngx-toastr';
 import { provideAnimations } from '@angular/platform-browser/animations';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 @NgModule({
   imports: [
@@ -37,7 +34,6 @@ import { provideAnimations } from '@angular/platform-browser/animations';
     NgScrollbarModule,
     CardComponent,
     IconModule,
-    PdfViewerModule,
     MatDialogModule,
     ApprovalStatusComponent,
    // SnotifyModule,
@@ -56,11 +52,11 @@ import { provideAnimations } from '@angular/platform-browser/animations';
     NgbModule,
     NgbDropdownModule,
     NgbNavModule,
+    PdfViewerModule, 
     NgbCollapseModule,
     NgScrollbarModule,
     CardComponent,
     IconModule,
-    PdfViewerModule,
     ApprovalStatusComponent
   ],
   declarations: [SpinnerComponent],

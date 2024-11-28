@@ -1,7 +1,7 @@
 // Angular import
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 
 // Project import
 import { NavigationItem } from '../../navigation';
@@ -17,7 +17,6 @@ import { SharedModule } from 'src/app/theme/shared/shared.module';
 export class NavItemComponent {
   // public props
   @Input() item!: NavigationItem;
-  constructor(private router: Router) {}
 
   // public method
   closeOtherMenu(event: MouseEvent) {
@@ -48,10 +47,9 @@ export class NavItemComponent {
     }
   }
 
-  navigate(url: string): void {
-    this.router.navigate([url], { replaceUrl: true }); // Replace history entry
-
-        // this.router.navigate([url]);
-      }
+  navigateWithReload(url: string, event: Event): void {
+    event.preventDefault(); // Prevent Angular's default behavior
+    window.location.href = url; // Force a full page reload
+  }
   
 }
