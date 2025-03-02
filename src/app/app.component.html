@@ -1,1 +1,10 @@
-<router-outlet></router-outlet>
+<!-- app.component.html -->
+
+<div *ngIf="showApprovalStatus">
+    <app-approval-status></app-approval-status>
+  </div>
+  
+  <div *ngIf="!showApprovalStatus">
+    <router-outlet></router-outlet>
+  </div>
+  

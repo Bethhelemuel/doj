@@ -1,7 +1,7 @@
 // Angular import
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { CommonModule, Location, LocationStrategy } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { NavigationEnd, Router, RouterModule } from '@angular/router';
 
 // project import
 import { NavigationItem, NavigationItems } from '../navigation';
@@ -10,6 +10,7 @@ import { SharedModule } from 'src/app/theme/shared/shared.module';
 import { NavCollapseComponent } from './nav-collapse/nav-collapse.component';
 import { NavGroupComponent } from './nav-group/nav-group.component';
 import { NavItemComponent } from './nav-item/nav-item.component';
+
 
 // icon
 import { IconService } from '@ant-design/icons-angular';
@@ -24,15 +25,16 @@ import {
   BgColorsOutline,
   AntDesignOutline
 } from '@ant-design/icons-angular/icons';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-nav-content',
   standalone: true,
-  imports: [SharedModule, CommonModule, RouterModule, NavCollapseComponent, NavGroupComponent, NavItemComponent],
+  imports: [SharedModule, CommonModule, RouterModule, NavGroupComponent],
   templateUrl: './nav-content.component.html',
   styleUrls: ['./nav-content.component.scss']
 })
-export class NavContentComponent implements OnInit {
+export class NavContentComponent  {
   // public props
   @Output() NavCollapsedMob: EventEmitter<string> = new EventEmitter();
 
@@ -42,14 +44,15 @@ export class NavContentComponent implements OnInit {
   title = 'Demo application for version numbering';
   currentApplicationVersion = environment.appVersion;
 
-  navigation = NavigationItems;
   windowWidth = window.innerWidth;
 
   // Constructor
   constructor(
     private location: Location,
     private locationStrategy: LocationStrategy,
-    private iconService: IconService
+    private iconService: IconService,
+    private authService: AuthService, // Add AuthService to constructor
+    private router: Router
   ) {
     this.iconService.addIcon(
       ...[
@@ -64,13 +67,40 @@ export class NavContentComponent implements OnInit {
         QuestionOutline
       ]
     );
-    this.navigations = NavigationItems;
+  }
+  currentRoute: string = '';
+  ngOnInit() {
+    // Initialize navigation
+    this.updateNavigation();
+
+    // Update navigation on route changes
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.currentRoute = event.urlAfterRedirects; // Capture the current route
+        this.updateNavigation();
+      }
+    });
   }
 
-  // Life cycle events
-  ngOnInit() {
+  updateNavigation() {
+    // Clone navigation items
+    this.navigations = [...NavigationItems];
+
+    // Highlight or modify navigation based on current route
+    this.navigations = this.navigations.map((item) => ({
+      ...item,
+      active: item.link === this.currentRoute // Add 'active' state if the route matches
+    }));
+
+    console.log('Current Route:', this.currentRoute);
+    console.log('Updated Navigations:', this.navigations);
+  }
+  setupResponsiveLayout() {
     if (this.windowWidth < 1025) {
-      (document.querySelector('.coded-navbar') as HTMLDivElement).classList.add('menupos-static');
+      const navbar = document.querySelector('.coded-navbar') as HTMLDivElement;
+      if (navbar) {
+        navbar.classList.add('menupos-static');
+      }
     }
   }
 

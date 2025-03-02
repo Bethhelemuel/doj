@@ -5,56 +5,61 @@ import { RouterModule, Routes } from '@angular/router';
 // Project import
 import { AdminComponent } from './theme/layouts/admin-layout/admin-layout.component';
 import { GuestComponent } from './theme/layouts/guest/guest.component';
+import { AuthGuard } from './services/auth.guard';
+import { GuestGuard } from './services/guest.guard';
+import { TrackComponent } from './demo/ui-component/track/track.component';
+import { DefaultComponent } from './demo/default/dashboard/dashboard.component';
+import { LiquidatorsComponent } from './demo/ui-component/liquidators/liquidators.component';
+import { ReviewApplicationComponent } from './demo/ui-component/review-application/review-application.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: AdminComponent,
-    children: [
-      {
-        path: '',
-        redirectTo: '/dashboard/default',
-        pathMatch: 'full'
-      },
-      {
-        path: 'dashboard/default',
-        loadComponent: () => import('./demo/default/dashboard/dashboard.component').then((c) => c.DefaultComponent)
-      },
-      {
-        path: 'liquidators',
-        loadComponent: () => import('./demo/ui-component/liquidators/liquidators.component').then(m => m.LiquidatorsComponent)
-      },
-      {
-        path: 'track',
-        loadComponent: () => import('./demo/ui-component/track/track.component').then(m => m.TrackComponent)
-      },
-      {
-        path: 'typography',
-        loadComponent: () => import('./demo/ui-component/typography/typography.component')
-      },
-      
-
-      {
-        path: 'color',
-        loadComponent: () => import('./demo/ui-component/ui-color/ui-color.component')
-      },
-      {
-        path: 'sample-page',
-        loadComponent: () => import('./demo/other/sample-page/sample-page.component')
-      }
-    ]
+    redirectTo: '/dashboard/default',
+    pathMatch: 'full',
   },
+  {
+    path: 'dashboard/default',
+    component:DefaultComponent,
+  },
+  {
+    path: 'liquidators',
+    component: LiquidatorsComponent,
+  },
+  {
+    path: 'track',
+    component: TrackComponent,
+  },
+  {
+    path: 'review-application/:applicationId',
+    component: ReviewApplicationComponent,
+  },
+  {
+    path: 'approval-status',
+    loadComponent: () =>
+      import('../app/theme/shared/components/approval-status/approval-status.component').then((m) => m.ApprovalStatusComponent)
+  },
+  
   {
     path: '',
     component: GuestComponent,
+    canActivate: [GuestGuard],  // Protect guest routes with GuestGuard
     children: [
       {
         path: 'login',
-        loadComponent: () => import('./demo/authentication/login/login.component')
+        loadComponent: () => import('./demo/authentication/login/login.component').then((m) => m.LoginComponent)
       },
       {
         path: 'register',
         loadComponent: () => import('./demo/authentication/register/register.component')
+      },
+      {
+        path: 'forgot-password',
+        loadComponent: () => import('./demo/authentication/forgot-password/forgot-password.component').then((m) => m.ForgotPasswordComponent)
+      },
+      {
+        path: 'reset-password',
+        loadComponent: () => import('./demo/authentication/reset-password/reset-password.component').then((m) => m.ResetPasswordComponent)
       }
     ]
   }

@@ -372,6 +372,170 @@ button:hover {
   margin-top: 5px;
 }
 
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .row {
+    flex-direction: column;
+  }
+
+  .col-8, .col-4 {
+    width: 100%;
+  }
+
+  .form-container, .progress-card {
+    padding: 15px;
+  }
+
+  .progress-card {
+    width: 100%;
+  }
+
+  button {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 576px) {
+  .form-container, .progress-card {
+    padding: 10px;
+  }
+
+  h2, h3 {
+    font-size: 18px;
+  }
+
+  .progress-step .text {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 768px) {
+  .progress-card {
+    display: none;
+  }
+}
+
+/* Large screens (Desktops and large laptops) */
+@media (min-width: 1200px) {
+  .form-container, .progress-card {
+    max-width: 1100px;
+    padding: 30px;
+  }
+  .progress-step .text {
+    font-size: 16px;
+  }
+}
+
+/* Medium screens (Standard laptops, around 15-inch screens) */
+@media (min-width: 992px) and (max-width: 1199px) {
+  .form-container, .progress-card {
+    max-width: 900px;
+    padding: 25px;
+  }
+  .progress-step .text {
+    font-size: 15px;
+  }
+}
+
+/* Small laptops and large tablets */
+@media (min-width: 768px) and (max-width: 991px) {
+  .form-container, .progress-card {
+    max-width: 700px;
+    padding: 20px;
+  }
+  .progress-step .text {
+    font-size: 14px;
+  }
+}
+
+/* Small screens (Tablets and smaller laptops) */
+@media (max-width: 767px) {
+  /* Hide the progress card on very small screens */
+  .progress-card {
+    display: none;
+  }
+  
+  .form-container {
+    padding: 15px;
+    width: 100%;
+  }
+  .progress-step .text {
+    font-size: 13px;
+  }
+}
+
+.partner-entry {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.partner-entry div {
+  flex: 1;
+  margin-right: 10px;
+}
+
+.icon-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  padding: 0;
+  margin-right: 5px;
+}
+
+
+.add-button {
+  color: green;
+}
+
+.remove-button {
+  color: red;
+}
+
+.icon-button:hover {
+  color: inherit;
+}
+
+.attention-grabber {
+  animation: pulse 1.5s infinite; /* Subtle pulsing effect */
+  font-size: 1.2rem; /* Slightly larger text for emphasis */
+  font-weight: bold; /* Make it bolder for visibility */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.05); /* Slight zoom effect */
+    opacity: 0.8; /* Slight dimming effect */
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+
+.active-step .circle {
+  border: 3px solid #ff4500;
+  transform: scale(1.1);
+  box-shadow: 0 0 10px #ff4500;
+}
+
+.active-step .text {
+  font-weight: bold;
+  color: #ff4500;
+}
+
+
+
+
+
 
 
 
