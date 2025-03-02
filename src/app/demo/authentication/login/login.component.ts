@@ -89,5 +89,9 @@ export class LoginComponent {
     if (this.alertTimeout) clearTimeout(this.alertTimeout); // Clear timeout if manually reset
     this.cdr.detectChanges();
   }
+
+  goToForgotPassword(){
+    this.router.navigate(['/forgot-password'])
+  }
 }
 

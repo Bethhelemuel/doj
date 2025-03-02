@@ -61,7 +61,10 @@
                 />
                 <label class="form-check-label text-muted" for="customCheckc1">Keep me signed in</label>
               </div>
-              <div class="forgot-password"><a href="javascript:"> Forgot Password?</a></div>
+              <div class="forgot-password">
+                <a [routerLink]="['/forgot-password']" class="text-primary">Forgot Password?</a>
+              </div>
+              
             </div>
 
             <div class="d-grid mt-4">
